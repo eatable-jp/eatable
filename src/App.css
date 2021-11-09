@@ -1,38 +1,91 @@
 .App {
+  font-family: sans-serif;
   text-align: center;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+* {
+  margin: 0;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+body {
+  margin: 0;
+  padding: 0;
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+header {
+  margin: 0 0 10px;
+  padding: 12px 0;
+  background: #b5dafc;
+}
+h1 {
+  margin: 0;
+  width: 75%;
+}
+.header-wrapper {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
-
-.App-link {
-  color: #61dafb;
+.header-menus {
+  display: flex;
+  list-style: none;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.header-menus-item {
+  margin-right: 10px;
+}
+.seller-wrapper {
+  display: flex;
+  align-items: flex-start;
+}
+.seller-items {
+  padding: 20px;
+  width: 70%;
+}
+.buyer-items {
+  padding: 20px;
+}
+.seller-items-heading {
+  margin: 0 0 16px;
+}
+.seller-items-add-btn {
+  margin: 0 0 16px;
+}
+.item-card {
+  display: flex;
+  align-items: center;
+}
+.item-card figure {
+  margin: 0 16px 20px 0;
+  width: 25%;
+}
+.item-card figure img {
+  width: 100%;
+}
+.item-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: left;
+}
+.item-info-general {
+  margin-right: 20px;
+}
+.item-info-origina-price {
+  text-decoration: line-through;
+}
+.item-info-current-price {
+  margin: 0 0 8px;
+  font-weight: 700;
+  font-size: 20px;
+}
+.seller-profile {
+  margin: 60px 0 0;
+  padding: 20px;
+  background: #b5dafc;
+}
+.shop-profile-img {
+  margin: 0 0 20px;
+}
+.shop-profile-name {
+  font-weight: 700;
+  margin: 0 0 8px;
+}
+.shop-profile-address {
+  margin: 0 0 8px;
 }
