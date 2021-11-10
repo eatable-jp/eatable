@@ -8,7 +8,7 @@
         "price": 50,
         "original_price": 150,
         "seller_id": 1,
-        "expiration_date": "date stamp",
+        "expiration_date": "2021-12-03",
         "note": "these are good eggs. they are round. Not cracked!"
     },
     {
@@ -20,7 +20,7 @@
         "price": 100,
         "original_price": 200,
         "seller_id": 1,
-        "expiration_date": "date stamp",
+        "expiration_date": "2021-12-03",
         "note": " Still good but the expiration is soon and we need to get rid of them" 
     },
     {
@@ -32,7 +32,7 @@
         "price": 70,
         "original_price": 150,
         "seller_id": 1,
-        "expiration_date": "date stamp",
+        "expiration_date": "2021-12-03",
         "note": "These need to be cooked tonight!"
     },
     {
@@ -44,7 +44,7 @@
         "price": 50,
         "original_price": 100,
         "seller_id": 1,
-        "expiration_date": "date stamp",
+        "expiration_date": "2021-12-03",
         "note": "These are great to make chicken stock but we just have too much to use"
     },
     {
@@ -56,7 +56,7 @@
         "price": 1000,
         "original_price": 1300,
         "seller_id": 1,
-        "expiration_date": "date stamp",
+        "expiration_date": "2021-12-03",
         "note": "This is high quality beef that needs to be cooked soon"
     },
     {
@@ -68,7 +68,7 @@
         "price": 100,
         "original_price": 250,
         "seller_id": 2,
-        "expiration_date": "date stamp",
+        "expiration_date": "2021-12-03",
         "note": "These are getting hard but can be used in recipes"
     },
     {
@@ -80,7 +80,7 @@
         "price": 50,
         "original_price": 135,
         "seller_id": 2,
-        "expiration_date": "date stamp",
+        "expiration_date": "2021-12-03",
         "note": "Must be eaten today"
     },
     {
@@ -92,7 +92,7 @@
         "price": 50,
         "original_price": 150,
         "seller_id": 2,
-        "expiration_date": "date stamp",
+        "expiration_date": "2021-12-03",
         "note": "This milk in too close to expiration for us to use but its still good"
     },
     {
@@ -104,7 +104,7 @@
         "price": "100",
         "original_price": 500,
         "seller_id": 2,
-        "expiration_date": "date stamp",
+        "expiration_date": "2021-12-03",
         "note": "Very tasty"
     },
     {
@@ -116,7 +116,7 @@
         "price": 40,
         "original_price": 100,
         "seller_id": 2,
-        "expiration_date": "date stamp",
+        "expiration_date": "2021-12-03",
         "note": "Will be great with coffee in the morning"
     },
     {
@@ -128,7 +128,7 @@
         "price": 500,
         "original_price": 800,
         "seller_id": 3,
-        "expiration_date": "date stamp",
+        "expiration_date": "2021-12-03",
         "note": "Good price. We just have too much"
     },
     {
@@ -140,7 +140,7 @@
         "price": 400,
         "original_price": 750,
         "seller_id": 3,
-        "expiration_date": "date stamp",
+        "expiration_date": "2021-12-03",
         "note": "Good price. We just have too much"
     },
     {
@@ -152,7 +152,7 @@
         "price": 300,
         "original_price": 600,
         "seller_id": 3,
-        "expiration_date": "date stamp",
+        "expiration_date": "2021-12-03",
         "note": "Good price. We just have too much"
     },
     {
@@ -164,7 +164,7 @@
         "price": 100,
         "original_price": 250,
         "seller_id": 3,
-        "expiration_date": "date stamp",
+        "expiration_date": "2021-12-03",
         "note": "Organice farm eggs. High quality"
     },
     {
@@ -176,7 +176,7 @@
         "price": 50,
         "original_price": 100,
         "seller_id": 4,
-        "expiration_date": "date stamp",
+        "expiration_date": "2021-12-03",
         "note": "Halloween candy that needs to be sold"
     },
     {
@@ -188,7 +188,7 @@
         "price": 300,
         "original_price": 1000,
         "seller_id": 4,
-        "expiration_date": "date stamp",
+        "expiration_date": "2021-12-03",
         "note": "We have too much Broccoli"
     },
     {
@@ -200,7 +200,7 @@
         "price": 300,
         "original_price": 600,
         "seller_id": 4,
-        "expiration_date": "date stamp",
+        "expiration_date": "2021-12-03",
         "note": "bruised when delivered and cant display them"
     },
     {
@@ -212,7 +212,7 @@
         "price": 50,
         "original_price": 150,
         "seller_id": 4,
-        "expiration_date": "date stamp",
+        "expiration_date": "2021-12-03",
         "note": "getting too soft"
     },
     {
@@ -224,7 +224,7 @@
         "price": 50,
         "original_price": 100,
         "seller_id": 4,
-        "expiration_date": "date stamp",
+        "expiration_date": "2021-12-03",
         "note": "still good"
     },
     {
@@ -236,7 +236,7 @@
         "price": 300,
         "original_price": 600,
         "seller_id": 4,
-        "expiration_date": "date stamp",
+        "expiration_date": "2021-12-03",
         "note": "We over ordered on cheese for the week"
     }
 ]
