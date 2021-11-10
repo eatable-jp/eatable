@@ -2,7 +2,7 @@
 import { listedItems } from "../data/listeItems";
 import { sellers } from "../data/sellers";
 
-export default function BuyerItems() {
+export default function BuyerItems({ addToCart }) {
   return listedItems.map((item, index) => {
     return (
       <div className="item-card" key={index}>
@@ -25,7 +25,7 @@ export default function BuyerItems() {
           <div className="item-info-prices">
             <p className="item-info-origina-price">{item.original_price} yen</p>
             <p className="item-info-current-price">{item.price} yen</p>
-            <button>Add to cart</button>
+            <button onClick={() => addToCart(item)}>Add to cart</button>
           </div>
         </div>
       </div>

@@ -2,7 +2,7 @@ import React from "react";
 import SellerItems from "./SellerItems";
 import ShopProfile from "./ShopProfile";
 
-const SellerHome = ({ sellerInfo }) => {
+function SellerHome({ sellerInfo }) {
   return (
     <div className="seller-wrapper">
       <div className="seller-items">
@@ -15,6 +15,6 @@ const SellerHome = ({ sellerInfo }) => {
       </div>
     </div>
   );
-};
+}
 
 export default SellerHome;
