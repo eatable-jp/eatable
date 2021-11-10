@@ -4,6 +4,7 @@
 /node_modules
 /.pnp
 .pnp.js
+eatable-331618-6a9417a5c4d9.json
 
 # testing
 /coverage
@@ -17,10 +18,15 @@
 .env.development.local
 .env.test.local
 .env.production.local
+.env
 
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+<<<<<<< HEAD
 #env
 .env
+=======
+/.vscode
+>>>>>>> a3702605dda4af30558c8ece17c6cbab498d88c1

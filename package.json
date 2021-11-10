@@ -2,25 +2,41 @@
   "name": "eatable",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:8080",
   "dependencies": {
     "@testing-library/jest-dom": "^5.15.0",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
     "axios": "^0.24.0",
+<<<<<<< HEAD
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "knex": "^0.95.13",
+=======
+    "concurrently": "^6.3.0",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "knex": "^0.95.14",
+>>>>>>> a3702605dda4af30558c8ece17c6cbab498d88c1
     "nodemon": "^2.0.14",
     "pg": "^8.7.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-router-dom": "^5.3.0",
     "react-scripts": "4.0.3",
     "web-vitals": "^1.1.2"
   },
   "scripts": {
+<<<<<<< HEAD
     "start": "node server",
     "hack": "react-scripts start",
+=======
+    "serve": "nodemon server/index.js",
+    "start": "react-scripts start", 
+    "dev": "concurrently \"npm run serve\" \"npm start\"",
+>>>>>>> a3702605dda4af30558c8ece17c6cbab498d88c1
     "build": "react-scripts build",
     "serve": "nodemon server",
     "test": "react-scripts test",
