@@ -1,12 +1,11 @@
 import "./App.css";
 // components
 import Header from "./components/Header";
-import SellerItems from "./components/SellerItems";
-import ShopProfile from "./components/ShopProfile";
-import BuyerItems from "./components/BuyerItems";
+import SellerHome from "./components/SellerHome";
+import BuyerHome from "./components/BuyerHome";
 
 function App() {
-  const userStatus = "seller";
+  const userStatus = "buyer";
   // dummy data for seller
   const sellerInfo = {
     id: 1,
@@ -33,26 +32,10 @@ function App() {
       {/* displaying different component based on user type */}
       {userStatus === "seller" ? (
         // seller's home
-        <div className="seller-wrapper">
-          <div className="seller-items">
-            <h2 className="seller-items-heading">Currently Listed</h2>
-            <button className="seller-items-add-btn">Add a new item</button>
-            <SellerItems sellerInfo={sellerInfo} />
-          </div>
-          <div className="seller-profile">
-            <ShopProfile sellerInfo={sellerInfo} />
-          </div>
-        </div>
+        <SellerHome sellerInfo={sellerInfo} />
       ) : (
         // buyer's home
-        <div className="buyer-wrapper">
-          <div className="buyer-items">
-            <h2 className="buyer-items-heading">
-              Hello {buyerInfo.display_name}!
-            </h2>
-            <BuyerItems buyerInfo={buyerInfo} />
-          </div>
-        </div>
+        <BuyerHome buyerInfo={buyerInfo} />
       )}
     </div>
   );
