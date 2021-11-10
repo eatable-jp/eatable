@@ -89,3 +89,16 @@ h1 {
 .shop-profile-address {
   margin: 0 0 8px;
 }
+.buyer-profile {
+  width: 400px;
+  margin: 40px auto 0;
+  padding: 16px;
+  background: #b5dafc;
+  border-radius: 8px;
+}
+.buyer-profile-name {
+  margin: 0 0 20px;
+}
+.buyer-profile-table {
+  margin: 0 0 20px;
+}
