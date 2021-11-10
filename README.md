@@ -17,7 +17,7 @@ Tag example: `eatable:0.1.0-dev`   [name/version-env]
 
 ### Run Docker Image
 
-`docker run --rm -it --name web -p 3000:3000 -v $(pwd):/app <tag>`
+`docker run --rm -it --name web -p 8080:8080 -v $(pwd):/app <tag>`
 Runs the docker image with a tag.
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
