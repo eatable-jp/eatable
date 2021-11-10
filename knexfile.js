@@ -9,7 +9,7 @@ module.exports = {
   development: {
     client: CLIENT,
     connection: process.env.DATABASE_URL ||
-    `postgres://${process.env.DB_USER}:${process.env.DB_PASSWORD}@127.0.0.1:5432/test_data`,
+    `postgres://${process.env.DB_USER}:${process.env.DB_PASSWORD}@127.0.0.1:5432/eatable`,
     searchPath: "public",
     migrations: {
       directory: `${__dirname}/migrations`,

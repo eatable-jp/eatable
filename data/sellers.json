@@ -3,6 +3,9 @@
         "id":"1",
         "shop_name":"Fuji Super",
         "shop_location":"",
+        "shop_long":"",
+        "shop_lat":"",
+        "shop_coordinates": "",
         "opening_time":"9:00",
         "closing_time":"23:00",
         "phone_number":"123-456-7891"
@@ -11,6 +14,8 @@
         "id":"2",
         "shop_name":"Pan Da",
         "shop_location":"",
+        "shop_long":"",
+        "shop_lat":"",
         "opening_time":"9:00",
         "closing_time":"20:00",
         "phone_number":"123-456-7891"
@@ -19,6 +24,8 @@
         "id":"3",
         "shop_name":"Tori Time",
         "shop_location":"",
+        "shop_long":"",
+        "shop_lat":"",
         "opening_time":"17:00",
         "closing_time":"2:00",
         "phone_number":"123-456-7891"
@@ -27,6 +34,8 @@
         "id":"4",
         "shop_name":"Neko Grocery",
         "shop_location":"",
+        "shop_long":"",
+        "shop_lat":"",
         "opening_time":"9:00",
         "closing_time":"20:00",
         "phone_number":"123-456-7891"
