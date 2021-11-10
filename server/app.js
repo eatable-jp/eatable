@@ -1,10 +1,11 @@
 const express = require("express");
 const path = require("path");
-<<<<<<< HEAD
-const db = require("/Users/Marcus/Desktop/Eatable/eatable/knexfile.js");
-=======
->>>>>>> a3702605dda4af30558c8ece17c6cbab498d88c1
 const cors = require("cors")
+const knex = require('knex')
+
+const environment = process.env.ENVIRONMENT || 'development';
+const config = require("../knexfile")[environment];
+const db = knex(config);
 
 const app = express()
 
@@ -18,14 +19,15 @@ app.use(cors({
 app.use(express.static(path.resolve(__dirname,"..","build")));
 
 //test endpoint
-<<<<<<< HEAD
-app.get("/api/hello", async(req,res) => {
-    res.json("Let's save some food!")
-=======
 app.get("/hello", async(req,res) => {
     res.json("Let's save some food!!!!!!!!!!")
->>>>>>> a3702605dda4af30558c8ece17c6cbab498d88c1
 })
+
+//items
+/*app.get('/items', async(req,res) => {
+    const items = await db.select().table("items")
+    res.json(items);
+})*/
 
 
 app.get("*", (req,res) => {
