@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 export default function Header({ userStatus }) {
   return (
     <header>
@@ -5,19 +6,25 @@ export default function Header({ userStatus }) {
       {userStatus === "seller" ? (
         // header for seller
         <div className="header-wrapper">
-          <h1>Eatable</h1>
+          <h1>
+            <Link to="/">Eatable</Link>
+          </h1>
           <ul className="header-menus">
-            <li className="header-menus-item">Edit profile</li>
+            <li className="header-menus-item">Profile</li>
             <li>Log out</li>
           </ul>
         </div>
       ) : userStatus === "buyer" ? (
         // header for buyer
         <div className="header-wrapper">
-          <h1>Eatable</h1>
+          <h1>
+            <Link to="/">Eatable</Link>
+          </h1>
           <ul className="header-menus">
-            <li className="header-menus-item">Edit profile</li>
-            <li className="header-menus-item">Cart</li>
+            <li className="header-menus-item">Profile</li>
+            <li className="header-menus-item">
+              <Link to="/cart">Cart </Link>
+            </li>
             <li>Log out</li>
           </ul>
         </div>

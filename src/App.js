@@ -1,12 +1,13 @@
+import React, { useState } from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
 // components
 import Header from "./components/Header";
-import SellerItems from "./components/SellerItems";
-import ShopProfile from "./components/ShopProfile";
-import BuyerItems from "./components/BuyerItems";
+import Home from "./components/Home";
+import Cart from "./components/Cart";
 
 function App() {
-  const userStatus = "seller";
+  const userStatus = "buyer";
   // dummy data for seller
   const sellerInfo = {
     id: 1,
@@ -25,36 +26,49 @@ function App() {
     phone_number: "070-5587-1245",
   };
 
-  return (
-    <div className="App">
-      {/* header component */}
-      <Header userStatus={userStatus} />
+  // cart state
+  const [cart, setCart] = useState([]);
+  // cart state: function for adding items to cart
+  function addToCart(selectedItem) {
+    setCart((prevCart) => {
+      const newCart = [...prevCart, selectedItem];
+      return newCart;
+    });
+  }
+  // cart state: function for adding items to cart
+  function removeFromCart(index) {
+    setCart((prevCart) => {
+      const newCart = prevCart.filter((item, i) => i !== index);
+      return newCart;
+    });
+  }
 
-      {/* displaying different component based on user type */}
-      {userStatus === "seller" ? (
-        // seller's home
-        <div className="seller-wrapper">
-          <div className="seller-items">
-            <h2 className="seller-items-heading">Currently Listed</h2>
-            <button className="seller-items-add-btn">Add a new item</button>
-            <SellerItems sellerInfo={sellerInfo} />
-          </div>
-          <div className="seller-profile">
-            <ShopProfile sellerInfo={sellerInfo} />
-          </div>
-        </div>
-      ) : (
-        // buyer's home
-        <div className="buyer-wrapper">
-          <div className="buyer-items">
-            <h2 className="buyer-items-heading">
-              Hello {buyerInfo.display_name}!
-            </h2>
-            <BuyerItems buyerInfo={buyerInfo} />
-          </div>
-        </div>
-      )}
-    </div>
+  return (
+    <Router>
+      <div className="App">
+        {/* Header component */}
+        <Header userStatus={userStatus} />
+        <Switch>
+          {/* Home component */}
+          <Route exact path="/">
+            <Home
+              userStatus={userStatus}
+              sellerInfo={sellerInfo}
+              buyerInfo={buyerInfo}
+              addToCart={addToCart}
+            />
+          </Route>
+          {/* Cart component */}
+          <Route path="/cart">
+            <Cart
+              buyerInfo={buyerInfo}
+              cart={cart}
+              removeFromCart={removeFromCart}
+            />
+          </Route>
+        </Switch>
+      </div>
+    </Router>
   );
 }
 
