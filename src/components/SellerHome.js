@@ -1,6 +1,6 @@
 import React from "react";
 import SellerItems from "./SellerItems";
-import ShopProfile from "./ShopProfile";
+import SellerInfo from "./SellerInfo";
 
 function SellerHome({ sellerInfo }) {
   return (
@@ -11,7 +11,7 @@ function SellerHome({ sellerInfo }) {
         <SellerItems sellerInfo={sellerInfo} />
       </div>
       <div className="seller-profile">
-        <ShopProfile sellerInfo={sellerInfo} />
+        <SellerInfo sellerInfo={sellerInfo} />
       </div>
     </div>
   );
