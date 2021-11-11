@@ -22,8 +22,11 @@ app.use(express.static(path.resolve(__dirname,"..","build")));
 app.get("/hello", async(req,res) => {
     res.json("Let's save some food!!!!!!!!!!")
 })
-
-//***************************************ITEMS************************************************
+/******************************************************************************** */
+/******************************************************************************** */
+/******************************************************************************** */
+/******************************************************************************** */
+//***************************************ITEMS*************************************
 app.get('/items', async(req,res) => {
     const items = await db.select().table("items");
     res.json(items);
@@ -61,8 +64,11 @@ app.delete('/items',async(req,res) => {
 
     res.send(`${foundItem[0].name} has been deleted`)
 })
-
-//************************SELLERS******************************************* */
+/******************************************************************************** */
+/******************************************************************************** */
+/******************************************************************************** */
+/******************************************************************************** */
+//************************SELLERS************************************************ */
 
 app.get('/sellers', async(req,res) => {
     const allSellers = await db.select().table("sellers")
@@ -77,6 +83,76 @@ app.post('/sellers', async(req,res) => {
     .insert({id: s.id,shop_name:s.shop_name, shop_location: s.shop_location, shop_long: s.shop_long,
     shop_lat:s.shop_lat, opening_time:s.opening_time,closing_time:s.closing_time, phone_number:s.phone_number});
     res.json(`New member named ${newSeller.name} has been created, happy selling!`)
+})
+
+app.patch('/sellers', async(req,res) => {
+    const s = req.body
+    const itemId = req.body.id
+    //const items = await db.select().table("items");
+    const patchItem = await db.select()
+    .table("sellers")
+    .where({id:itemId})
+    .update({id: s.id ,shop_name:s.shop_name, shop_location: s.shop_location, shop_long: s.shop_long,
+        shop_lat:s.shop_lat, opening_time:s.opening_time,closing_time:s.closing_time, phone_number:s.phone_number});
+
+    res.send("Seller info updated!!")
+})
+
+//Query with id
+app.delete('/sellers',async(req,res) => {
+    const itemId = req.query.id
+    const itemIdInt = parseInt(itemId)
+    const foundItem = await db.select().table("sellers").where({id:itemIdInt});
+    const deleteItem = await db.select()
+    .table("sellers")
+    .where({id:itemIdInt})
+    .del()
+
+    res.send(`${foundItem[0].shop_name} has been deleted`)
+})
+
+/******************************************************************************** */
+/******************************************************************************** */
+/******************************************************************************** */
+/******************************************************************************** */
+/************************************BUYERS************************************** */
+
+app.get("/buyers",async(req,res) => {
+    const allBuyers = await db.select().table('buyers')
+    res.json(allBuyers)
+});
+
+// add buyer without ID DB will assign one.
+app.post("/buyers", async(req,res) => {
+    const nB = req.body
+    const newBuyer = await db.select().table("buyers")
+    .insert({display_name:nB.display_name, email:nB.email, address: nB.address, phone_number:nB.phone_number})
+    res.json(`New user ${nB.display_name} added!`)
+});
+
+app.patch('/buyers', async(req,res) => {
+    const nB = req.body
+    const itemId = req.body.id
+    //const items = await db.select().table("items");
+    const patchItem = await db.select()
+    .table("buyers")
+    .where({id:itemId})
+    .update({id: nB.id, display_name:nB.display_name, email:nB.email, address: nB.address, phone_number:nB.phone_number});
+
+    res.send("Buyer info updated!!")
+})
+
+//Query with ID
+app.delete('/buyers',async(req,res) => {
+    const buyerId = req.query.id
+    const buyerIdInt = parseInt(buyerId)
+    const foundBuyer = await db.select().table("buyers").where({id:buyerIdInt});
+    const deleteItem = await db.select()
+    .table("buyers")
+    .where({id:buyerIdInt})
+    .del()
+
+    res.json(`${foundBuyer[0].display_name} has been deleted`)
 })
 
 
