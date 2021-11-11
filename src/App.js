@@ -1,3 +1,4 @@
+// packages
 import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
@@ -5,6 +6,8 @@ import "./App.css";
 import Header from "./components/Header";
 import Home from "./components/Home";
 import Cart from "./components/Cart";
+import SellerProfile from "./components/SellerProfile";
+import BuyerProfile from "./components/BuyerProfile";
 
 function App() {
   const userStatus = "buyer";
@@ -65,6 +68,14 @@ function App() {
               cart={cart}
               removeFromCart={removeFromCart}
             />
+          </Route>
+          {/* Buyer Profile component */}
+          <Route path="/buyer-profile">
+            <BuyerProfile buyerInfo={buyerInfo} />
+          </Route>
+          {/* Seller Profile component */}
+          <Route path="/seller-profile">
+            <SellerProfile sellerInfo={sellerInfo} />
           </Route>
         </Switch>
       </div>

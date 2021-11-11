@@ -10,7 +10,9 @@ export default function Header({ userStatus }) {
             <Link to="/">Eatable</Link>
           </h1>
           <ul className="header-menus">
-            <li className="header-menus-item">Profile</li>
+            <li className="header-menus-item">
+              <Link to="/seller-profile">Profile</Link>
+            </li>
             <li>Log out</li>
           </ul>
         </div>
@@ -21,7 +23,9 @@ export default function Header({ userStatus }) {
             <Link to="/">Eatable</Link>
           </h1>
           <ul className="header-menus">
-            <li className="header-menus-item">Profile</li>
+            <li className="header-menus-item">
+              <Link to="/buyer-profile">Profile</Link>
+            </li>
             <li className="header-menus-item">
               <Link to="/cart">Cart </Link>
             </li>
