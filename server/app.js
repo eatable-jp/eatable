@@ -23,11 +23,46 @@ app.get("/hello", async(req,res) => {
     res.json("Let's save some food!!!!!!!!!!")
 })
 
-//items
-/*app.get('/items', async(req,res) => {
-    const items = await db.select().table("items")
+//***************************************ITEMS************************************************
+app.get('/items', async(req,res) => {
+    const items = await db.select().table("items");
     res.json(items);
-})*/
+})
+
+//going to be in the body JSON as is standard for post 
+app.post('/items', async(req,res) => {
+    const newItem = req.body;
+    const items = await db.select().table("items").insert(newItem);
+    res.json(`New Item ${newItem.name} has been posted to sell`)
+})
+
+//in the body pass in the new JSON object
+app.patch('/items', async(req,res) => {
+    const c = req.body
+    const itemId = req.body.id
+    //const items = await db.select().table("items");
+    const patchItem = await db.select()
+    .table("items")
+    .where({id:itemId})
+    .update({name:c.name, image:c.image ,type:c.type,buyer_id:c.buyer_id,price:c.price,original_price:c.original_price,expiration_date:c.expiration_date,note:c.note});
+
+    res.send("item updated")
+})
+
+//grab the item with a query param
+app.delete('/items',async(req,res) => {
+    const itemId = req.query.id
+    const itemIdInt = parseInt(itemId)
+    const foundItem = await db.select().table("items").where({id:itemIdInt});
+    const deleteItem = await db.select()
+    .table("items")
+    .where({id:itemIdInt})
+    .del()
+
+    res.send(`${foundItem[0].name} has been deleted`)
+})
+
+
 
 
 app.get("*", (req,res) => {
