@@ -62,6 +62,22 @@ app.delete('/items',async(req,res) => {
     res.send(`${foundItem[0].name} has been deleted`)
 })
 
+//************************SELLERS******************************************* */
+
+app.get('/sellers', async(req,res) => {
+    const allSellers = await db.select().table("sellers")
+    res.json(allSellers)
+});
+
+//JSON body no id included when creating the DB will take care of it
+app.post('/sellers', async(req,res) => {
+    const newSeller = req.body;
+    const s = req.body
+    const sellers = await db.select().table("sellers")
+    .insert({id: s.id,shop_name:s.shop_name, shop_location: s.shop_location, shop_long: s.shop_long,
+    shop_lat:s.shop_lat, opening_time:s.opening_time,closing_time:s.closing_time, phone_number:s.phone_number});
+    res.json(`New member named ${newSeller.name} has been created, happy selling!`)
+})
 
 
 
