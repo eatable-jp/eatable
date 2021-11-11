@@ -1,31 +1,28 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-// data
-import { listedItems } from "../data/listeItems";
+// redux
+import { useSelector, useDispatch } from "react-redux";
+import { updateItems } from "../slice/itemsSlice";
 
-export default function ListedItems({ sellerInfo: { id, shop_name } }) {
+export default function ListedItems() {
+  // setup redux
+  const dispatch = useDispatch();
+  const sellerInfo = useSelector((state) => state.sellerInfo);
+  const items = useSelector((state) => state.items);
+
   // setup react form
   const { register, handleSubmit, reset } = useForm();
 
-  // items state
-  const [items, setItems] = useState(listedItems);
-  // items state: function for updating item info
-  function updateItem(updatedInfo) {
+  // function for updating item info
+  function sendUpdatedItem(updatedInfo) {
+    // validation get rid of empty value
     Object.keys(updatedInfo).forEach((info) => {
       if (updatedInfo[info] === "" || updatedInfo[info] === null) {
         delete updatedInfo[info];
       }
     });
     updatedInfo.id = selectedItem;
-    setItems((prevItems) => {
-      const updatedItems = prevItems.map((item) => {
-        if (item.id === updatedInfo.id) {
-          return { ...item, ...updatedInfo };
-        }
-        return item;
-      });
-      return updatedItems;
-    });
+    dispatch(updateItems(updatedInfo));
     reset();
     toggleForm();
   }
@@ -45,7 +42,7 @@ export default function ListedItems({ sellerInfo: { id, shop_name } }) {
   }
 
   // filtering items that matches logged in seller
-  const itemList = items.filter((item) => item.seller_id === id);
+  const itemList = items.filter((item) => item.seller_id === sellerInfo.id);
   // generating item card
   return (
     <>
@@ -58,7 +55,7 @@ export default function ListedItems({ sellerInfo: { id, shop_name } }) {
             <div className="item-info">
               <div className="item-info-general">
                 <h3>{item.name}</h3>
-                <p>{shop_name}</p>
+                <p>{sellerInfo.shop_name}</p>
                 <p>Expires: {item.expiration_date}</p>
                 <p>{item.note}</p>
               </div>
@@ -79,7 +76,7 @@ export default function ListedItems({ sellerInfo: { id, shop_name } }) {
       })}
       {/* form for updating user info */}
       <form
-        onSubmit={handleSubmit(updateItem)}
+        onSubmit={handleSubmit(sendUpdatedItem)}
         className={formDisplay ? "update-form" : "update-form hidden"}
       >
         <fieldset className="update-form-fieldset">

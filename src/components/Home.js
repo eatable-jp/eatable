@@ -3,14 +3,14 @@ import React from "react";
 import SellerHome from "./SellerHome";
 import BuyerHome from "./BuyerHome";
 
-function Home({ userStatus, sellerInfo, buyerInfo, addToCart }) {
+function Home({ userStatus }) {
   // displaying different component based on user type
   return userStatus === "seller" ? (
     // seller's home
-    <SellerHome sellerInfo={sellerInfo} />
+    <SellerHome />
   ) : (
     // buyer's home
-    <BuyerHome buyerInfo={buyerInfo} addToCart={addToCart} />
+    <BuyerHome />
   );
 }
 

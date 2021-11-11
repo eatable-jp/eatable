@@ -1,4 +1,6 @@
-export const listedItems = [
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+
+const initialState = [
   {
     id: 1,
     name: "minced meat",
@@ -84,3 +86,23 @@ export const listedItems = [
     note: "",
   },
 ];
+
+const itemsSlice = createSlice({
+  name: "items",
+  initialState,
+  reducers: {
+    updateItems: (state, action) => {
+      state = state.map((item) => {
+        if (item.id === action.payload.id) {
+          return { ...item, ...action.payload };
+        }
+        return item;
+      });
+      return state;
+    },
+  },
+  extraReducers: {},
+});
+
+export const { updateItems } = itemsSlice.actions;
+export default itemsSlice.reducer;

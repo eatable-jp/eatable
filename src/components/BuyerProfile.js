@@ -1,10 +1,17 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+// redux
+import { useSelector, useDispatch } from "react-redux";
+import { updateBuyerInfo } from "../slice/buyerInfoSlice";
 
-export default function BuyerProfile({ buyerInfo, updateBuyerInfo }) {
+export default function BuyerProfile() {
+  // setup redux
+  const dispatch = useDispatch();
+  const buyerInfo = useSelector((state) => state.buyerInfo);
+
   // setup react form
   const { register, handleSubmit, reset } = useForm();
-  //
+  // function for updating user info
   function sendBuyerInfo(updatedInfo) {
     // validation get rid of empty value
     Object.keys(updatedInfo).forEach((info) => {
@@ -12,7 +19,7 @@ export default function BuyerProfile({ buyerInfo, updateBuyerInfo }) {
         delete updatedInfo[info];
       }
     });
-    updateBuyerInfo(updatedInfo);
+    dispatch(updateBuyerInfo(updatedInfo));
     reset();
     toggleForm();
   }

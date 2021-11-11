@@ -1,6 +1,14 @@
 import React from "react";
+// redux
+import { useSelector, useDispatch } from "react-redux";
+import { removeFromCart } from "../slice/cartSlice";
 
-function Cart({ buyerInfo, cart, removeFromCart }) {
+function Cart() {
+  // setup redux
+  const dispatch = useDispatch();
+  const buyerInfo = useSelector((state) => state.buyerInfo);
+  const cart = useSelector((state) => state.cart);
+
   return cart.length === 0 ? (
     <p>Nothing in the cart</p>
   ) : (
@@ -24,7 +32,7 @@ function Cart({ buyerInfo, cart, removeFromCart }) {
                     {item.original_price} yen
                   </p>
                   <p className="item-info-current-price">{item.price} yen</p>
-                  <button onClick={() => removeFromCart(index)}>
+                  <button onClick={() => dispatch(removeFromCart(index))}>
                     Remove from cart
                   </button>
                 </div>
