@@ -89,3 +89,40 @@ h1 {
 .shop-profile-address {
   margin: 0 0 8px;
 }
+.buyer-profile {
+  width: 400px;
+  margin: 40px auto 0;
+  padding: 16px;
+  background: #b5dafc;
+  border-radius: 8px;
+}
+.buyer-profile-name {
+  margin: 0 0 20px;
+}
+.buyer-profile-table {
+  margin: 0 0 20px;
+}
+.update-form {
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.4);
+}
+.update-form.hidden {
+  display: none;
+}
+.update-form-fieldset {
+  width: 500px;
+  margin: 0 auto 20px;
+  background: #fff;
+}
+.update-form-label {
+  display: flex;
+  flex-direction: column;
+}

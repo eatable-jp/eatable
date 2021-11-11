@@ -1,3 +1,4 @@
+// packages
 import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
@@ -5,26 +6,44 @@ import "./App.css";
 import Header from "./components/Header";
 import Home from "./components/Home";
 import Cart from "./components/Cart";
+import SellerProfile from "./components/SellerProfile";
+import BuyerProfile from "./components/BuyerProfile";
 
 function App() {
-  const userStatus = "buyer";
-  // dummy data for seller
-  const sellerInfo = {
+  const userStatus = "seller";
+
+  // sellerInfo state * currently using dummy data
+  const [sellerInfo, setSellerInfo] = useState({
     id: 1,
     shop_name: "Fresh",
     shop_location: "1-1-1, Tamagawa, Setagaya, Tokyo",
     opening_time: "9:00",
     closing_time: "22:00",
     phone_number: "03-521-778",
-  };
-  // dummy data for buyer
-  const buyerInfo = {
+  });
+  // sellerInfo state: function for updating shop info
+  function updateSellerInfo(updatedInfo) {
+    setSellerInfo((prevInfo) => {
+      const newProfile = { ...prevInfo, ...updatedInfo };
+      return newProfile;
+    });
+  }
+
+  // buyerInfo state * currently using dummy data
+  const [buyerInfo, setBuyerInfo] = useState({
     id: 1,
     display_name: "Test User",
     email: "test@test.com",
     address: "1-1-1, Tamagawa, Setagaya, Tokyo",
     phone_number: "070-5587-1245",
-  };
+  });
+  // buyerInfo state: function for updating shop info
+  function updateBuyerInfo(updatedInfo) {
+    setBuyerInfo((prevInfo) => {
+      const newProfile = { ...prevInfo, ...updatedInfo };
+      return newProfile;
+    });
+  }
 
   // cart state
   const [cart, setCart] = useState([]);
@@ -64,6 +83,20 @@ function App() {
               buyerInfo={buyerInfo}
               cart={cart}
               removeFromCart={removeFromCart}
+            />
+          </Route>
+          {/* Seller Profile component */}
+          <Route path="/seller-profile">
+            <SellerProfile
+              sellerInfo={sellerInfo}
+              updateSellerInfo={updateSellerInfo}
+            />
+          </Route>
+          {/* Buyer Profile component */}
+          <Route path="/buyer-profile">
+            <BuyerProfile
+              buyerInfo={buyerInfo}
+              updateBuyerInfo={updateBuyerInfo}
             />
           </Route>
         </Switch>

@@ -17,13 +17,14 @@
     "pg": "^8.7.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-hook-form": "^7.19.3",
     "react-router-dom": "^5.3.0",
     "react-scripts": "4.0.3",
     "web-vitals": "^1.1.2"
   },
   "scripts": {
     "serve": "nodemon server/index.js",
-    "start": "react-scripts start", 
+    "start": "react-scripts start",
     "dev": "concurrently \"npm run serve\" \"npm start\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
