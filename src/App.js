@@ -1,7 +1,10 @@
 // packages
-import React, { useState } from "react";
+import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
+// redux toolkit
+import { Provider } from "react-redux";
+import store from "./store";
 // components
 import Header from "./components/Header";
 import Home from "./components/Home";
@@ -10,98 +13,35 @@ import SellerProfile from "./components/SellerProfile";
 import BuyerProfile from "./components/BuyerProfile";
 
 function App() {
-  const userStatus = "seller";
-
-  // sellerInfo state * currently using dummy data
-  const [sellerInfo, setSellerInfo] = useState({
-    id: 1,
-    shop_name: "Fresh",
-    shop_location: "1-1-1, Tamagawa, Setagaya, Tokyo",
-    opening_time: "9:00",
-    closing_time: "22:00",
-    phone_number: "03-521-778",
-  });
-  // sellerInfo state: function for updating shop info
-  function updateSellerInfo(updatedInfo) {
-    setSellerInfo((prevInfo) => {
-      const newProfile = { ...prevInfo, ...updatedInfo };
-      return newProfile;
-    });
-  }
-
-  // buyerInfo state * currently using dummy data
-  const [buyerInfo, setBuyerInfo] = useState({
-    id: 1,
-    display_name: "Test User",
-    email: "test@test.com",
-    address: "1-1-1, Tamagawa, Setagaya, Tokyo",
-    phone_number: "070-5587-1245",
-  });
-  // buyerInfo state: function for updating shop info
-  function updateBuyerInfo(updatedInfo) {
-    setBuyerInfo((prevInfo) => {
-      const newProfile = { ...prevInfo, ...updatedInfo };
-      return newProfile;
-    });
-  }
-
-  // cart state
-  const [cart, setCart] = useState([]);
-  // cart state: function for adding items to cart
-  function addToCart(selectedItem) {
-    setCart((prevCart) => {
-      const newCart = [...prevCart, selectedItem];
-      return newCart;
-    });
-  }
-  // cart state: function for adding items to cart
-  function removeFromCart(index) {
-    setCart((prevCart) => {
-      const newCart = prevCart.filter((item, i) => i !== index);
-      return newCart;
-    });
-  }
+  const userStatus = "buyer";
 
   return (
-    <Router>
-      <div className="App">
-        {/* Header component */}
-        <Header userStatus={userStatus} />
-        <Switch>
-          {/* Home component */}
-          <Route exact path="/">
-            <Home
-              userStatus={userStatus}
-              sellerInfo={sellerInfo}
-              buyerInfo={buyerInfo}
-              addToCart={addToCart}
-            />
-          </Route>
-          {/* Cart component */}
-          <Route path="/cart">
-            <Cart
-              buyerInfo={buyerInfo}
-              cart={cart}
-              removeFromCart={removeFromCart}
-            />
-          </Route>
-          {/* Seller Profile component */}
-          <Route path="/seller-profile">
-            <SellerProfile
-              sellerInfo={sellerInfo}
-              updateSellerInfo={updateSellerInfo}
-            />
-          </Route>
-          {/* Buyer Profile component */}
-          <Route path="/buyer-profile">
-            <BuyerProfile
-              buyerInfo={buyerInfo}
-              updateBuyerInfo={updateBuyerInfo}
-            />
-          </Route>
-        </Switch>
-      </div>
-    </Router>
+    <Provider store={store}>
+      <Router>
+        <div className="App">
+          {/* Header component */}
+          <Header userStatus={userStatus} />
+          <Switch>
+            {/* Home component */}
+            <Route exact path="/">
+              <Home userStatus={userStatus} />
+            </Route>
+            {/* Cart component */}
+            <Route path="/cart">
+              <Cart />
+            </Route>
+            {/* Seller Profile component */}
+            <Route path="/seller-profile">
+              <SellerProfile />
+            </Route>
+            {/* Buyer Profile component */}
+            <Route path="/buyer-profile">
+              <BuyerProfile />
+            </Route>
+          </Switch>
+        </div>
+      </Router>
+    </Provider>
   );
 }
 

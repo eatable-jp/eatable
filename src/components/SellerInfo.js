@@ -1,6 +1,11 @@
+// react router
 import { Link } from "react-router-dom";
+// redux
+import { useSelector, useDispatch } from "react-redux";
 
-export default function ShopProfile({ sellerInfo }) {
+export default function ShopProfile() {
+  // setup redux
+  const sellerInfo = useSelector((state) => state.sellerInfo);
   return (
     <div className="seller-profile">
       <figure className="shop-profile-img">
