@@ -1,6 +1,11 @@
 const express = require("express");
 const path = require("path");
 const cors = require("cors")
+const knex = require('knex')
+
+const environment = process.env.ENVIRONMENT || 'development';
+const config = require("../knexfile")[environment];
+const db = knex(config);
 
 const app = express()
 
@@ -17,6 +22,12 @@ app.use(express.static(path.resolve(__dirname,"..","build")));
 app.get("/hello", async(req,res) => {
     res.json("Let's save some food!!!!!!!!!!")
 })
+
+//items
+/*app.get('/items', async(req,res) => {
+    const items = await db.select().table("items")
+    res.json(items);
+})*/
 
 
 app.get("*", (req,res) => {
