@@ -39,16 +39,16 @@ export default function BuyerItems() {
                 <Card.Text className="item-info-current-price">
                   {item.price} yen
                 </Card.Text>
-                {isInCart ? (
+                {cart.some((cartItem) => cartItem.id === item.id) ? (
                   <Button
-                    variant="primary"
-                    onClick={() => dispatch(removeFromCart(index))}
+                    variant="outline-danger"
+                    onClick={() => dispatch(removeFromCart(item.id))}
                   >
                     Remove from cart
                   </Button>
                 ) : (
                   <Button
-                    variant="primary"
+                    variant="outline-success"
                     onClick={() => dispatch(addToCart(item))}
                   >
                     Add to cart

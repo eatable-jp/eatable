@@ -17,7 +17,7 @@ import BuyerForm from "./components/BuyerForm";
 import SellerForm from "./components/SellerForm";
 
 function App() {
-  const userStatus = "seller";
+  const userStatus = "buyer";
 
   return (
     <Provider store={store}>
