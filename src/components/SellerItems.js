@@ -3,6 +3,8 @@ import { useForm } from "react-hook-form";
 // redux
 import { useSelector, useDispatch } from "react-redux";
 import { updateItems } from "../slice/itemsSlice";
+// bootstrap
+import { Row, Col, Card, Button } from "react-bootstrap";
 
 export default function ListedItems() {
   // setup redux
@@ -46,34 +48,34 @@ export default function ListedItems() {
   // generating item card
   return (
     <>
-      {itemList.map((item, index) => {
-        return (
-          <div className="item-card" key={index}>
-            <figure>
-              <img src={item.image} alt={item.name} />
-            </figure>
-            <div className="item-info">
-              <div className="item-info-general">
-                <h3>{item.name}</h3>
-                <p>{sellerInfo.shop_name}</p>
-                <p>Expires: {item.expiration_date}</p>
-                <p>{item.note}</p>
-              </div>
-              <div className="item-info-prices">
-                <p className="item-info-current-price">{item.price} yen</p>
-                <button
-                  onClick={() => {
-                    toggleForm();
-                    passSelectedItem(item.id);
-                  }}
-                >
-                  Edit item
-                </button>
-              </div>
-            </div>
-          </div>
-        );
-      })}
+      <Row xs={1} md={2} className="g-4">
+        {itemList.map((item, index) => {
+          return (
+            <Col>
+              <Card className="h-100" key={index}>
+                <Card.Img variant="top" src={item.image} />
+                <Card.Body>
+                  <Card.Title>{item.name}</Card.Title>
+                  <Card.Text>{sellerInfo.shop_name}</Card.Text>
+                  <Card.Text>Best before {item.expiration_date}</Card.Text>
+                  <Card.Text>{item.note}</Card.Text>
+                  <Card.Text className="item-info-current-price">
+                    {item.price} yen
+                  </Card.Text>
+                  <Button
+                    onClick={() => {
+                      toggleForm();
+                      passSelectedItem(item.id);
+                    }}
+                  >
+                    Edit item
+                  </Button>
+                </Card.Body>
+              </Card>
+            </Col>
+          );
+        })}
+      </Row>
       {/* form for updating user info */}
       <form
         onSubmit={handleSubmit(sendUpdatedItem)}
