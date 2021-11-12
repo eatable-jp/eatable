@@ -5,6 +5,8 @@ import "./App.css";
 // redux toolkit
 import { Provider } from "react-redux";
 import store from "./store";
+// bootstrap
+import "bootstrap/dist/css/bootstrap.min.css";
 // components
 import Header from "./components/Header";
 import Home from "./components/Home";

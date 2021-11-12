@@ -1,19 +1,19 @@
 import React from "react";
+// bootstrap
+import { Container } from "react-bootstrap";
+// components
 import SellerItems from "./SellerItems";
 import SellerInfo from "./SellerInfo";
 
 function SellerHome() {
   return (
-    <div className="seller-wrapper">
-      <div className="seller-items">
-        <h2 className="seller-items-heading">Currently Listed</h2>
-        <button className="seller-items-add-btn">Add a new item</button>
+    <>
+      <h2 className="seller-items-heading">Currently Listed</h2>
+      <button className="seller-items-add-btn">Add a new item</button>
+      <Container>
         <SellerItems />
-      </div>
-      <div className="seller-profile">
-        <SellerInfo />
-      </div>
-    </div>
+      </Container>
+    </>
   );
 }
 
