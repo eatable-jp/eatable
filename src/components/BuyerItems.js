@@ -14,31 +14,23 @@ export default function BuyerItems() {
   const cart = useSelector((state) => state.cart);
 
   return (
-    <Row xs={1} md={2} className="g-4">
+    <Row xs={1} md={3} className="g-4">
       {items.map((item, index) => {
         // checks if the item is in the cart
         const isInCart = cart.some((cartItem) => cartItem.id === item.id);
         return (
           <Col>
             <Card className="h-100" key={index}>
+              <Card.Header className="d-flex justify-content-between">
+                <p className="mb-0">{item.name}</p>
+                <p className="mb-0">Price: {item.price}</p>
+              </Card.Header>
               <Card.Img variant="top" src={item.image} />
               <Card.Body>
-                <Card.Title>{item.name}</Card.Title>
-                <Card.Text>
-                  {
-                    sellers.find((seller) => seller.id === item.seller_id)[
-                      "shop_name"
-                    ]
-                  }
-                </Card.Text>
-                <Card.Text>Best before {item.expiration_date}</Card.Text>
-                <Card.Text>{item.note}</Card.Text>
-                <Card.Text className="item-info-original-price">
-                  {item.original_price} yen
-                </Card.Text>
-                <Card.Text className="item-info-current-price">
-                  {item.price} yen
-                </Card.Text>
+                
+                <Card.Text className="mb-1" >Best before {item.expiration_date}</Card.Text>
+                
+                <div className="d-flex justify-content-between">
                 {cart.some((cartItem) => cartItem.id === item.id) ? (
                   <Button
                     variant="outline-danger"
@@ -54,6 +46,12 @@ export default function BuyerItems() {
                     Add to cart
                   </Button>
                 )}
+                <Button variant="outline-info">More info
+
+                </Button>
+                </div>
+                
+                
               </Card.Body>
             </Card>
           </Col>

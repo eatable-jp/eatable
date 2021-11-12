@@ -47,6 +47,7 @@ h1 {
 }
 .seller-items-heading {
   margin: 0 0 16px;
+  text-align: center;
 }
 .seller-items-add-btn {
   margin: 0 0 16px;
@@ -137,3 +138,4 @@ h1 {
 .cart {
   display: flex;
 }
+
