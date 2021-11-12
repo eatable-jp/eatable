@@ -106,28 +106,6 @@ const createPoolAndEnsureSchema = async () =>
       throw err;
     });
 
-/*
-const insertVote = async (pool, vote) => {
-    try {
-    return await pool('votes').insert(vote);
-    } catch (err) {
-    throw Error(err);
-    }
-};
-
-const getVotes = async pool => {
-    return await pool
-      .select('candidate', 'time_cast')
-      .from('votes')
-      .orderBy('time_cast', 'desc')
-      .limit(5);
-};
-
-const getVoteCount = async (pool, candidate) => {
-    return await pool('votes').count('vote_id').where('candidate', candidate);
-};
-
-*/
 
 // Get all items
 const getItems = async pool => {
