@@ -35,7 +35,7 @@ export default function ListedItems() {
   function passSelectedItem(id) {
     setSelectedItem(id);
   }
-
+  
   // formDisplay state
   const [formDisplay, setFormDisplay] = useState(false);
   // formDisplay state: function for toggling form
@@ -52,8 +52,8 @@ export default function ListedItems() {
         {itemList.map((item, index) => {
           return (
             <Col>
-              <Card className="h-100" key={index}>
-                <Card.Img variant="top" src={item.image} />
+              <Card bg= "Light" className="h-100" key={index}>
+                {/*<Card.Img variant="top" src={item.image} />*/}
                 <Card.Body>
                   <Card.Title>{item.name}</Card.Title>
                   <Card.Text>{sellerInfo.shop_name}</Card.Text>
@@ -67,7 +67,7 @@ export default function ListedItems() {
                       toggleForm();
                       passSelectedItem(item.id);
                     }}
-                  >
+                    >
                     Edit item
                   </Button>
                 </Card.Body>

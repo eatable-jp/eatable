@@ -12,11 +12,12 @@ function SellerHome() {
   const handleShow = () => setShow(true);
   return (
     <>
+
       <h2 className="seller-items-heading">Currently Listed</h2>
       <>
-        <Button variant="primary" onClick={handleShow}>
-          Launch static backdrop modal
-        </Button>
+        <div className="form-button-div"><Button variant="outline-success" onClick={handleShow}>
+          Post new item
+        </Button></div>
 
         <Modal
           show={show}
