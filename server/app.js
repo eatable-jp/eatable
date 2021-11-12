@@ -49,7 +49,7 @@ app.use(async (req, res, next) => {
   }
 });
 
-/*
+
 const createUnixSocketPool = async config => {
     const dbSocketPath = process.env.DB_SOCKET_PATH || '/cloudsql';
   
@@ -66,7 +66,8 @@ const createUnixSocketPool = async config => {
       ...config,
     });
 };
-*/
+
+
 
 const createTcpPool = async config => {
     // Extract host and port from socket address
@@ -100,7 +101,11 @@ const createPool = async () => {
     config.pool.createRetryIntervalMillis = 200;
     console.log("this pool")
 
-    return createTcpPool(config);
+    if (process.env.DB_HOST === "127.0.0.1:8080") {
+        return createTcpPool(config);
+    } else {
+        return createUnixSocketPool(config);
+    }
 };
 
 /*
@@ -171,6 +176,11 @@ const getItems = async pool => {
 }
 
 app.get('/items', async (req, res) => {
+    console.log("first in items  ")
+    console.log(process.env.DB_USER)
+    console.log(process.env.DB_PASS)
+    console.log(process.env.DB_NAME)
+    console.log(process.env.DB_HOST)
     pool = pool || (await createPoolAndEnsureSchema());
     console.log("pool created ")
     //console.log(pool)
