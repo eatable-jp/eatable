@@ -11,7 +11,7 @@ function BuyerHome() {
   return (
     <div className="buyer-wrapper">
       <div className="buyer-items">
-        <h2 className="buyer-items-heading">Hello {buyerInfo.display_name}!</h2>
+        <h2 className="mb-5 text-center">Hello {buyerInfo.display_name}!</h2>
         <Container>
           <BuyerItems />
         </Container>

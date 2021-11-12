@@ -28,14 +28,9 @@ export default function BuyerItems() {
               <Card.Img variant="top" src={item.image} />
               <Card.Body>
                 
-                <Card.Text>Best before {item.expiration_date}</Card.Text>
-                <Card.Text>{item.note}</Card.Text>
-                <Card.Text className="item-info-original-price">
-                  {item.original_price} yen
-                </Card.Text>
-                <Card.Text className="item-info-current-price">
-                  {item.price} yen
-                </Card.Text>
+                <Card.Text className="mb-1" >Best before {item.expiration_date}</Card.Text>
+                
+                <div className="d-flex justify-content-between">
                 {cart.some((cartItem) => cartItem.id === item.id) ? (
                   <Button
                     variant="outline-danger"
@@ -51,6 +46,11 @@ export default function BuyerItems() {
                     Add to cart
                   </Button>
                 )}
+                <Button variant="outline-info">More info
+
+                </Button>
+                </div>
+                
                 
               </Card.Body>
             </Card>
