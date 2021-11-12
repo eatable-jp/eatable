@@ -3,8 +3,10 @@ import { useForm } from "react-hook-form";
 // redux
 import { useSelector, useDispatch } from "react-redux";
 import { updateBuyerInfo } from "../slice/buyerInfoSlice";
+// react router
+import { LinkContainer } from "react-router-bootstrap";
 // bootstrap
-import { Form } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
 
 export default function BuyerProfile() {
   // setup redux
@@ -52,7 +54,10 @@ export default function BuyerProfile() {
             </tr>
           </tbody>
         </table>
-        <button onClick={() => toggleForm()}>Edit profile</button>
+        {/* <button onClick={() => toggleForm()}>Edit profile</button> */}
+        <LinkContainer to="/buyer-form">
+          <Button>Edit profile</Button>
+        </LinkContainer>
       </div>
       {/* form for updating user info */}
       <Form
