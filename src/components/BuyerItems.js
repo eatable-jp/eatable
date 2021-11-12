@@ -29,18 +29,23 @@ export default function BuyerItems() {
               <Card.Body>
                 
                 <Card.Text>Best before {item.expiration_date}</Card.Text>
-                
-                
-                {isInCart ? (
+                <Card.Text>{item.note}</Card.Text>
+                <Card.Text className="item-info-original-price">
+                  {item.original_price} yen
+                </Card.Text>
+                <Card.Text className="item-info-current-price">
+                  {item.price} yen
+                </Card.Text>
+                {cart.some((cartItem) => cartItem.id === item.id) ? (
                   <Button
-                    variant="primary"
-                    onClick={() => dispatch(removeFromCart(index))}
+                    variant="outline-danger"
+                    onClick={() => dispatch(removeFromCart(item.id))}
                   >
                     Remove from cart
                   </Button>
                 ) : (
                   <Button
-                    variant="primary"
+                    variant="outline-success"
                     onClick={() => dispatch(addToCart(item))}
                   >
                     Add to cart

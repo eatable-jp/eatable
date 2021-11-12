@@ -6,19 +6,22 @@ import SellerItems from "./SellerItems";
 import SellerInfo from "./SellerInfo";
 
 function SellerHome() {
+  // function to display add new item modal
   const [show, setShow] = useState(false);
-
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   return (
     <>
 
       <h2 className="seller-items-heading">Currently Listed</h2>
+      <Button variant="primary" onClick={handleShow}>
+        Launch static backdrop modal
+      </Button>
+      <Container>
+        <SellerItems />
+      </Container>
+      {/* add new item modal */}
       <>
-        <div className="form-button-div"><Button variant="outline-success" onClick={handleShow}>
-          Post new item
-        </Button></div>
-
         <Modal
           show={show}
           onHide={handleClose}
@@ -73,9 +76,6 @@ function SellerHome() {
           </Modal.Footer>
         </Modal>
       </>
-      <Container>
-        <SellerItems />
-      </Container>
     </>
   );
 }
