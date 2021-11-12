@@ -3,6 +3,8 @@ import { useForm } from "react-hook-form";
 // redux
 import { useSelector, useDispatch } from "react-redux";
 import { updateBuyerInfo } from "../slice/buyerInfoSlice";
+// bootstrap
+import { Form } from "react-bootstrap";
 
 export default function BuyerProfile() {
   // setup redux
@@ -53,10 +55,14 @@ export default function BuyerProfile() {
         <button onClick={() => toggleForm()}>Edit profile</button>
       </div>
       {/* form for updating user info */}
-      <form
+      <Form
         className={formDisplay ? "update-form" : "update-form hidden"}
         onSubmit={handleSubmit(sendBuyerInfo)}
       >
+        <Form.Group className="mb-3" controlId="">
+          <Form.Label>Name</Form.Label>
+          <Form.Control type="text" placeholder="Enter name" />
+        </Form.Group>
         <fieldset className="update-form-fieldset">
           <label className="update-form-label">
             <span>Name</span>
@@ -85,7 +91,7 @@ export default function BuyerProfile() {
           <button type="submit">Submit</button>
           <p onClick={() => toggleForm()}>Cancel</p>
         </fieldset>
-      </form>
+      </Form>
     </>
   );
 }

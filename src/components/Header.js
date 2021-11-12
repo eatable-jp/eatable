@@ -1,40 +1,49 @@
-import { Link } from "react-router-dom";
+// react router
+import { LinkContainer } from "react-router-bootstrap";
+// bootstrap
+import { Nav, Navbar, Container } from "react-bootstrap";
 export default function Header({ userStatus }) {
   return (
-    <header>
+    <Navbar className="navbar-custom" expand="lg">
       {/* displaying different header based on customer type */}
       {userStatus === "seller" ? (
-        // header for seller
-        <div className="header-wrapper">
-          <h1>
-            <Link to="/">Eatable</Link>
-          </h1>
-          <ul className="header-menus">
-            <li className="header-menus-item">
-              <Link to="/seller-profile">Profile</Link>
-            </li>
-            <li>Log out</li>
-          </ul>
-        </div>
-      ) : userStatus === "buyer" ? (
-        // header for buyer
-        <div className="header-wrapper">
-          <h1>
-            <Link to="/">Eatable</Link>
-          </h1>
-          <ul className="header-menus">
-            <li className="header-menus-item">
-              <Link to="/buyer-profile">Profile</Link>
-            </li>
-            <li className="header-menus-item">
-              <Link to="/cart">Cart </Link>
-            </li>
-            <li>Log out</li>
-          </ul>
-        </div>
+        <Container>
+          <LinkContainer to="/">
+            <Navbar.Brand>Eatable</Navbar.Brand>
+          </LinkContainer>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="me-auto">
+              <LinkContainer to="/seller-profile">
+                <Nav.Link>Profile</Nav.Link>
+              </LinkContainer>
+              <LinkContainer to="/logout">
+                <Nav.Link>Log out</Nav.Link>
+              </LinkContainer>
+            </Nav>
+          </Navbar.Collapse>
+        </Container>
       ) : (
-        <h1>Eatable</h1>
+        <Container>
+          <LinkContainer to="/">
+            <Navbar.Brand>Eatable</Navbar.Brand>
+          </LinkContainer>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="me-auto">
+              <LinkContainer to="/buyer-profile">
+                <Nav.Link>Profile</Nav.Link>
+              </LinkContainer>
+              <LinkContainer to="/cart">
+                <Nav.Link>Cart</Nav.Link>
+              </LinkContainer>
+              <LinkContainer to="/logout">
+                <Nav.Link>Log out</Nav.Link>
+              </LinkContainer>
+            </Nav>
+          </Navbar.Collapse>
+        </Container>
       )}
-    </header>
+    </Navbar>
   );
 }
