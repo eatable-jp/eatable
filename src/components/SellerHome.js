@@ -12,11 +12,12 @@ function SellerHome() {
   const handleShow = () => setShow(true);
   return (
     <>
-
-      <h2 className="seller-items-heading">Currently Listed</h2>
-      <Button variant="primary" onClick={handleShow}>
-        Launch static backdrop modal
-      </Button>
+      <Container className="text-center mb-5">
+        <h2>Currently Listed</h2>
+        <Button variant="primary" onClick={handleShow}>
+          Add a new item
+        </Button>
+      </Container>
       <Container>
         <SellerItems />
       </Container>
@@ -29,7 +30,7 @@ function SellerHome() {
           keyboard={false}
         >
           <Modal.Header closeButton>
-            <Modal.Title>Modal title</Modal.Title>
+            <Modal.Title>Add a new item</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <Form>

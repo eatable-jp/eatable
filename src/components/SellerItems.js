@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { useSelector, useDispatch } from "react-redux";
 import { updateItems } from "../slice/itemsSlice";
 // bootstrap
-import { Row, Col, Card, Button } from "react-bootstrap";
+import { Row, Col, Card, Button, Form, Modal } from "react-bootstrap";
 
 export default function ListedItems() {
   // setup redux
@@ -26,22 +26,30 @@ export default function ListedItems() {
     updatedInfo.id = selectedItem;
     dispatch(updateItems(updatedInfo));
     reset();
-    toggleForm();
   }
 
   // selectedItem state
-  const [selectedItem, setSelectedItem] = useState("");
+  const [selectedItem, setSelectedItem] = useState({
+    buyer: "",
+    expiration_date: "",
+    id: "",
+    image: "",
+    name: "",
+    note: "",
+    original_price: "",
+    price: "",
+    seller_id: "",
+    type: "",
+  });
   // selectedItem state: function to keep track of selected item
-  function passSelectedItem(id) {
-    setSelectedItem(id);
+  function passSelectedItem(item) {
+    setSelectedItem(item);
   }
-  
-  // formDisplay state
-  const [formDisplay, setFormDisplay] = useState(false);
-  // formDisplay state: function for toggling form
-  function toggleForm() {
-    setFormDisplay(!formDisplay);
-  }
+
+  // function to display add new item modal
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   // filtering items that matches logged in seller
   const itemList = items.filter((item) => item.seller_id === sellerInfo.id);
@@ -51,8 +59,8 @@ export default function ListedItems() {
       <Row xs={1} md={2} className="g-4">
         {itemList.map((item, index) => {
           return (
-            <Col>
-              <Card bg= "Light" className="h-100" key={index}>
+            <Col key={index}>
+              <Card bg="Light" className="h-100" key={index}>
                 {/*<Card.Img variant="top" src={item.image} />*/}
                 <Card.Body>
                   <Card.Title>{item.name}</Card.Title>
@@ -63,11 +71,12 @@ export default function ListedItems() {
                     {item.price} yen
                   </Card.Text>
                   <Button
+                    variant="primary"
                     onClick={() => {
-                      toggleForm();
-                      passSelectedItem(item.id);
+                      handleShow();
+                      passSelectedItem(item);
                     }}
-                    >
+                  >
                     Edit item
                   </Button>
                 </Card.Body>
@@ -76,55 +85,65 @@ export default function ListedItems() {
           );
         })}
       </Row>
-      {/* form for updating user info */}
-      <form
-        onSubmit={handleSubmit(sendUpdatedItem)}
-        className={formDisplay ? "update-form" : "update-form hidden"}
-      >
-        <fieldset className="update-form-fieldset">
-          <label className="update-form-label">
-            <span>Item name</span>
-            <input type="text" name="name" {...register("name")} />
-          </label>
-          <label className="update-form-label">
-            <span>Type</span>
-            <input type="text" name="type" {...register("type")} />
-          </label>
-          <label className="update-form-label">
-            <span>Price</span>
-            <input type="text" name="price" {...register("price")} />
-          </label>
-          <label className="update-form-label">
-            <span>Original price</span>
-            <input
-              type="text"
-              name="original_price"
-              {...register("original_price")}
-            />
-          </label>
-          <label className="update-form-label">
-            <span>Expiration date</span>
-            <input
-              type="text"
-              name="expiration_date"
-              {...register("expiration_date")}
-            />
-          </label>
-          <label className="update-form-label">
-            <span>Note</span>
-            <input type="text" name="note" {...register("note")} />
-          </label>
-          <button type="submit">Submit</button>
-          <p
-            onClick={() => {
-              reset();
-              toggleForm();
-            }}
-          >
-            Cancel
-          </p>
-        </fieldset>
-      </form>
+      {/* add new item modal */}
+      <>
+        <Modal
+          show={show}
+          onHide={handleClose}
+          backdrop="static"
+          keyboard={false}
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>Edit item</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form>
+              <Form.Group className="mb-3" controlId="formBasicName">
+                <Form.Label>Name</Form.Label>
+                <Form.Control type="text" placeholder={selectedItem.name} />
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="formBasicType">
+                <Form.Label>Type</Form.Label>
+                <Form.Select aria-label="type">
+                  <option>Select food type</option>
+                  <option value="1">Meat</option>
+                  <option value="2">Fish</option>
+                  <option value="3">Vegetable</option>
+                </Form.Select>
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="formBasic">
+                <Form.Label>Price</Form.Label>
+                <Form.Control type="text" placeholder={selectedItem.price} />
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="formBasic">
+                <Form.Label>Original price</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder={selectedItem.original_price}
+                />
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="formBasic">
+                <Form.Label>Expiration date</Form.Label>
+                <Form.Control type="date" />
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="formBasic">
+                <Form.Label>Note</Form.Label>
+                <Form.Control type="text" placeholder={selectedItem.note} />
+              </Form.Group>
+              <Form.Group controlId="formFile" className="mb-3">
+                <Form.Label>Photo</Form.Label>
+                <Form.Control type="file" />
+              </Form.Group>
+            </Form>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="outline-danger" onClick={handleClose}>
+              Cancel
+            </Button>
+            <Button variant="outline-success">Submit</Button>
+          </Modal.Footer>
+        </Modal>
+      </>
     </>
   );
 }
