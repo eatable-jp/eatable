@@ -19,7 +19,7 @@ export default function BuyerProfile() {
           <Card.Body>
             <dl>
               <dt>Address</dt>
-              <dd>{buyerInfo.email}</dd>
+              <dd>{buyerInfo.address}</dd>
             </dl>
             <dl>
               <dt>Email</dt>
