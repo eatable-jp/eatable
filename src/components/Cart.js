@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 // redux
 import { useSelector, useDispatch } from "react-redux";
 import { removeFromCart } from "../slice/cartSlice";
@@ -26,6 +26,11 @@ function Cart() {
     total += cartItem.price;
     return total;
   }, 0);
+
+  // modal function
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   return cart.length === 0 ? (
     <Container className="text-center">
@@ -84,12 +89,31 @@ function Cart() {
                     <dd>{totalAmount} yen</dd>
                   </dl>
                 </Card.Text>
-                <Button variant="primary">Purchase and takeaway</Button>
+                <Button
+                  variant="primary"
+                  onClick={() => {
+                    handleShow();
+                  }}
+                >
+                  Purchase and takeaway
+                </Button>
               </Card.Body>
             </Card>
           </Col>
         </Row>
       </Container>
+      {/* modal for full item info */}
+      <Modal
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header closeButton></Modal.Header>
+        <Modal.Body>
+          <p className="text-center">Thank you for the purchase!</p>
+        </Modal.Body>
+      </Modal>
     </>
   );
 }
