@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 // redux
 import { useSelector, useDispatch } from "react-redux";
-import { removeFromCart } from "../slice/cartSlice";
+import { removeFromCart, clearCart } from "../slice/cartSlice";
+import { updatePurchase } from "../slice/purchasesSlice";
 // bootstrap
 import {
   Row,
@@ -13,7 +14,6 @@ import {
   Container,
   ListGroup,
 } from "react-bootstrap";
-import CardHeader from "react-bootstrap/esm/CardHeader";
 
 function Cart() {
   // setup redux
@@ -27,7 +27,7 @@ function Cart() {
     return total;
   }, 0);
 
-  // modal function
+  // function to display add new item modal
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -93,6 +93,10 @@ function Cart() {
                   variant="primary"
                   onClick={() => {
                     handleShow();
+                    dispatch(updatePurchase(cart));
+                    setTimeout(() => {
+                      dispatch(clearCart());
+                    }, 2000);
                   }}
                 >
                   Purchase and takeaway
