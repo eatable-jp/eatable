@@ -4,35 +4,37 @@ import { useSelector } from "react-redux";
 // react router
 import { LinkContainer } from "react-router-bootstrap";
 // bootstrap
-import { Button } from "react-bootstrap";
+import { Card, Button, Container } from "react-bootstrap";
 
 export default function BuyerProfile() {
   // setup redux
   const buyerInfo = useSelector((state) => state.buyerInfo);
   return (
     <>
-      <div className="buyer-profile">
-        <h2 className="buyer-profile-name">{buyerInfo.display_name}</h2>
-        <table className="buyer-profile-table">
-          <tbody>
-            <tr>
-              <th>Address</th>
-              <td>{buyerInfo.address}</td>
-            </tr>
-            <tr>
-              <th>Email</th>
-              <td>{buyerInfo.email}</td>
-            </tr>
-            <tr>
-              <th>Phone number</th>
-              <td>{buyerInfo.phone_number}</td>
-            </tr>
-          </tbody>
-        </table>
-        <LinkContainer to="/buyer-form">
-          <Button>Edit profile</Button>
-        </LinkContainer>
-      </div>
+      <Container className="w-50 text-center">
+        <Card>
+          <Card.Header>
+            <strong>{buyerInfo.display_name}</strong>
+          </Card.Header>
+          <Card.Body>
+            <dl>
+              <dt>Address</dt>
+              <dd>{buyerInfo.email}</dd>
+            </dl>
+            <dl>
+              <dt>Email</dt>
+              <dd>{buyerInfo.email}</dd>
+            </dl>
+            <dl>
+              <dt>Phone number</dt>
+              <dd>{buyerInfo.phone_number}</dd>
+            </dl>
+            <LinkContainer to="/buyer-form">
+              <Button variant="outline-success">Edit profile</Button>
+            </LinkContainer>
+          </Card.Body>
+        </Card>
+      </Container>
     </>
   );
 }
