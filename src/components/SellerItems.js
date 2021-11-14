@@ -54,6 +54,13 @@ export default function ListedItems() {
   // filtering items that matches logged in seller
   const itemList = items.filter((item) => item.seller_id === sellerInfo.id);
   // generating item card
+
+  const editItemHandler = (data) => {
+    console.log(data)
+    //use the endpoint to post this to the DB
+    handleClose()
+
+  };
   return (
     <>
       <Row xs={1} md={2} className="g-4">
@@ -97,14 +104,14 @@ export default function ListedItems() {
             <Modal.Title>Edit item</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <Form>
+            <Form onSubmit={handleSubmit(editItemHandler)}>
               <Form.Group className="mb-3" controlId="formBasicName">
                 <Form.Label>Name</Form.Label>
-                <Form.Control type="text" placeholder={selectedItem.name} />
+                <Form.Control type="text" placeholder={selectedItem.name} {...register("name")}/>
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicType">
                 <Form.Label>Type</Form.Label>
-                <Form.Select aria-label="type">
+                <Form.Select aria-label="type" {...register("type")}>
                   <option>Select food type</option>
                   <option value="1">Meat</option>
                   <option value="2">Fish</option>
@@ -113,35 +120,31 @@ export default function ListedItems() {
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasic">
                 <Form.Label>Price</Form.Label>
-                <Form.Control type="text" placeholder={selectedItem.price} />
+                <Form.Control type="text" placeholder={selectedItem.price} {...register("price")} />
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasic">
                 <Form.Label>Original price</Form.Label>
                 <Form.Control
                   type="text"
                   placeholder={selectedItem.original_price}
+                  {...register("original_price")}
                 />
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasic">
                 <Form.Label>Expiration date</Form.Label>
-                <Form.Control type="date" />
+                <Form.Control type="date" {...register("date")}/>
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasic">
                 <Form.Label>Note</Form.Label>
-                <Form.Control type="text" placeholder={selectedItem.note} />
+                <Form.Control type="text" placeholder={selectedItem.note} {...register("note")}/>
               </Form.Group>
               <Form.Group controlId="formFile" className="mb-3">
                 <Form.Label>Photo</Form.Label>
-                <Form.Control type="file" />
+                <Form.Control type="file" {...register("photo")}/>
               </Form.Group>
+              <Button type="submit" variant="outline-success">Submit</Button>
             </Form>
           </Modal.Body>
-          <Modal.Footer>
-            <Button variant="outline-danger" onClick={handleClose}>
-              Cancel
-            </Button>
-            <Button variant="outline-success">Submit</Button>
-          </Modal.Footer>
         </Modal>
       </>
     </>
