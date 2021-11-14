@@ -39,7 +39,7 @@ export default function BuyerItems() {
           "shop_name"
         ];
 
-  // function to display add new item modal
+  // modal function
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -133,14 +133,20 @@ export default function BuyerItems() {
             {cart.some((cartItem) => cartItem.id === selectedItem.id) ? (
               <Button
                 variant="outline-danger"
-                onClick={() => dispatch(removeFromCart(selectedItem.id))}
+                onClick={() => {
+                  dispatch(removeFromCart(selectedItem.id));
+                  handleClose();
+                }}
               >
                 Remove from cart
               </Button>
             ) : (
               <Button
                 variant="outline-success"
-                onClick={() => dispatch(addToCart(selectedItem))}
+                onClick={() => {
+                  dispatch(addToCart(selectedItem));
+                  handleClose();
+                }}
               >
                 Add to cart
               </Button>
