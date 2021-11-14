@@ -10,7 +10,7 @@ export default function ListedItems() {
   // setup redux
   const dispatch = useDispatch();
   const sellerInfo = useSelector((state) => state.sellerInfo);
-  const items = useSelector((state) => state.items);
+  const { items } = useSelector((state) => state.items);
 
   // setup react form
   const { register, handleSubmit, reset } = useForm();

@@ -11,7 +11,7 @@ import { sellers } from "../data/sellers";
 export default function BuyerItems() {
   // setup redux
   const dispatch = useDispatch();
-  const items = useSelector((state) => state.items);
+  const { filteredItems } = useSelector((state) => state.items);
   const cart = useSelector((state) => state.cart);
 
   // selectedItem state
@@ -47,9 +47,9 @@ export default function BuyerItems() {
   return (
     <>
       <Row xs={1} md={3} className="g-4">
-        {items.map((item, index) => {
+        {filteredItems.map((item, index) => {
           return (
-            <Col>
+            <Col key={index}>
               <Card className="h-100" key={index}>
                 <Card.Header className="d-flex justify-content-between">
                   <p className="mb-0">{item.name}</p>
