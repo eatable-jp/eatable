@@ -4,7 +4,7 @@ import { LinkContainer } from "react-router-bootstrap";
 import { Nav, Navbar, Container } from "react-bootstrap";
 export default function Header({ userStatus }) {
   return (
-    <Navbar className="navbar-custom" expand="lg">
+    <Navbar className="navbar-custom mb-5" expand="lg">
       {/* displaying different header based on customer type */}
       {userStatus === "seller" ? (
         <Container>
