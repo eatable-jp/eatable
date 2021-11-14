@@ -12,6 +12,9 @@ body {
 .navbar-custom {
   background-color: #89da98;
 }
+.text-left {
+  text-align: left;
+}
 /* bootstrap - end */
 header {
   margin: 0 0 10px;
@@ -138,4 +141,3 @@ h1 {
 .cart {
   display: flex;
 }
-
