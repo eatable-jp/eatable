@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 // redux
 import { useSelector, useDispatch } from "react-redux";
 import { addToCart } from "../slice/cartSlice";
@@ -8,7 +8,10 @@ import { Row, Col, Card, Image, Button, Modal } from "react-bootstrap";
 // dummy data
 import { sellers } from "../data/sellers";
 
+import { fetchItems } from "../slice/itemsSlice";
+
 export default function BuyerItems() {
+  useEffect(()=>{dispatch(fetchItems())},[])
   // setup redux
   const dispatch = useDispatch();
   const { filteredItems } = useSelector((state) => state.items);

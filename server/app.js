@@ -97,6 +97,7 @@ const createPool = async () => {
     }
 };
 
+
 const createPoolAndEnsureSchema = async () =>
   await createPool()
     .then(async pool => {

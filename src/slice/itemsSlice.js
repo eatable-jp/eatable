@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
 
 const initialState = {
   // original list of items
@@ -176,6 +177,18 @@ const initialState = {
     },
   ],
 };
+
+export const fetchItems = createAsyncThunk(
+  'items/fetchAllItems', async() => {
+    try{
+      const data = await axios.get('/items')
+      console.log("working/test3 Mega changes golden")
+      console.log(data)
+    }catch(error){
+      console.log(error);
+    }
+  }
+)
 
 const itemsSlice = createSlice({
   name: "items",
