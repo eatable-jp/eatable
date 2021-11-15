@@ -5,6 +5,7 @@ import buyerInfoReduce from "./slice/buyerInfoSlice";
 import cartReducer from "./slice/cartSlice";
 import itemsReducer from "./slice/itemsSlice";
 import purchasesReducer from "./slice/purchasesSlice";
+import locationReducer from "./slice/locationSlice";
 
 export default configureStore({
   reducer: {
@@ -13,5 +14,6 @@ export default configureStore({
     cart: cartReducer,
     items: itemsReducer,
     purchases: purchasesReducer,
+    location: locationReducer,
   },
 });

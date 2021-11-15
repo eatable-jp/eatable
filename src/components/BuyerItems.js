@@ -8,10 +8,11 @@ import { Row, Col, Card, Image, Button, Modal } from "react-bootstrap";
 // dummy data
 import { sellers } from "../data/sellers";
 
-export default function BuyerItems() {
+export default function BuyerItems({ distance }) {
   // setup redux
   const dispatch = useDispatch();
   const { filteredItems } = useSelector((state) => state.items);
+  const location = useSelector((state) => state.location);
   const cart = useSelector((state) => state.cart);
 
   // selectedItem state
@@ -39,6 +40,26 @@ export default function BuyerItems() {
           "shop_name"
         ];
 
+  // function for calculating distance
+  function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
+    var R = 6371; // Radius of the earth in km
+    var dLat = deg2rad(lat2 - lat1); // deg2rad below
+    var dLon = deg2rad(lon2 - lon1);
+    var a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(deg2rad(lat1)) *
+        Math.cos(deg2rad(lat2)) *
+        Math.sin(dLon / 2) *
+        Math.sin(dLon / 2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    var d = R * c; // Distance in km
+    return d;
+  }
+
+  function deg2rad(deg) {
+    return deg * (Math.PI / 180);
+  }
+
   // modal function
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -46,53 +67,232 @@ export default function BuyerItems() {
 
   return (
     <>
-      <Row xs={1} md={3} className="g-4">
-        {filteredItems.map((item, index) => {
-          return (
-            <Col key={index}>
-              <Card className="h-100" key={index}>
-                <Card.Header className="d-flex justify-content-between">
-                  <p className="mb-0">{item.name}</p>
-                  <p className="mb-0">Price: {item.price}</p>
-                </Card.Header>
-                <Card.Img variant="top" src={item.image} />
-                <Card.Body>
-                  <Card.Text className="mb-1">
-                    Best before {item.expiration_date}
-                  </Card.Text>
+      {distance === "" ? (
+        // within 2km
+        <Row xs={1} md={3} className="g-4">
+          {filteredItems.map((item, index) => {
+            return (
+              <Col key={index}>
+                <Card className="h-100" key={index}>
+                  <Card.Header className="d-flex justify-content-between">
+                    <p className="mb-0">{item.name}</p>
+                    <p className="mb-0">Price: {item.price}</p>
+                  </Card.Header>
+                  <Card.Img variant="top" src={item.image} />
+                  <Card.Body>
+                    <Card.Text className="mb-1">
+                      Best before {item.expiration_date}
+                    </Card.Text>
 
-                  <div className="d-flex justify-content-between">
-                    {cart.some((cartItem) => cartItem.id === item.id) ? (
+                    <div className="d-flex justify-content-between">
+                      {cart.some((cartItem) => cartItem.id === item.id) ? (
+                        <Button
+                          variant="outline-danger"
+                          onClick={() => dispatch(removeFromCart(item.id))}
+                        >
+                          Remove from cart
+                        </Button>
+                      ) : (
+                        <Button
+                          variant="outline-success"
+                          onClick={() => dispatch(addToCart(item))}
+                        >
+                          Add to cart
+                        </Button>
+                      )}
                       <Button
-                        variant="outline-danger"
-                        onClick={() => dispatch(removeFromCart(item.id))}
+                        variant="outline-info"
+                        onClick={() => {
+                          handleShow();
+                          passSelectedItem(item);
+                        }}
                       >
-                        Remove from cart
+                        More info
                       </Button>
-                    ) : (
-                      <Button
-                        variant="outline-success"
-                        onClick={() => dispatch(addToCart(item))}
-                      >
-                        Add to cart
-                      </Button>
-                    )}
-                    <Button
-                      variant="outline-info"
-                      onClick={() => {
-                        handleShow();
-                        passSelectedItem(item);
-                      }}
-                    >
-                      More info
-                    </Button>
-                  </div>
-                </Card.Body>
-              </Card>
-            </Col>
-          );
-        })}
-      </Row>
+                    </div>
+                  </Card.Body>
+                </Card>
+              </Col>
+            );
+          })}
+        </Row>
+      ) : distance === "2" ? (
+        // within 4km
+        <Row xs={1} md={3} className="g-4">
+          {filteredItems
+            .filter(
+              (item) =>
+                getDistanceFromLatLonInKm(
+                  item.shop_lat,
+                  item.shop_long,
+                  location.latitude,
+                  location.longitude
+                ) <= 4
+            )
+            .map((item, index) => {
+              return (
+                <Col key={index}>
+                  <Card className="h-100" key={index}>
+                    <Card.Header className="d-flex justify-content-between">
+                      <p className="mb-0">{item.name}</p>
+                      <p className="mb-0">Price: {item.price}</p>
+                    </Card.Header>
+                    <Card.Img variant="top" src={item.image} />
+                    <Card.Body>
+                      <Card.Text className="mb-1">
+                        Best before {item.expiration_date}
+                      </Card.Text>
+
+                      <div className="d-flex justify-content-between">
+                        {cart.some((cartItem) => cartItem.id === item.id) ? (
+                          <Button
+                            variant="outline-danger"
+                            onClick={() => dispatch(removeFromCart(item.id))}
+                          >
+                            Remove from cart
+                          </Button>
+                        ) : (
+                          <Button
+                            variant="outline-success"
+                            onClick={() => dispatch(addToCart(item))}
+                          >
+                            Add to cart
+                          </Button>
+                        )}
+                        <Button
+                          variant="outline-info"
+                          onClick={() => {
+                            handleShow();
+                            passSelectedItem(item);
+                          }}
+                        >
+                          More info
+                        </Button>
+                      </div>
+                    </Card.Body>
+                  </Card>
+                </Col>
+              );
+            })}
+        </Row>
+      ) : distance === "4" ? (
+        // within 6km
+        <Row xs={1} md={3} className="g-4">
+          {filteredItems
+            .filter(
+              (item) =>
+                getDistanceFromLatLonInKm(
+                  item.shop_lat,
+                  item.shop_long,
+                  location.latitude,
+                  location.longitude
+                ) <= 4
+            )
+            .map((item, index) => {
+              return (
+                <Col key={index}>
+                  <Card className="h-100" key={index}>
+                    <Card.Header className="d-flex justify-content-between">
+                      <p className="mb-0">{item.name}</p>
+                      <p className="mb-0">Price: {item.price}</p>
+                    </Card.Header>
+                    <Card.Img variant="top" src={item.image} />
+                    <Card.Body>
+                      <Card.Text className="mb-1">
+                        Best before {item.expiration_date}
+                      </Card.Text>
+
+                      <div className="d-flex justify-content-between">
+                        {cart.some((cartItem) => cartItem.id === item.id) ? (
+                          <Button
+                            variant="outline-danger"
+                            onClick={() => dispatch(removeFromCart(item.id))}
+                          >
+                            Remove from cart
+                          </Button>
+                        ) : (
+                          <Button
+                            variant="outline-success"
+                            onClick={() => dispatch(addToCart(item))}
+                          >
+                            Add to cart
+                          </Button>
+                        )}
+                        <Button
+                          variant="outline-info"
+                          onClick={() => {
+                            handleShow();
+                            passSelectedItem(item);
+                          }}
+                        >
+                          More info
+                        </Button>
+                      </div>
+                    </Card.Body>
+                  </Card>
+                </Col>
+              );
+            })}
+        </Row>
+      ) : (
+        <Row xs={1} md={3} className="g-4">
+          {filteredItems
+            .filter(
+              (item) =>
+                getDistanceFromLatLonInKm(
+                  item.shop_lat,
+                  item.shop_long,
+                  location.latitude,
+                  location.longitude
+                ) <= 7
+            )
+            .map((item, index) => {
+              return (
+                <Col key={index}>
+                  <Card className="h-100" key={index}>
+                    <Card.Header className="d-flex justify-content-between">
+                      <p className="mb-0">{item.name}</p>
+                      <p className="mb-0">Price: {item.price}</p>
+                    </Card.Header>
+                    <Card.Img variant="top" src={item.image} />
+                    <Card.Body>
+                      <Card.Text className="mb-1">
+                        Best before {item.expiration_date}
+                      </Card.Text>
+
+                      <div className="d-flex justify-content-between">
+                        {cart.some((cartItem) => cartItem.id === item.id) ? (
+                          <Button
+                            variant="outline-danger"
+                            onClick={() => dispatch(removeFromCart(item.id))}
+                          >
+                            Remove from cart
+                          </Button>
+                        ) : (
+                          <Button
+                            variant="outline-success"
+                            onClick={() => dispatch(addToCart(item))}
+                          >
+                            Add to cart
+                          </Button>
+                        )}
+                        <Button
+                          variant="outline-info"
+                          onClick={() => {
+                            handleShow();
+                            passSelectedItem(item);
+                          }}
+                        >
+                          More info
+                        </Button>
+                      </div>
+                    </Card.Body>
+                  </Card>
+                </Col>
+              );
+            })}
+        </Row>
+      )}
       {/* modal for full item info */}
       <>
         <Modal
@@ -119,6 +319,18 @@ export default function BuyerItems() {
             <dl>
               <dt>Shop</dt>
               <dd>{shop}</dd>
+            </dl>
+            <dl>
+              <dt>Distance from you</dt>
+              <dd>
+                {getDistanceFromLatLonInKm(
+                  selectedItem.shop_lat,
+                  selectedItem.shop_long,
+                  location.latitude,
+                  location.longitude
+                ).toFixed(1)}
+                km
+              </dd>
             </dl>
             <dl>
               <dt>Best before</dt>
