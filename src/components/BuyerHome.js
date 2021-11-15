@@ -6,6 +6,7 @@ import { filterByFoodType } from "../slice/itemsSlice";
 import { Container, Form } from "react-bootstrap";
 // components
 import BuyerItems from "./BuyerItems";
+import BuyerPurchases from "../components/BuyerPurchases";
 
 function BuyerHome() {
   // redux
