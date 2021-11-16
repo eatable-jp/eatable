@@ -23,6 +23,7 @@ function SellerHome() {
   const { register, handleSubmit, reset } = useForm();
 
   const newItemHandler = async({name, image, type, price, original_price, expiration_date, note}) => {
+    handleClose();
     const data = {
       name,
       image: image[0].name,
@@ -38,8 +39,7 @@ function SellerHome() {
     const url = process.env.ITEM_ROUTE || 'http://localhost:8080/item'
     await axios.post(url, data)
     //use the endpoint to post this to the DB
-    reset()
-    handleClose()
+    reset();
   };
 
   return (

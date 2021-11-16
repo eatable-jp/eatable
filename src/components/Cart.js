@@ -16,6 +16,8 @@ import {
   ListGroup,
 } from "react-bootstrap";
 
+import Header from "./Header.js";
+
 function Cart() {
   // setup redux
   const dispatch = useDispatch();
@@ -48,11 +50,15 @@ function Cart() {
   const handleShow = () => setShow(true);
 
   return cart.length === 0 ? (
-    <Container className="text-center">
-      <h2>Cart is empty</h2>
-    </Container>
+    <>
+      <Header userStatus="buyer" />
+      <Container className="text-center">
+        <h2>Cart is empty</h2>
+      </Container>
+    </>
   ) : (
     <>
+      <Header userStatus="buyer" />
       <Container className="text-center">
         <h2 className="mb-5">Hello {buyerInfo.display_name}!</h2>
         <Row>
