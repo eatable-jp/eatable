@@ -30,6 +30,14 @@ function App() {
             <Route exact path="/">
               <Home userStatus={userStatus} />
             </Route>
+            {/* seller page component */}
+            <Route exact path="/seller">
+              <Home userStatus="seller" />
+            </Route>
+            {/* buyer page component */}
+            <Route exact path="/buyer">
+              <Home userStatus="buyer" />
+            </Route>
             {/* Cart component */}
             <Route path="/cart">
               <Cart />
