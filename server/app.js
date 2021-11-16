@@ -131,6 +131,7 @@ app.post('/register', async (req, res) => {
         "user_name": username,
         "password": hashed_pass
       } 
+      console.log(user)
       await insertUser(pool, user)
       res.json("Successfully Registered!")
   } catch (err) {

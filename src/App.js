@@ -20,19 +20,26 @@ import LandingPage from "./components/LandingPage";
 
 function App() {
   const userStatus = "seller";
+  const registred = false;
 
   return (
     <Provider store={store}>
       <Router>
-        <div className="App">
-          {/* Landing Page component */}
-          <LandingPage />
+        <div className="App">     
           {/* Header component */}
           <Header userStatus={userStatus} />
           <Switch>
             {/* Home component */}
-            <Route exact path="/">
-              <Home userStatus={userStatus} />
+            <Route exact path="/signup">
+              <LandingPage registred={registred}/>
+            </Route>
+            {/* Home component */}
+            <Route exact path="/seller">
+              <Home userStatus="seller" />
+            </Route>
+            {/* Home component */}
+            <Route exact path="/buyer">
+              <Home userStatus="buyer" />
             </Route>
             {/* Cart component */}
             <Route path="/cart">

@@ -1,23 +1,14 @@
-import React, { useRef } from "react";
+import React from "react";
 import { Form, Button, Card } from "react-bootstrap"
 
 
-
-function Signup() {
-  
-  //const usernameRef = useRef()
-  //const passwordRef = useRef()
-
-  //async function handleSubmit(e) {
-  //  e.preventDefault()
-  
-  //}
-
+function LogIn() {
+  // displaying different component based on user type
   return (
     <>
     <Card >
         <Card.Body>
-          <h2 className="text-center mb-4">Sign Up</h2>
+          <h2 className="text-center mb-4">Log In</h2>
           <Form>
             <Form.Group id="username">
               <Form.Label>Username</Form.Label>
@@ -25,20 +16,20 @@ function Signup() {
             </Form.Group>
             <Form.Group id="password" className="mt-4">
               <Form.Label>Password</Form.Label>
-              <Form.Control type="password"  required />
+              <Form.Control type="password" required />
             </Form.Group>
             <Button className="w-100 mt-4" type="submit">
-              Sign Up
+              Log In
             </Button>
           </Form>
           
         </Card.Body>
       </Card>
       <div className="w-100 text-center mt-2">
-        Already have an account? Log In
+        Don't have an account? Sign Up
       </div>
     </>
   )
 }
 
-export default Signup;
+export default LogIn;
