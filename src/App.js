@@ -16,6 +16,7 @@ import BuyerProfile from "./components/BuyerProfile";
 import BuyerForm from "./components/BuyerForm";
 import SellerForm from "./components/SellerForm";
 import Signup from "./components/Signup";
+import LandingPage from "./components/LandingPage";
 
 function App() {
   const userStatus = "seller";
@@ -24,6 +25,8 @@ function App() {
     <Provider store={store}>
       <Router>
         <div className="App">
+          {/* Landing Page component */}
+          <LandingPage />
           {/* Header component */}
           <Header userStatus={userStatus} />
           <Switch>

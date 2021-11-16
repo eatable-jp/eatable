@@ -3,6 +3,7 @@ const express = require("express");
 const path = require("path");
 const cors = require("cors")
 const knex = require('knex')
+const bcrypt = require('bcrypt')
 
 
 const app = express()
@@ -105,6 +106,53 @@ const createPoolAndEnsureSchema = async () =>
     .catch(err => {
       throw err;
     });
+
+
+// Auth 
+
+// register user
+const insertUser = async (pool, user) => {
+  try {
+    return await pool('users').insert(user);
+  }
+  catch (err) {
+    throw Error(err);
+  }
+}
+
+app.post('/register', async (req, res) => {
+
+  pool = pool || (await createPoolAndEnsureSchema());
+  try {
+      const { username, password } = req.body;
+      const hashed_pass = await bcrypt.hash(password, 10);
+      const user = {
+        "user_name": username,
+        "password": hashed_pass
+      } 
+      await insertUser(pool, user)
+      res.json("Successfully Registered!")
+  } catch (err) {
+      console.error(err);
+  res
+    .status(500)
+    .send('Unable to register; see logs for more details.')
+    .end();
+  }
+});
+  
+
+
+app.post('/login',  (req, res) => {
+  res.json("login")
+})
+
+app.post('/profile',  (req, res) => {
+  res.json("profile")
+})
+
+
+/////////////////////////
 
 
 // Get all items
@@ -364,6 +412,9 @@ const insertBuyer = async (pool, buyer) => {
     .end();
   }
   });
+
+
+  
 
 
 //test endpoint

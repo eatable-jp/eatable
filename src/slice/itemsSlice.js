@@ -3,10 +3,8 @@ import axios from "axios";
 
 const initialState = {
   // original list of items
-  items: [],
-  filteredItems: []
-
-  /*
+  ///items: [],
+  //filteredItems: []
   items: [
     {
       id: 1,
@@ -208,8 +206,6 @@ const initialState = {
       note: "Mackerel this season is great, good buy",
     },
   ],
-  */
-  
 };
 
 
@@ -250,14 +246,7 @@ const itemsSlice = createSlice({
       return state;
     },
   },
-  extraReducers: {
-    [fetchItems.fulfilled]: (state, action) => {
-      console.log(action.payload);
-      console.log("working")
-      state.items = action.payload;
-      state.filteredItems = action.payload;
-    }
-  },
+  extraReducers: {},
 });
 
 export const { updateItems, filterByFoodType } = itemsSlice.actions;
