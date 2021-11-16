@@ -209,12 +209,10 @@ const initialState = {
 export const fetchItems = createAsyncThunk(
   'items/fetchAllItems', async() => {
     try{
-      console.log("trying")
-      const response = await axios.get('/items');
+      const response = await axios.get('http://localhost:8080/items');
       console.log(response.data)
       return response.data;
     }catch(error){
-      console.log("didn't try")
       console.log(error);
     }
   }
@@ -243,8 +241,6 @@ const itemsSlice = createSlice({
   },
   extraReducers: {
     [fetchItems.fulfilled]: (state, action) => {
-      console.log(action.payload);
-      console.log("working")
       state.items = action.payload;
       state.filteredItems = action.payload;
     }

@@ -3,10 +3,10 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { addToCart } from "../slice/cartSlice";
 import { removeFromCart } from "../slice/cartSlice";
+import { fetchItems } from "../slice/itemsSlice";
+import { fetchSellers } from "../slice/sellersSlice";
 // bootstrap
 import { Row, Col, Card, Image, Button, Modal } from "react-bootstrap";
-// dummy data
-import { sellers } from "../data/sellers";
 
 export default function BuyerItems({ distance }) {
   // setup redux
@@ -14,6 +14,12 @@ export default function BuyerItems({ distance }) {
   const { filteredItems } = useSelector((state) => state.items);
   const location = useSelector((state) => state.location);
   const cart = useSelector((state) => state.cart);
+  const sellers = useSelector((state) => state.sellers);
+
+  useEffect(() => {
+    dispatch(fetchItems());
+    dispatch(fetchSellers());
+  }, [])
 
   // selectedItem state
   const [selectedItem, setSelectedItem] = useState({
