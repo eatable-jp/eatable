@@ -15,6 +15,7 @@ import SellerProfile from "./components/SellerProfile";
 import BuyerProfile from "./components/BuyerProfile";
 import BuyerForm from "./components/BuyerForm";
 import SellerForm from "./components/SellerForm";
+import LandingPage from "./components/LandingPage";
 
 function App() {
   const userStatus = "seller";
@@ -23,12 +24,10 @@ function App() {
     <Provider store={store}>
       <Router>
         <div className="App">
-          {/* Header component */}
-          <Header userStatus={userStatus} />
           <Switch>
             {/* Home component */}
             <Route exact path="/">
-              <Home userStatus={userStatus} />
+              <LandingPage />
             </Route>
             {/* seller page component */}
             <Route exact path="/seller">

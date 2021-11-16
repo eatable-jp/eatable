@@ -23,7 +23,7 @@ export default function Header({ userStatus }) {
             </Nav>
           </Navbar.Collapse>
         </Container>
-      ) : (
+      ) : userStatus === "buyer" ? (
         <Container>
           <LinkContainer to="/">
             <Navbar.Brand>Eatable</Navbar.Brand>
@@ -43,7 +43,14 @@ export default function Header({ userStatus }) {
             </Nav>
           </Navbar.Collapse>
         </Container>
-      )}
+      ) : (
+        <Container>
+          <LinkContainer to="/">
+            <Navbar.Brand>Eatable</Navbar.Brand>
+          </LinkContainer>    
+        </Container>
+      )
+    }
     </Navbar>
   );
 }
