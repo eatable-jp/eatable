@@ -44,8 +44,9 @@ const itemsSlice = createSlice({
   },
   extraReducers: {
     [fetchItems.fulfilled]: (state, action) => {
-      state.items = action.payload;
-      state.filteredItems = action.payload;
+      const itemsForSale = action.payload.filter((item) => item.buyer_id === 0 || item.buyer_id === null);
+      state.items = itemsForSale;
+      state.filteredItems = itemsForSale;
     }
   },
 });

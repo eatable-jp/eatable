@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 // redux
 import { useSelector, useDispatch } from "react-redux";
 import { removeFromCart, clearCart } from "../slice/cartSlice";
@@ -26,6 +27,20 @@ function Cart() {
     total += cartItem.price;
     return total;
   }, 0);
+
+  //handle the DB call
+  const handlePurchase = async () => {
+    const cartId = cart.map((item)=>item.id)
+    for(let i = 0; i < cartId.length; i++){
+      const data = {
+        id:cartId[i],
+        buyer_id: buyerInfo.id,
+      };
+      const url = process.env.ITEM_ROUTE || 'http://localhost:8080/item'
+      await axios.patch(url,data)
+    }
+    
+  }
 
   // function to display add new item modal
   const [show, setShow] = useState(false);
@@ -92,6 +107,7 @@ function Cart() {
                 <Button
                   variant="primary"
                   onClick={() => {
+                    handlePurchase();
                     handleShow();
                     dispatch(updatePurchase(cart));
                     setTimeout(() => {
