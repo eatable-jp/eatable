@@ -1,12 +1,19 @@
 import { useForm } from "react-hook-form";
 import React, { useState } from "react";
+// redux
+import { useSelector } from "react-redux";
 // bootstrap
 import { Container, Button, Modal, Form } from "react-bootstrap";
 // components
 import SellerItems from "./SellerItems";
 import SellerInfo from "./SellerInfo";
+// axios
+import axios from "axios";
 
 function SellerHome() {
+  // setup redux
+  const seller = useSelector((state) => state.sellerInfo);
+
   // function to display add new item modal
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -15,11 +22,24 @@ function SellerHome() {
   // setup react form
   const { register, handleSubmit, reset } = useForm();
 
-  const newItemHandler = (data) => {
-    console.log(data)
+  const newItemHandler = async({name, image, type, price, original_price, expiration_date, note}) => {
+    const data = {
+      name,
+      image: image[0].name,
+      type,
+      price:parseInt(price),
+      original_price: parseInt(original_price),
+      expiration_date,
+      seller_id: seller.id,
+      note,
+      shop_lat: seller.shop_lat,
+      shop_long: seller.shop_long
+    }
+    const url = process.env.ITEM_ROUTE || 'http://localhost:8080/item'
+    await axios.post(url, data)
     //use the endpoint to post this to the DB
+    reset()
     handleClose()
-
   };
 
   return (
@@ -69,7 +89,7 @@ function SellerHome() {
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasic">
                 <Form.Label>Expiration date</Form.Label>
-                <Form.Control type="date" {...register("date")}/>
+                <Form.Control type="date" {...register("expiration_date")}/>
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasic">
                 <Form.Label>Note</Form.Label>
@@ -77,7 +97,7 @@ function SellerHome() {
               </Form.Group>
               <Form.Group controlId="formFile" className="mb-3">
                 <Form.Label>Photo</Form.Label>
-                <Form.Control type="file" {...register("photo")}/>
+                <Form.Control type="file" {...register("image")}/>
               </Form.Group>
               <Button type="submit" variant="outline-success">Submit</Button>
             </Form>

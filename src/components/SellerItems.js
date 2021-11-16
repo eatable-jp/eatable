@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 // redux
 import { useSelector, useDispatch } from "react-redux";
-import { updateItems, fetchItems } from "../slice/itemsSlice";
+import { updateItems } from "../slice/itemsSlice";
+import { fetchItems } from "../slice/itemsSlice";
 // bootstrap
 import { Row, Col, Card, Button, Form, Modal } from "react-bootstrap";
 
@@ -14,6 +15,10 @@ export default function ListedItems() {
 
   // setup react form
   const { register, handleSubmit, reset } = useForm();
+
+  useEffect(() => {
+    dispatch(fetchItems());
+  }, []);
 
   // function for updating item info
   function sendUpdatedItem(updatedInfo) {
