@@ -5,7 +5,8 @@ const initialState = []
 
 export const fetchSellers = createAsyncThunk("sellers/fetchSellers",async()=>{
     try{
-        const response = await axios.get('http://localhost:8080/sellers');
+        const url = process.env.SELLERS_ROUTE || 'http://localhost:8080/sellers'
+        const response = await axios.get(url);
         return response.data;
       }catch(error){
         console.log(error);
@@ -20,6 +21,7 @@ const sellersSlice = createSlice({
     }, 
     extraReducers: {
         [fetchSellers.fulfilled]:(state,action)=> {
+        
             return action.payload;
         }
     }

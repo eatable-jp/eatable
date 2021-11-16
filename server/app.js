@@ -147,6 +147,7 @@ app.post('/item', async (req, res) => {
   try {
       const newItem = req.body;
       await insertItem(pool, newItem)
+      console.log("item added")
   } catch (err) {
       console.error(err);
   res
