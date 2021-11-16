@@ -7,6 +7,6 @@ CREATE TABLE sellers (
     shop_lat TEXT NOT NULL,
     opening_time TEXT NOT NULL,
     closing_time TEXT NOT NULL,
-    phone_number INTEGER NOT NULL,
+    phone_number TEXT NOT NULL,
     email_address TEXT NOT NULL
  );

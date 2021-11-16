@@ -5,8 +5,10 @@ CREATE TABLE items (
     type TEXT NOT NULL,
     price INTEGER NOT NULL,
     original_price INTEGER NOT NULL,
-    expiration_date Date NOT NULL,
+    expiration_date TEXT NOT NULL,
     note TEXT,
     seller_id INTEGER REFERENCES sellers(id),
-    buyer_id INTEGER DEFAULT NULL
+    buyer_id INTEGER DEFAULT NULL,
+    shop_lat TEXT NOT NULL,
+    shop_long TEXT NOT NULL
 );
