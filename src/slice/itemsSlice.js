@@ -1,7 +1,12 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
 
 const initialState = {
   // original list of items
+  items: [],
+  filteredItems: []
+
+  /*
   items: [
     {
       id: 1,
@@ -203,7 +208,26 @@ const initialState = {
       note: "Mackerel this season is great, good buy",
     },
   ],
+  */
+  
 };
+
+
+export const fetchItems = createAsyncThunk(
+  'items/fetchAllItems', async() => {
+    try{
+      console.log("trying")
+      const response = await axios.get('http://localhost:8080/items');
+      console.log(response.data)
+      return response.data;
+    }catch(error){
+      console.log("didn't try")
+      console.log(error);
+    }
+  }
+)
+
+
 
 const itemsSlice = createSlice({
   name: "items",
@@ -226,7 +250,14 @@ const itemsSlice = createSlice({
       return state;
     },
   },
-  extraReducers: {},
+  extraReducers: {
+    [fetchItems.fulfilled]: (state, action) => {
+      console.log(action.payload);
+      console.log("working")
+      state.items = action.payload;
+      state.filteredItems = action.payload;
+    }
+  },
 });
 
 export const { updateItems, filterByFoodType } = itemsSlice.actions;

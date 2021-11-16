@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 // redux
 import { useSelector, useDispatch } from "react-redux";
-import { updateItems } from "../slice/itemsSlice";
+import { updateItems, fetchItems } from "../slice/itemsSlice";
 // bootstrap
 import { Row, Col, Card, Button, Form, Modal } from "react-bootstrap";
 
@@ -27,6 +27,10 @@ export default function ListedItems() {
     dispatch(updateItems(updatedInfo));
     reset();
   }
+
+  useEffect ( () => {
+    dispatch(fetchItems())
+  }, [])
 
   // selectedItem state
   const [selectedItem, setSelectedItem] = useState({
@@ -53,6 +57,7 @@ export default function ListedItems() {
 
   // filtering items that matches logged in seller
   const itemList = items.filter((item) => item.seller_id === sellerInfo.id);
+  //const itemList = items
   // generating item card
 
   const editItemHandler = (data) => {

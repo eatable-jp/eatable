@@ -117,6 +117,7 @@ const getItems = async pool => {
 app.get('/items', async (req, res) => {
 
     pool = pool || (await createPoolAndEnsureSchema());
+    console.log("pool created")
     try {
         const items = await getItems(pool)
         res.json(items);

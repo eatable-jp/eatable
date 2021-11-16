@@ -15,6 +15,7 @@ import SellerProfile from "./components/SellerProfile";
 import BuyerProfile from "./components/BuyerProfile";
 import BuyerForm from "./components/BuyerForm";
 import SellerForm from "./components/SellerForm";
+import Signup from "./components/Signup";
 
 function App() {
   const userStatus = "seller";
