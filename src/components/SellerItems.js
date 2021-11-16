@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
+import axios from "axios";
 // redux
 import { useSelector, useDispatch } from "react-redux";
 import { updateItems } from "../slice/itemsSlice";
@@ -58,13 +59,17 @@ export default function ListedItems() {
 
   // filtering items that matches logged in seller
   const itemList = items.filter((item) => item.seller_id === sellerInfo.id);
-  // generating item card
+
+  const deleteHandler = async(data) => {
+    console.log("delete", data);
+    const url = process.env.ITEM_ROUTE || 'http://localhost:8080/item';
+    await axios.delete(url+`?id=${data}`)
+  };
 
   const editItemHandler = (data) => {
-    console.log(data)
+    console.log(data);
     //use the endpoint to post this to the DB
-    handleClose()
-
+    handleClose();
   };
   return (
     <>
@@ -147,7 +152,11 @@ export default function ListedItems() {
                 <Form.Label>Photo</Form.Label>
                 <Form.Control type="file" {...register("photo")}/>
               </Form.Group>
-              <Button type="submit" variant="outline-success">Submit</Button>
+              <Button type="submit" variant="outline-success">Submit</Button>{" "}
+              <Button type="button" variant="outline-danger" onClick={() => {
+                deleteHandler(selectedItem.id);
+                handleClose();
+              }}>Delete</Button>
             </Form>
           </Modal.Body>
         </Modal>
