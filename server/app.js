@@ -313,6 +313,33 @@ app.get('/buyers', async (req, res) => {
   }
 });
 
+//Get single buyer
+const getBuyer = async pool => {
+  return await pool
+      .select('*')
+      .from('buyers')
+}
+
+app.get('/buyer/:id', async (req, res) => {
+
+  pool = pool || (await createPoolAndEnsureSchema());
+  try {
+      const buyers = await getBuyers(pool)
+      const paramsId = req.params.id
+
+      const retBuyer = buyers.filter((buyer)=>buyer.id === parseInt(paramsId))
+
+      res.json(retBuyer);
+
+  } catch (err) {
+      console.error(err);
+  res
+    .status(500)
+    .send('Unable to load page; see logs for more details.')
+    .end();
+  }
+});
+
 // Insert a buyer
 const insertBuyer = async (pool, buyer) => {
   try {
@@ -357,6 +384,7 @@ const insertBuyer = async (pool, buyer) => {
       const newBuyer = req.body;
       const buyerId = req.body.id
       await updateBuyer(pool, newBuyer, buyerId)
+      res.json("updated")
   } catch (err) {
       console.error(err);
   res

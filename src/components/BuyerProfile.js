@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 // redux
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchBuyer } from "../slice/buyerInfoSlice";
 // react router
 import { LinkContainer } from "react-router-bootstrap";
 // bootstrap
@@ -11,7 +12,13 @@ import Header from "./Header.js";
 
 export default function BuyerProfile() {
   // setup redux
+  const dispatch = useDispatch();
   const buyerInfo = useSelector((state) => state.buyerInfo);
+  
+  useEffect(() => {
+    dispatch(fetchBuyer(1));
+  }, [])
+  
   return (
     <>
     <Header userStatus="buyer" />
@@ -21,16 +28,16 @@ export default function BuyerProfile() {
         <Col className="text-center">
           <Card>
             <Card.Header>
-              <strong>{buyerInfo.display_name}</strong>
+              <strong>{buyerInfo.buyer_name}</strong>
             </Card.Header>
             <Card.Body>
               <dl>
                 <dt>Address</dt>
-                <dd>{buyerInfo.address}</dd>
+                <dd>{buyerInfo.buyer_address}</dd>
               </dl>
               <dl>
                 <dt>Email</dt>
-                <dd>{buyerInfo.email}</dd>
+                <dd>{buyerInfo.email_address}</dd>
               </dl>
               <dl>
                 <dt>Phone number</dt>

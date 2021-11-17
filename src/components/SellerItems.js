@@ -131,9 +131,16 @@ export default function ListedItems() {
                 <Form.Label>Type</Form.Label>
                 <Form.Select aria-label="type" {...register("type")}>
                   <option value="">Select food type</option>
-                  <option value="1">Meat</option>
-                  <option value="2">Fish</option>
-                  <option value="3">Vegetable</option>
+                  <option value="Meat">Meat</option>
+                  <option value="Poultry">Poultry</option>
+                  <option value="Fish">Fish</option>
+                  <option value="Fruit">Fruit</option>
+                  <option value="Vegetable">Vegetable</option>
+                  <option value="Dairy">Dairy</option>
+                  <option value="Bread">Bread</option>
+                  <option value="Canned Food">Canned Food</option>
+                  <option value="Dry Goods">Dry Goods</option>
+                  <option value="Ready To Eat">Ready To Eat</option>
                 </Form.Select>
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasic">

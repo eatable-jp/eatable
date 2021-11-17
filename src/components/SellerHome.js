@@ -73,10 +73,17 @@ function SellerHome() {
               <Form.Group className="mb-3" controlId="formBasicType">
                 <Form.Label>Type</Form.Label>
                 <Form.Select aria-label="type" {...register("type")}>
-                  <option>Select food type</option>
+                  <option value="">Select food type</option>
                   <option value="Meat">Meat</option>
+                  <option value="Poultry">Poultry</option>
                   <option value="Fish">Fish</option>
+                  <option value="Fruit">Fruit</option>
                   <option value="Vegetable">Vegetable</option>
+                  <option value="Dairy">Dairy</option>
+                  <option value="Bread">Bread</option>
+                  <option value="Canned Food">Canned Food</option>
+                  <option value="Dry Goods">Dry Goods</option>
+                  <option value="Ready To Eat">Ready To Eat</option>
                 </Form.Select>
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasic">

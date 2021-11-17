@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { filterByFoodType } from "../slice/itemsSlice";
 import { setUserLocation } from "../slice/locationSlice";
+import { fetchBuyer } from "../slice/buyerInfoSlice";
 // bootstrap
 import { Container, Form } from "react-bootstrap";
 // components
@@ -12,6 +13,7 @@ function BuyerHome() {
   // redux
   const buyerInfo = useSelector((state) => state.buyerInfo);
   const dispatch = useDispatch();
+
   // filter function
   function sendFoodType(type) {
     dispatch(filterByFoodType(type));
@@ -24,6 +26,7 @@ function BuyerHome() {
         dispatch(setUserLocation({ latitude, longitude }));
       });
     }
+    dispatch(fetchBuyer(1));
   }, []);
 
   // distance state
@@ -32,7 +35,7 @@ function BuyerHome() {
   return (
     <div className="buyer-wrapper">
       <div className="buyer-items">
-        <h2 className="mb-5 text-center">Hello {buyerInfo.display_name}!</h2>
+        <h2 className="mb-5 text-center">Hello {buyerInfo.buyer_name}!</h2>
         <Container className="d-flex justify-content-start">
           {/* food type filter */}
           <Form
@@ -45,8 +48,15 @@ function BuyerHome() {
               <Form.Select aria-label="type">
                 <option value="all">All</option>
                 <option value="Meat">Meat</option>
+                <option value="Poultry">Poultry</option>
                 <option value="Fish">Fish</option>
+                <option value="Fruit">Fruit</option>
                 <option value="Vegetable">Vegetable</option>
+                <option value="Dairy">Dairy</option>
+                <option value="Bread">Bread</option>
+                <option value="Canned Food">Canned Food</option>
+                <option value="Dry Goods">Dry Goods</option>
+                <option value="Ready To Eat">Ready To Eat</option>
               </Form.Select>
             </Form.Group>
           </Form>

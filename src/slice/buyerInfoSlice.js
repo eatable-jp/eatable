@@ -1,24 +1,23 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
 
-const initialState = {
-  id: 1,
-  display_name: "Test User",
-  email: "test@test.com",
-  address: "1-1-1, Tamagawa, Setagaya, Tokyo",
-  phone_number: "070-5587-1245",
-};
+export const fetchBuyer = createAsyncThunk("buyerInfo/fetchBuyer", async (data) => {
+  const url = process.env.BUYER_ROUTE || 'http://localhost:8080/buyer';
+  const buyer = await axios.get(url+`/${data}`);
+  return buyer.data[0];
+});
+
+const initialState = {};
 
 const buyerInfoSlice = createSlice({
   name: "buyerInfo",
   initialState,
-  reducers: {
-    updateBuyerInfo: (state, action) => {
-      state = { ...state, ...action.payload };
-      return state;
-    },
+  reducers: {},
+  extraReducers: {
+    [fetchBuyer.fulfilled]: (state, action) => {
+      return action.payload;
+    }
   },
-  extraReducers: {},
 });
 
-export const { updateBuyerInfo } = buyerInfoSlice.actions;
 export default buyerInfoSlice.reducer;
