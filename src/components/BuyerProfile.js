@@ -18,7 +18,7 @@ export default function BuyerProfile() {
   useEffect(() => {
     dispatch(fetchBuyer(1));
   }, [])
-  
+
   return (
     <>
     <Header userStatus="buyer" />

@@ -1,32 +1,68 @@
 import { useForm } from "react-hook-form";
 // redux
-import { useDispatch } from "react-redux";
-import { updateSellerInfo } from "../slice/sellerInfoSlice";
+import { useSelector, useDispatch } from "react-redux";
 // react router
+import { useHistory } from "react-router-dom";
 import { LinkContainer } from "react-router-bootstrap";
 // bootstrap
 import { Container, Form, Button } from "react-bootstrap";
+//axios
+import axios from "axios";
+
 
 export default function SellerForm() {
   // setup react form
   const { register, handleSubmit, reset } = useForm();
   // setup redux
   const dispatch = useDispatch();
+  const sellerInfo = useSelector((state) => state.sellerInfo);
 
-  // function for updating user info
-  function sendSellerInfo(updatedInfo) {
-    // validation get rid of empty value
-    Object.keys(updatedInfo).forEach((info) => {
-      if (updatedInfo[info] === "" || updatedInfo[info] === null) {
-        delete updatedInfo[info];
+  // redirect function
+  const history = useHistory();
+  const routeChange = () =>{ 
+    let path = `/seller-profile`; 
+    history.push(path);
+  }
+
+  const editSellerProfileHandler = async({seller_name, shop_name, shop_location, shop_long,
+  shop_lat, opening_time, closing_time, phone_number, email_address}) => {
+    const data = {
+      id: sellerInfo.id,
+      shop_name, 
+      shop_location,
+      shop_long: sellerInfo.shop_long,
+      shop_lat: sellerInfo.shop_lat,
+      phone_number,
+      opening_time,
+      closing_time,
+
+    };
+    Object.keys(data).forEach((key) => {
+      //check if values passed in
+      if (data[key] === "" || data[key] === null) {
+        delete data[key];
       }
     });
-    dispatch(updateSellerInfo(updatedInfo));
+
+    // checks if new address and calls api
+    if (data.shop_location){
+      const key = process.env.REACT_APP_GEO_KEY
+      const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${shop_location}&components=country:JP&key=${key}`;
+      const addressData = await axios.post(url)
+      data.shop_lat = String(addressData.data.results[0].geometry.location.lat)
+      data.shop_long = String(addressData.data.results[0].geometry.location.lng)
+    };
+    /******************WHY DOES THIS WORK HERE AND NOT AFTER****************** */
+    routeChange();
     reset();
-  }
+    const url = process.env.SELLER_ROUTE || 'http://localhost:8080/seller'
+    await axios.patch(url, data);
+    console.log("reached")
+  };
+
   return (
     <Container className="w-25">
-      <Form onSubmit={handleSubmit(sendSellerInfo)}>
+      <Form onSubmit={handleSubmit(editSellerProfileHandler)}>
         <Form.Group className="mb-3" controlId="formBasicShopName">
           <Form.Label>Shop name</Form.Label>
           <Form.Control

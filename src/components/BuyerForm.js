@@ -38,7 +38,7 @@ export default function BuyerForm() {
       }
     });
     const url = process.env.BUYER_ROUTE || 'http://localhost:8080/buyer'
-    const status = await axios.patch(url, data);
+    await axios.patch(url, data);
     reset();
     routeChange();
   };

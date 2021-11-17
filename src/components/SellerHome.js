@@ -1,7 +1,8 @@
 import { useForm } from "react-hook-form";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 // redux
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchSeller } from "../slice/sellerInfoSlice";
 // bootstrap
 import { Container, Button, Modal, Form } from "react-bootstrap";
 // components
@@ -10,9 +11,15 @@ import SellerInfo from "./SellerInfo";
 // axios
 import axios from "axios";
 
+
 function SellerHome() {
   // setup redux
+  const dispatch = useDispatch();
   const seller = useSelector((state) => state.sellerInfo);
+
+  useEffect(()=>{
+    dispatch(fetchSeller(2))
+  },[])
 
   // function to display add new item modal
   const [show, setShow] = useState(false);
