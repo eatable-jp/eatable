@@ -3,7 +3,6 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 // redux
 import { useSelector, useDispatch } from "react-redux";
-import { updateItems } from "../slice/itemsSlice";
 import { fetchItems } from "../slice/itemsSlice";
 // bootstrap
 import { Row, Col, Card, Button, Form, Modal } from "react-bootstrap";
@@ -20,19 +19,6 @@ export default function ListedItems() {
   useEffect(() => {
     dispatch(fetchItems());
   }, []);
-
-  // function for updating item info
-  function sendUpdatedItem(updatedInfo) {
-    // validation get rid of empty value
-    Object.keys(updatedInfo).forEach((info) => {
-      if (updatedInfo[info] === "" || updatedInfo[info] === null) {
-        delete updatedInfo[info];
-      }
-    });
-    updatedInfo.id = selectedItem;
-    dispatch(updateItems(updatedInfo));
-    reset();
-  }
 
   // selectedItem state
   const [selectedItem, setSelectedItem] = useState({
