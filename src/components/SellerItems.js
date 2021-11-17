@@ -66,10 +66,32 @@ export default function ListedItems() {
     await axios.delete(url+`?id=${data}`)
   };
 
-  const editItemHandler = (data) => {
-    console.log(data);
-    //use the endpoint to post this to the DB
+  const editItemHandler = async ({name, image, type, price, original_price, expiration_date, note}) => {
     handleClose();
+    let data = {
+      id: selectedItem.id,
+      name,
+      image: image.length !== 0 ? image[0].name : "",
+      type,
+      price,
+      original_price,
+      expiration_date,
+      note,
+    }
+    Object.keys(data).forEach((key) => {
+      if (data[key] === "" || data[key] === null) {
+        delete data[key];
+      }      
+    });
+    if (data.price) {
+      data.price = parseInt(data.price);
+    }
+    if (data.original_price) {
+      data.original_price = parseInt(data.original_price);
+    }
+    const url = process.env.ITEM_ROUTE || 'http://localhost:8080/item'
+    await axios.patch(url, data)
+    reset();
   };
   return (
     <>
@@ -122,7 +144,7 @@ export default function ListedItems() {
               <Form.Group className="mb-3" controlId="formBasicType">
                 <Form.Label>Type</Form.Label>
                 <Form.Select aria-label="type" {...register("type")}>
-                  <option>Select food type</option>
+                  <option value="">Select food type</option>
                   <option value="1">Meat</option>
                   <option value="2">Fish</option>
                   <option value="3">Vegetable</option>
@@ -130,19 +152,18 @@ export default function ListedItems() {
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasic">
                 <Form.Label>Price</Form.Label>
-                <Form.Control type="text" placeholder={selectedItem.price} {...register("price")} />
+                <Form.Control type="text" {...register("price")} />
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasic">
                 <Form.Label>Original price</Form.Label>
                 <Form.Control
                   type="text"
-                  placeholder={selectedItem.original_price}
                   {...register("original_price")}
                 />
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasic">
                 <Form.Label>Expiration date</Form.Label>
-                <Form.Control type="date" {...register("date")}/>
+                <Form.Control type="date" {...register("expiration_date")}/>
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasic">
                 <Form.Label>Note</Form.Label>
@@ -150,7 +171,7 @@ export default function ListedItems() {
               </Form.Group>
               <Form.Group controlId="formFile" className="mb-3">
                 <Form.Label>Photo</Form.Label>
-                <Form.Control type="file" {...register("photo")}/>
+                <Form.Control type="file" {...register("image")}/>
               </Form.Group>
               <Button type="submit" variant="outline-success">Submit</Button>{" "}
               <Button type="button" variant="outline-danger" onClick={() => {
