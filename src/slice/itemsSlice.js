@@ -25,15 +25,6 @@ const itemsSlice = createSlice({
   name: "items",
   initialState,
   reducers: {
-    updateItems: (state, action) => {
-      state.items = state.items.map((item) => {
-        if (item.id === action.payload.id) {
-          return { ...item, ...action.payload };
-        }
-        return item;
-      });
-      return state;
-    },
     filterByFoodType: (state, action) => {
       state.filteredItems =
         action.payload === "all"
@@ -51,5 +42,5 @@ const itemsSlice = createSlice({
   },
 });
 
-export const { updateItems, filterByFoodType } = itemsSlice.actions;
+export const { filterByFoodType } = itemsSlice.actions;
 export default itemsSlice.reducer;

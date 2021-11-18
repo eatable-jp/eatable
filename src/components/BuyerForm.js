@@ -1,38 +1,57 @@
 import { useForm } from "react-hook-form";
+import axios from "axios";
 // redux
 import { useSelector, useDispatch } from "react-redux";
-import { updateBuyerInfo } from "../slice/buyerInfoSlice";
 // react router
+import { useHistory } from "react-router-dom";
 import { LinkContainer } from "react-router-bootstrap";
 // bootstrap
 import { Container, Form, Button } from "react-bootstrap";
+//
+
 
 export default function BuyerForm() {
   // setup react form
   const { register, handleSubmit, reset } = useForm();
   // setup redux
   const dispatch = useDispatch();
+  const buyerId = useSelector((state) => state.buyerInfo.id);
 
-  // function for updating user info
-  function sendBuyerInfo(updatedInfo) {
-    // validation get rid of empty value
-    Object.keys(updatedInfo).forEach((info) => {
-      if (updatedInfo[info] === "" || updatedInfo[info] === null) {
-        delete updatedInfo[info];
+  // redirect function
+  const history = useHistory();
+  const routeChange = () =>{ 
+    let path = `/buyer-profile`; 
+    history.push(path);
+  }
+
+  const editBuyerProfileHandler = async({buyer_name, buyer_address, email_address, phone_number}) => {
+    const data = {
+      id: buyerId,
+      buyer_name, 
+      buyer_address, 
+      email_address, 
+      phone_number
+    };
+    Object.keys(data).forEach((key) => {
+      if (data[key] === "" || data[key] === null) {
+        delete data[key];
       }
     });
-    dispatch(updateBuyerInfo(updatedInfo));
+    const url = process.env.BUYER_ROUTE || 'http://localhost:8080/buyer'
+    await axios.patch(url, data);
     reset();
-  }
+    routeChange();
+  };
+
   return (
     <Container className="w-25">
-      <Form onSubmit={handleSubmit(sendBuyerInfo)}>
+      <Form onSubmit={handleSubmit(editBuyerProfileHandler)}>
         <Form.Group className="mb-3" controlId="formBasicName">
           <Form.Label>Name</Form.Label>
           <Form.Control
             type="text"
             placeholder="Enter name"
-            {...register("display_name")}
+            {...register("buyer_name")}
           />
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -40,7 +59,7 @@ export default function BuyerForm() {
           <Form.Control
             type="email"
             placeholder="Enter email"
-            {...register("address")}
+            {...register("email_address")}
           />
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -48,7 +67,7 @@ export default function BuyerForm() {
           <Form.Control
             type="text"
             placeholder="Enter address"
-            {...register("email")}
+            {...register("buyer_address")}
           />
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicCheckbox">
