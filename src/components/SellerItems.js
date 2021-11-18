@@ -49,6 +49,7 @@ export default function ListedItems() {
   const deleteHandler = async(data) => {
     console.log("delete", data);
     const url = process.env.ITEM_ROUTE || 'http://localhost:8080/item';
+    // const url = '/item'
     await axios.delete(url+`?id=${data}`)
   };
 
@@ -76,6 +77,7 @@ export default function ListedItems() {
       data.original_price = parseInt(data.original_price);
     }
     const url = process.env.ITEM_ROUTE || 'http://localhost:8080/item'
+    // const url = '/item'
     await axios.patch(url, data)
     reset();
   };

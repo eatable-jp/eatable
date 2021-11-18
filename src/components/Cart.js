@@ -33,6 +33,7 @@ function Cart() {
   //handle the DB call
   const handlePurchase = async() => {
     const url = process.env.ITEM_ROUTE || 'http://localhost:8080/items'
+    //const url = '/items'
     const purchaseData = cart.map((item)=> {
       return {
         id: item.id,

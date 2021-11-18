@@ -12,6 +12,7 @@ export const fetchItems = createAsyncThunk(
   'items/fetchItems', async() => {
     try{
       const url = process.env.ITEMS_ROUTE || 'http://localhost:8080/items'
+      // const url = '/items'
       const response = await axios.get(url);
       return response.data;
     }catch(error){
