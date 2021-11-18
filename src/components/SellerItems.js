@@ -44,7 +44,7 @@ export default function ListedItems() {
   const handleShow = () => setShow(true);
 
   // filtering items that matches logged in seller
-  const itemList = items.filter((item) => item.seller_id === sellerInfo.id);
+  const itemList = items.filter((item) => item.seller_id === sellerInfo.id).reverse();
 
   const deleteHandler = async(data) => {
     console.log("delete", data);

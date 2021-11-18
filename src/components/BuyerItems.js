@@ -21,6 +21,10 @@ export default function BuyerItems({ distance }) {
     dispatch(fetchSellers());
   }, [])
 
+  // reversing the items to place the newest item on top
+  let reverseFiltered = [...filteredItems];
+  reverseFiltered = reverseFiltered.reverse();
+
   // selectedItem state
   const [selectedItem, setSelectedItem] = useState({
     buyer: "",
@@ -76,7 +80,7 @@ export default function BuyerItems({ distance }) {
       {distance === "" ? (
         // within 2km
         <Row xs={1} md={3} className="g-4">
-          {filteredItems.map((item, index) => {
+          {reverseFiltered.map((item, index) => {
             return (
               <Col key={index}>
                 <Card className="h-100" key={index}>
