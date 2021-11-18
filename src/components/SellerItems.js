@@ -48,7 +48,7 @@ export default function ListedItems() {
 
   const deleteHandler = async(data) => {
     console.log("delete", data);
-    const url = process.env.REACT_ITEM_ROUTE || 'http://localhost:8080/item';
+    const url = process.env.ITEM_ROUTE || 'http://localhost:8080/item';
     // const url = '/item'
     await axios.delete(url+`?id=${data}`)
   };
