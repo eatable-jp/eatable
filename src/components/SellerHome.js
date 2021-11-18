@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchSeller } from "../slice/sellerInfoSlice";
 // bootstrap
-import { Container, Button, Modal, Form } from "react-bootstrap";
+import { Container, Button, Modal, Form, Accordion } from "react-bootstrap";
 // components
 import SellerItems from "./SellerItems";
 import SellerInfo from "./SellerInfo";
@@ -17,8 +17,17 @@ function SellerHome() {
   const dispatch = useDispatch();
   const seller = useSelector((state) => state.sellerInfo);
 
-  useEffect(()=>{
+  const [waiting, setWaiting] = useState([]);
+
+  useEffect(async()=>{
+    //Seller for production HARD CODED NUMER 2***************
     dispatch(fetchSeller(2))
+    ///********************************************/
+    const url = process.env.ITEMS_ROUTE || 'http://localhost:8080/items';
+    const response = await axios.get(url);
+    //*************************HARDCODED 2 TO MATCH THE SELLER NUMBER****** */
+    const items = response.data.filter((item)=> item.seller_id === 2 && item.buyer_id !== null && item.buyer_id !== 0 && item.conformation === null);
+    setWaiting(items);
   },[])
 
   // function to display add new item modal
@@ -49,17 +58,54 @@ function SellerHome() {
     reset();
   };
 
+  const completeTransaction = async(id) => {
+    const data = {
+      id,
+      conformation:1
+    };
+    const url = process.env.ITEM_ROUTE || `http://localhost:8080/item`
+    await axios.patch(url,data);
+  };
+
   return (
     <>
-      <Container className="text-center mb-5">
-        <h2>Currently Listed</h2>
-        <Button variant="primary" onClick={handleShow}>
-          Add a new item
-        </Button>
-      </Container>
-      <Container>
-        <SellerItems />
-      </Container>
+      <div className="mb-5">
+        <Container className="text-center mb-5">
+          <h2>Currently Listed</h2>
+          <Button variant="primary" onClick={handleShow}>
+            Add a new item
+          </Button>
+        </Container>
+        <Container>
+          <SellerItems />
+        </Container>
+      </div>
+      <div>
+        <Container  className="text-center">
+          <h2>Waiting for pickup</h2>
+          <Accordion defaultActiveKey="0">
+            {waiting.map((item, index) => {
+              return (
+                <Accordion.Item eventKey={index} key={index}>
+                  <Accordion.Header>{item.name}</Accordion.Header>
+                  <Accordion.Body>
+                    <dl>
+                      <dt>Price</dt>
+                      <dd>{item.price} yen</dd>
+                    </dl>
+                    <dl>
+                      <dt>Purchased by Person</dt>
+                    </dl>
+                    <Button type="button" variant="outline-success" onClick={()=>{completeTransaction(item.id)}}>
+                      Complete Transaction
+                    </Button>
+                  </Accordion.Body>
+                </Accordion.Item>
+              );
+            })}
+          </Accordion>
+        </Container>
+      </div>
       {/* add new item modal */}
       <>
         <Modal

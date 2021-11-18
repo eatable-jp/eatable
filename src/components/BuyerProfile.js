@@ -1,11 +1,13 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 // redux
 import { useSelector, useDispatch } from "react-redux";
 import { fetchBuyer } from "../slice/buyerInfoSlice";
+import { fetchSellers } from "../slice/sellersSlice";
 // react router
 import { LinkContainer } from "react-router-bootstrap";
 // bootstrap
-import { Row, Col, Card, Button, Container } from "react-bootstrap";
+import { Row, Col, Card, Button, Container, Accordion } from "react-bootstrap";
 // components
 import BuyerPurchases from "../components/BuyerPurchases";
 import Header from "./Header.js";
@@ -14,10 +16,20 @@ export default function BuyerProfile() {
   // setup redux
   const dispatch = useDispatch();
   const buyerInfo = useSelector((state) => state.buyerInfo);
+  const { items } = useSelector((state)=> state.items);
+  const sellers = useSelector((state) => state.sellers);
   
-  useEffect(() => {
+  const [purchases, setPurchases] = useState([]);
+
+  useEffect(async () => {
+    dispatch(fetchSellers());
     dispatch(fetchBuyer(1));
-  }, [])
+
+    const url = process.env.ITEMS_ROUTE || 'http://localhost:8080/items';
+    const response = await axios.get(url);
+    const items = response.data.filter((item)=> item.buyer_id === buyerInfo.id);
+    setPurchases(items);
+  }, []);
 
   return (
     <>
@@ -52,16 +64,49 @@ export default function BuyerProfile() {
         {/* purchase history */}
         <Col>
           <h3 className="text-center">Your purchase</h3>
-          <BuyerPurchases />
+          <Accordion defaultActiveKey="0">
+            {purchases.map((purchase, index) => {
+              return (
+                <Accordion.Item eventKey={index} key={index}>
+                  <Accordion.Header>{purchase.name}</Accordion.Header>
+                  <Accordion.Body>
+                    <div className="d-flex">
+                      <dl style={{marginRight: "10px"}}>
+                        <dt>Price</dt>
+                        <dd>{purchase.price} yen</dd>
+                      </dl>
+                      <dl>
+                        <dt>Original Price</dt>
+                        <dd style={{textDecoration: "line-through"}}>{purchase.original_price} yen</dd>
+                      </dl>
+                    </div>
+                    <dl>
+                      <dt>Shop address</dt>
+                      <dd>
+                        {
+                          sellers.find((seller) => seller.id === purchase.seller_id)[
+                            "shop_location"
+                          ]
+                        }{" "}
+                      </dd>
+                    </dl>
+                  </Accordion.Body>
+                </Accordion.Item>
+              );
+            })}
+          </Accordion>
         </Col>
       </Row>
       <Row>
         <Col>
           <dl>
-            <dt>Amount of Food Saved</dt>
-            <dd>10.3 kg</dd>
-            <dt>Amount of Money Saved</dt>
-            <dd>24,500 yen</dd>
+            <dt>Food Saved</dt>
+            <dd>{purchases.length} Servings</dd>
+            <dt>Money Saved</dt>
+            <dd>{purchases.reduce((total, item) => {
+              total += (item.original_price - item.price);
+              return total;
+            }, 0)} Yen</dd>
           </dl>
         </Col>
       </Row>
