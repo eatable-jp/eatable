@@ -38,8 +38,8 @@ function Cart() {
         id:cartId[i],
         buyer_id: buyerInfo.id,
       };
-      const url = process.env.ITEM_ROUTE || 'http://localhost:8080/item'
-      await axios.patch(url,data)
+      //const url = process.env.REACT_ITEM_ROUTE
+      await axios.patch('/item',data)
     }
     
   }

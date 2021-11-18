@@ -36,7 +36,7 @@ function SellerHome() {
       shop_lat: seller.shop_lat,
       shop_long: seller.shop_long
     }
-    const url = process.env.ITEM_ROUTE || 'http://localhost:8080/item'
+    const url = process.env.REACT_ITEM_ROUTE || 'http://localhost:8080/item'
     await axios.post(url, data)
     //use the endpoint to post this to the DB
     reset();

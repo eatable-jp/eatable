@@ -90,11 +90,14 @@ const createPool = async () => {
     config.pool.idleTimeoutMillis = 600000;
     config.pool.createRetryIntervalMillis = 200;
 
+    
+  
     if (process.env.DB_HOST === "127.0.0.1:8080") {
         return createTcpPool(config);  // for local server
     } else {
         return createUnixSocketPool(config); // for production
     }
+ 
 };
 
 
