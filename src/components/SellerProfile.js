@@ -13,6 +13,7 @@ export default function SellerProfile() {
   // setup redux
   const sellerInfo = useSelector((state) => state.sellerInfo);
 
+  // sold item state
   const [soldItems, setSoldItems] = useState([]);
 
   useEffect(async() => {
@@ -75,8 +76,15 @@ export default function SellerProfile() {
       <Row>
         <Col>
           <dl>
-            <dt>Amount of Food Saved</dt>
-            <dd>25.8 kg</dd>
+            <dt>Food Saved</dt>
+            <dd>{soldItems.length} Servings</dd>
+          </dl>
+          <dl>
+            <dt>Money Saved</dt>
+            <dd>{soldItems.reduce((total, item) => {
+              total += item.price;
+              return total;
+            }, 0)} Yen</dd>
           </dl>
         </Col>
       </Row>

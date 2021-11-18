@@ -70,10 +70,16 @@ export default function BuyerProfile() {
                 <Accordion.Item eventKey={index} key={index}>
                   <Accordion.Header>{purchase.name}</Accordion.Header>
                   <Accordion.Body>
-                    <dl>
-                      <dt>Price</dt>
-                      <dd>{purchase.price} yen</dd>
-                    </dl>
+                    <div className="d-flex">
+                      <dl style={{marginRight: "10px"}}>
+                        <dt>Price</dt>
+                        <dd>{purchase.price} yen</dd>
+                      </dl>
+                      <dl>
+                        <dt>Original Price</dt>
+                        <dd style={{textDecoration: "line-through"}}>{purchase.original_price} yen</dd>
+                      </dl>
+                    </div>
                     <dl>
                       <dt>Shop address</dt>
                       <dd>
@@ -94,10 +100,13 @@ export default function BuyerProfile() {
       <Row>
         <Col>
           <dl>
-            <dt>Amount of Food Saved</dt>
-            <dd>10.3 kg</dd>
-            <dt>Amount of Money Saved</dt>
-            <dd>24,500 yen</dd>
+            <dt>Food Saved</dt>
+            <dd>{purchases.length} Servings</dd>
+            <dt>Money Saved</dt>
+            <dd>{purchases.reduce((total, item) => {
+              total += (item.original_price - item.price);
+              return total;
+            }, 0)} Yen</dd>
           </dl>
         </Col>
       </Row>

@@ -1,9 +1,21 @@
-import React from "react";
-import Header from "./Header.js";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+// bootstrap
 import { Container, Row, Col, Form, Button, Card } from "react-bootstrap"
+// components
+import Header from "./Header.js";
 
 function LandingPage() {
-  
+
+  const [soldItems, setSoldItems] = useState([])
+  // access DB to make stats
+  useEffect(async() => {
+    const url = process.env.ITEMS_ROUTE || 'http://localhost:8080/items';
+    const response = await axios.get(url);
+    const items = response.data.filter((item)=> item.buyer_id !== null);
+    setSoldItems(items);
+  },[]);
+
   return (
     <div className="lp-wrapper">
     <h1 className="text-center" style={{fontFamily: 'Pacifico', margin: "0 auto", color: "#fff"}}>Eatable</h1>
@@ -12,11 +24,11 @@ function LandingPage() {
           <Col>
             <p style={{color: "#fff", fontSize: "24px"}}>
               The amount of food saved ... <br />
-              <span style={{fontSize: "54px", fontWeight: "bold"}}>200.3kg </span>
+              <span style={{fontSize: "54px", fontWeight: "bold"}}>{soldItems.length} Servings</span>
             </p>
           </Col>
           <Col>
-            <Card >.
+            <Card >
               <Card.Body>
                 <h2 className="text-center mb-2">Sign Up</h2>
                 <Form>
