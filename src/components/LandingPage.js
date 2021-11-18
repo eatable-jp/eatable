@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 // bootstrap
-import { Container, Row, Col, Form, Button, Card, Alert } from "react-bootstrap"
+import { Container, Row, Col, Form, Button, Card, Alert, Spinner } from "react-bootstrap"
 // components
 import Header from "./Header.js";
 import { Link } from "react-router-dom"
@@ -56,12 +56,13 @@ function LandingPage() {
       }
       const url = process.env.SIGNUP_ROUTE || 'http://localhost:8080/signup'
       // const url = '/signup'
-      await axios.post(url, user)
+      const res = await axios.post(url, user)
+      console.log(res)
       console.log(user)
       setSuccess(true)
       //history.push("/login")
     } catch {
-      setError("Sorry, Failed to create an account. Hvae you already registered this email")
+      setError("Sorry, Failed to create an account. Have you already registered this email?")
     }
 
     setLoading(false)
@@ -109,11 +110,12 @@ function LandingPage() {
                   <Button disabled={loading} className="w-100 mt-4" type="submit">
                     Sign Up
                   </Button>
+                  {loading && <Spinner variant="primary" animation="border" /> }
                 </Form>
               </Card.Body>
             </Card>
             <div className="w-100 text-center mt-2">
-              Already have an account? Log In
+              Already have an account? <Link to="/login">Log In</Link>
             </div>
           </Col>
         </Row>

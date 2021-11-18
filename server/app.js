@@ -4,6 +4,8 @@ const path = require("path");
 const cors = require("cors")
 const knex = require('knex');
 const { ok } = require("assert");
+const bcrypt = require('bcryptjs');
+const { createJWT, createRefreshJWT} = require('../src/helpers/jwt.helper');
 
 
 const app = express()
@@ -126,11 +128,51 @@ app.post('/signup', async (req, res) => {
       const newUser = req.body;
       await insertUser(pool, newUser)
       console.log("User added")
+      res.status(201).send("added").end();
   } catch (err) {
       console.error(err);
   res
     .status(500)
-    .send('Unable to register user ; see logs for more details.')
+    .send('Unable to register user')
+    .end();
+  }
+});
+
+// login user
+
+const checkUser = async (pool, user) => {
+  try {
+    return await pool('users').where({email:user.email}).select('*');
+  }
+  catch (err) {
+    throw Error(err);
+  }
+}
+
+app.post('/login', async (req, res) => {
+
+  pool = pool || (await createPoolAndEnsureSchema());
+  try {
+      const newUser = req.body;
+      const data = await checkUser(pool, newUser)
+      console.log(data)
+      //res.json(data);
+
+      if (data.length === 0 ){
+        res.json({status: "fail", message: "User not Found"})
+      } else if (bcrypt.compareSync(newUser.password, data[0].password) === false) {
+        res.json({status: "fail", message: "Incorrect Email or Password"})
+      } else {
+        const accessJWT = await createJWT(newUser.email);
+        const refreshJWT = await createRefreshJWT(newUser.email);
+        res.json({status: "success", message: "Login Successful", id: data[0].id, type: data[0].type, accessJWT, refreshJWT })
+      }
+
+  } catch (err) {
+      console.error(err);
+  res
+    .status(500)
+    .send('Entry Not Found')
     .end();
   }
 });
