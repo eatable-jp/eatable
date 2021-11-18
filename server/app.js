@@ -161,7 +161,7 @@ app.post('/item', async (req, res) => {
 // Update item
 const updateItem = async (pool, newItem, itemId) => {
   try {
-    return await pool('items').where({id:itemId}).update({name:newItem.name, image:newItem.image, type:newItem.type, price:newItem.price, original_price:newItem.original_price, expiration_date:newItem.expiration_date, note:newItem.note, buyer_id:newItem.buyer_id});
+    return await pool('items').where({id:itemId}).update({name:newItem.name, image:newItem.image, type:newItem.type, price:newItem.price, original_price:newItem.original_price, expiration_date:newItem.expiration_date, note:newItem.note, buyer_id:newItem.buyer_id, conformation:newItem.conformation});
   }
   catch (err) {
     throw Error(err);
@@ -172,6 +172,7 @@ app.patch('/item', async (req, res) => {
 
   pool = pool || (await createPoolAndEnsureSchema());
   try {
+      console.log(req.body)
       const newItem = req.body;
       const itemId = req.body.id
       await updateItem(pool, newItem, itemId)

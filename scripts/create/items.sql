@@ -10,5 +10,6 @@ CREATE TABLE items (
     seller_id INTEGER REFERENCES sellers(id),
     buyer_id INTEGER DEFAULT NULL,
     shop_lat TEXT NOT NULL,
-    shop_long TEXT NOT NULL
+    shop_long TEXT NOT NULL,
+    conformation INTEGER DEFAULT NULL
 );

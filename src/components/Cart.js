@@ -115,7 +115,6 @@ function Cart() {
                   onClick={() => {
                     handlePurchase();
                     handleShow();
-                    dispatch(updatePurchase(cart));
                     setTimeout(() => {
                       dispatch(clearCart());
                     }, 2000);

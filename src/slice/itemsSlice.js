@@ -13,7 +13,6 @@ export const fetchItems = createAsyncThunk(
     try{
       const url = process.env.ITEMS_ROUTE || 'http://localhost:8080/items'
       const response = await axios.get(url);
-      console.log(response.data)
       return response.data;
     }catch(error){
       console.log(error);
