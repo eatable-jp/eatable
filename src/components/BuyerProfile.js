@@ -25,7 +25,8 @@ export default function BuyerProfile() {
     dispatch(fetchSellers());
     dispatch(fetchBuyer(1));
 
-    const url = process.env.ITEMS_ROUTE || 'http://localhost:8080/items';
+    //const url = process.env.ITEMS_ROUTE || 'http://localhost:8080/items';
+    const url = '/items'
     const response = await axios.get(url);
     const items = response.data.filter((item)=> item.buyer_id === buyerInfo.id);
     setPurchases(items);
