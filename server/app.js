@@ -109,6 +109,33 @@ const createPoolAndEnsureSchema = async () =>
     });
 
 
+// New user registration
+const insertUser = async (pool, user) => {
+  try {
+    return await pool('users').insert(user);
+  }
+  catch (err) {
+    throw Error(err);
+  }
+}
+
+app.post('/signup', async (req, res) => {
+
+  pool = pool || (await createPoolAndEnsureSchema());
+  try {
+      const newUser = req.body;
+      await insertUser(pool, newUser)
+      console.log("User added")
+  } catch (err) {
+      console.error(err);
+  res
+    .status(500)
+    .send('Unable to register user ; see logs for more details.')
+    .end();
+  }
+});
+
+
 // Get all items
 const getItems = async pool => {
     return await pool

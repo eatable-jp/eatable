@@ -1,13 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 // bootstrap
-import { Container, Row, Col, Form, Button, Card } from "react-bootstrap"
+import { Container, Row, Col, Form, Button, Card, Alert } from "react-bootstrap"
 // components
 import Header from "./Header.js";
+import { Link } from "react-router-dom"
+import { useHistory } from "react-router-dom"
+const bcrypt = require('bcryptjs')
+
+
 
 function LandingPage() {
 
   const [soldItems, setSoldItems] = useState([])
+
   // access DB to make stats
   useEffect(async() => {
     const url = process.env.ITEMS_ROUTE || 'http://localhost:8080/items';
@@ -16,6 +22,52 @@ function LandingPage() {
     const items = response.data.filter((item)=> item.buyer_id !== null);
     setSoldItems(items);
   },[]);
+
+
+  const emailRef = useRef()
+  const passwordRef = useRef()
+  const passwordConfirmRef = useRef()
+  const typeRef = useRef()
+
+  const [error, setError] = useState("")
+  const [loading, setLoading] = useState(false)
+  const history = useHistory()
+  const [success, setSuccess] = useState(false)
+ 
+
+  async function handleSubmit(e) {
+    e.preventDefault()
+
+    if (passwordRef.current.value !== passwordConfirmRef.current.value) {
+      return setError("Passwords do not match")
+    }
+
+    try {
+      setError("")
+      setLoading(true)
+      //await signup(emailRef.current.value, passwordRef.current.value)
+      var salt = bcrypt.genSaltSync(10);
+      var hashed_pass = bcrypt.hashSync(passwordRef.current.value, salt);
+      //const hashed_pass = await bcrypt.hash(passwordRef.current.value, 10);
+      let user = {
+        email: emailRef.current.value,
+        password: hashed_pass,
+        type: typeRef.current.value
+      }
+      const url = process.env.SIGNUP_ROUTE || 'http://localhost:8080/signup'
+      // const url = '/signup'
+      await axios.post(url, user)
+      console.log(user)
+      setSuccess(true)
+      //history.push("/login")
+    } catch {
+      setError("Sorry, Failed to create an account. Hvae you already registered this email")
+    }
+
+    setLoading(false)
+    document.getElementById("signup-form").reset();
+  }
+
 
   return (
     <div className="lp-wrapper">
@@ -32,16 +84,29 @@ function LandingPage() {
             <Card >
               <Card.Body>
                 <h2 className="text-center mb-2">Sign Up</h2>
-                <Form>
-                  <Form.Group id="username">
-                    <Form.Label>Username</Form.Label>
-                    <Form.Control type="username" required />
+                {error && <Alert variant="danger">{error}</Alert>}
+                {success && <Alert variant="success">Registerd Successfully</Alert>}
+                <Form id="signup-form" onSubmit={handleSubmit}>
+                  <Form.Group id="email">
+                    <Form.Label>Email</Form.Label>
+                    <Form.Control type="email" ref={emailRef} required />
                   </Form.Group>
                   <Form.Group id="password" className="mt-4">
                     <Form.Label>Password</Form.Label>
-                    <Form.Control type="password"  required />
+                    <Form.Control type="password" ref={passwordRef} required />
                   </Form.Group>
-                  <Button className="w-100 mt-4" type="submit">
+                  <Form.Group id="password-confirm" className="mt-4">
+                    <Form.Label>Password Confirmation</Form.Label>
+                    <Form.Control type="password" ref={passwordConfirmRef} required />
+                  </Form.Group>
+                  <Form.Group id="type" className="mt-4">
+                    <Form.Label>Register as</Form.Label>
+                      <Form.Select id="dropdown" ref={typeRef}>
+                        <option value="1">Seller</option>
+                        <option value="2">Buyer</option>
+                      </Form.Select>
+                  </Form.Group>
+                  <Button disabled={loading} className="w-100 mt-4" type="submit">
                     Sign Up
                   </Button>
                 </Form>
