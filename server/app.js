@@ -2,7 +2,8 @@ require("dotenv").config();
 const express = require("express");
 const path = require("path");
 const cors = require("cors")
-const knex = require('knex')
+const knex = require('knex');
+const { ok } = require("assert");
 
 
 const app = express()
@@ -161,7 +162,7 @@ app.post('/item', async (req, res) => {
 // Update item
 const updateItem = async (pool, newItem, itemId) => {
   try {
-    return await pool('items').where({id:itemId}).update({name:newItem.name, image:newItem.image, type:newItem.type, price:newItem.price, original_price:newItem.original_price, expiration_date:newItem.expiration_date, note:newItem.note, buyer_id:newItem.buyer_id});
+    return await pool('items').where({id:itemId}).update({name:newItem.name, image:newItem.image, type:newItem.type, price:newItem.price, original_price:newItem.original_price, expiration_date:newItem.expiration_date, note:newItem.note, buyer_id:newItem.buyer_id, conformation:newItem.conformation});
   }
   catch (err) {
     throw Error(err);
@@ -172,9 +173,37 @@ app.patch('/item', async (req, res) => {
 
   pool = pool || (await createPoolAndEnsureSchema());
   try {
+      console.log(req.body)
       const newItem = req.body;
       const itemId = req.body.id
       await updateItem(pool, newItem, itemId)
+  } catch (err) {
+      console.error(err);
+  res
+    .status(500)
+    .send('Unable to update item; see logs for more details.')
+    .end();
+  }
+});
+
+//UPDATE MULTIPLE
+const updateItems = async (pool, newItem, itemId) => {
+  try {
+    return await pool('items').where({id:itemId}).update({name:newItem.name, image:newItem.image, type:newItem.type, price:newItem.price, original_price:newItem.original_price, expiration_date:newItem.expiration_date, note:newItem.note, buyer_id:newItem.buyer_id, conformation:newItem.conformation});
+  }
+  catch (err) {
+    throw Error(err);
+  }
+}
+
+app.patch('/items', async (req, res) => {
+
+  pool = pool || (await createPoolAndEnsureSchema());
+  try {
+      const itemsArray = req.body
+      for(let i = 0; i < itemsArray.length; i++){
+        await updateItem(pool, itemsArray[i], itemsArray[i].id)
+      };
   } catch (err) {
       console.error(err);
   res

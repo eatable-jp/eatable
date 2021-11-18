@@ -31,17 +31,16 @@ function Cart() {
   }, 0);
 
   //handle the DB call
-  const handlePurchase = async () => {
-    const cartId = cart.map((item)=>item.id)
-    for(let i = 0; i < cartId.length; i++){
-      const data = {
-        id:cartId[i],
-        buyer_id: buyerInfo.id,
-      };
-      const url = process.env.ITEM_ROUTE || 'http://localhost:8080/item'
-      await axios.patch(url,data)
-    }
-    
+  const handlePurchase = async() => {
+    const url = process.env.ITEM_ROUTE || 'http://localhost:8080/items'
+    const purchaseData = cart.map((item)=> {
+      return {
+        id: item.id,
+        buyer_id: buyerInfo.id
+      }
+    })
+    const test = await axios.patch(url,purchaseData)
+    console.log(test)
   }
 
   // function to display add new item modal
@@ -115,7 +114,6 @@ function Cart() {
                   onClick={() => {
                     handlePurchase();
                     handleShow();
-                    dispatch(updatePurchase(cart));
                     setTimeout(() => {
                       dispatch(clearCart());
                     }, 2000);
