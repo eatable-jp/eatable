@@ -3,7 +3,6 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 // redux
 import { useSelector, useDispatch } from "react-redux";
-import { updateItems } from "../slice/itemsSlice";
 import { fetchItems } from "../slice/itemsSlice";
 // bootstrap
 import { Row, Col, Card, Button, Form, Modal } from "react-bootstrap";
@@ -20,19 +19,6 @@ export default function ListedItems() {
   useEffect(() => {
     dispatch(fetchItems());
   }, []);
-
-  // function for updating item info
-  function sendUpdatedItem(updatedInfo) {
-    // validation get rid of empty value
-    Object.keys(updatedInfo).forEach((info) => {
-      if (updatedInfo[info] === "" || updatedInfo[info] === null) {
-        delete updatedInfo[info];
-      }
-    });
-    updatedInfo.id = selectedItem;
-    dispatch(updateItems(updatedInfo));
-    reset();
-  }
 
   // selectedItem state
   const [selectedItem, setSelectedItem] = useState({
@@ -66,10 +52,32 @@ export default function ListedItems() {
     await axios.delete(url+`?id=${data}`)
   };
 
-  const editItemHandler = (data) => {
-    console.log(data);
-    //use the endpoint to post this to the DB
+  const editItemHandler = async ({name, image, type, price, original_price, expiration_date, note}) => {
     handleClose();
+    let data = {
+      id: selectedItem.id,
+      name,
+      image: image.length !== 0 ? image[0].name : "",
+      type,
+      price,
+      original_price,
+      expiration_date,
+      note,
+    }
+    Object.keys(data).forEach((key) => {
+      if (data[key] === "" || data[key] === null) {
+        delete data[key];
+      }      
+    });
+    if (data.price) {
+      data.price = parseInt(data.price);
+    }
+    if (data.original_price) {
+      data.original_price = parseInt(data.original_price);
+    }
+    const url = process.env.ITEM_ROUTE || 'http://localhost:8080/item'
+    await axios.patch(url, data)
+    reset();
   };
   return (
     <>
@@ -122,27 +130,33 @@ export default function ListedItems() {
               <Form.Group className="mb-3" controlId="formBasicType">
                 <Form.Label>Type</Form.Label>
                 <Form.Select aria-label="type" {...register("type")}>
-                  <option>Select food type</option>
-                  <option value="1">Meat</option>
-                  <option value="2">Fish</option>
-                  <option value="3">Vegetable</option>
+                  <option value="">Select food type</option>
+                  <option value="Meat">Meat</option>
+                  <option value="Poultry">Poultry</option>
+                  <option value="Fish">Fish</option>
+                  <option value="Fruit">Fruit</option>
+                  <option value="Vegetable">Vegetable</option>
+                  <option value="Dairy">Dairy</option>
+                  <option value="Bread">Bread</option>
+                  <option value="Canned Food">Canned Food</option>
+                  <option value="Dry Goods">Dry Goods</option>
+                  <option value="Ready To Eat">Ready To Eat</option>
                 </Form.Select>
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasic">
                 <Form.Label>Price</Form.Label>
-                <Form.Control type="text" placeholder={selectedItem.price} {...register("price")} />
+                <Form.Control type="text" {...register("price")} />
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasic">
                 <Form.Label>Original price</Form.Label>
                 <Form.Control
                   type="text"
-                  placeholder={selectedItem.original_price}
                   {...register("original_price")}
                 />
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasic">
                 <Form.Label>Expiration date</Form.Label>
-                <Form.Control type="date" {...register("date")}/>
+                <Form.Control type="date" {...register("expiration_date")}/>
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasic">
                 <Form.Label>Note</Form.Label>
@@ -150,7 +164,7 @@ export default function ListedItems() {
               </Form.Group>
               <Form.Group controlId="formFile" className="mb-3">
                 <Form.Label>Photo</Form.Label>
-                <Form.Control type="file" {...register("photo")}/>
+                <Form.Control type="file" {...register("image")}/>
               </Form.Group>
               <Button type="submit" variant="outline-success">Submit</Button>{" "}
               <Button type="button" variant="outline-danger" onClick={() => {
