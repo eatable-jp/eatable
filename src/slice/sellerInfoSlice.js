@@ -3,6 +3,7 @@ import axios from "axios";
 
 export const fetchSeller = createAsyncThunk("sellerInfo/fetchSeller", async (data) => {
   const url = process.env.SELLER_ROUTE || 'http://localhost:8080/seller';
+  // const url = '/seller'
   const seller = await axios.get(url+`/${data}`);
   return seller.data[0];
 });

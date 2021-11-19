@@ -56,6 +56,7 @@ export default function SellerForm() {
     routeChange();
     reset();
     const url = process.env.SELLER_ROUTE || 'http://localhost:8080/seller'
+    // const url = '/seller'
     await axios.patch(url, data);
     console.log("reached")
   };

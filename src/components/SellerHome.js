@@ -25,6 +25,7 @@ function SellerHome() {
     dispatch(fetchSeller(2))
     ///********************************************/
     const url = process.env.ITEMS_ROUTE || 'http://localhost:8080/items';
+    // const url = '/items'
     const response = await axios.get(url);
     //*************************HARDCODED 2 TO MATCH THE SELLER NUMBER****** */
     const items = response.data.filter((item)=> item.seller_id === 2 && item.buyer_id !== null && item.buyer_id !== 0 && item.conformation === null);
@@ -53,8 +54,15 @@ function SellerHome() {
       shop_lat: seller.shop_lat,
       shop_long: seller.shop_long
     }
+<<<<<<< HEAD
     const url = process.env.ITEM_ROUTE || 'http://localhost:8080/item';
     await axios.post(url, data);
+=======
+    const url = process.env.ITEM_ROUTE || 'http://localhost:8080/item'
+    // const url = '/item'
+    await axios.post(url, data)
+    //use the endpoint to post this to the DB
+>>>>>>> 189f239ceb4779f5b8bccef93bfd85d431f735dc
     reset();
   };
 
@@ -64,6 +72,7 @@ function SellerHome() {
       conformation:1
     };
     const url = process.env.ITEM_ROUTE || `http://localhost:8080/item`
+    // const url = '/item'
     await axios.patch(url,data);
   };
   
