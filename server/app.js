@@ -4,6 +4,7 @@ const path = require("path");
 const cors = require("cors")
 const knex = require('knex');
 const { ok } = require("assert");
+const stripe = require("stripe")(process.env.STRIPE);
 
 
 const app = express()
@@ -27,7 +28,6 @@ app.use((req, res, next) => {
     res.set('Content-Type', 'text/html');
     next();
 });
-
 
 
 // Set up a variable to hold our connection pool. It would be safe to
@@ -455,6 +455,32 @@ app.get("/hello", async(req,res) => {
     res.json("Let's save some food!!")
 })
 
+//stripe setup 
+app.post("/checkout", async (req, res) => {
+  try {
+    const session = await stripe.checkout.sessions.create({
+    payment_method_types: ["card"],
+    mode: "payment",
+    line_items: req.body.items.map((item) => {
+      return {
+        price_data: {
+          currency: "jpy",
+          product_data: {
+            name: item.name,
+          },
+          unit_amount: item.price,
+        },
+        quantity: 1,
+      }
+    }),
+    success_url: `http://localhost:3000/buyer`,
+    cancel_url: `http://localhost:3000/buyer`,
+  });
+  res.json({ url: session.url });
+  } catch (error) {
+    console.log(error);
+  }
+});
 
 app.get("*", (req,res) => {
     res.sendFile(path.resolve(__dirname,"..","build","index.html"));
