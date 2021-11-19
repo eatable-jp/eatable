@@ -54,15 +54,10 @@ function SellerHome() {
       shop_lat: seller.shop_lat,
       shop_long: seller.shop_long
     }
-<<<<<<< HEAD
-    const url = process.env.ITEM_ROUTE || 'http://localhost:8080/item';
-    await axios.post(url, data);
-=======
     const url = process.env.ITEM_ROUTE || 'http://localhost:8080/item'
     // const url = '/item'
     await axios.post(url, data)
     //use the endpoint to post this to the DB
->>>>>>> 189f239ceb4779f5b8bccef93bfd85d431f735dc
     reset();
   };
 

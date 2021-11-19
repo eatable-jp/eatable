@@ -55,10 +55,5 @@ const itemsSlice = createSlice({
   },
 });
 
-<<<<<<< HEAD
 export const { filterByFoodType, filterByExpiration } = itemsSlice.actions;
 export default itemsSlice.reducer;
-=======
-export const { filterByFoodType } = itemsSlice.actions;
-export default itemsSlice.reducer;
->>>>>>> 189f239ceb4779f5b8bccef93bfd85d431f735dc
