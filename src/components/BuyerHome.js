@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 // redux
 import { useSelector, useDispatch } from "react-redux";
-import { filterByFoodType } from "../slice/itemsSlice";
+import { filterByFoodType, filterByExpiration } from "../slice/itemsSlice";
 import { setUserLocation } from "../slice/locationSlice";
 import { fetchBuyer } from "../slice/buyerInfoSlice";
 // bootstrap
@@ -17,6 +17,9 @@ function BuyerHome() {
   // filter function
   function sendFoodType(type) {
     dispatch(filterByFoodType(type));
+  }
+  function sendDateFilter(type) {
+    dispatch(filterByExpiration(type));
   }
 
   useEffect(() => {
@@ -60,7 +63,22 @@ function BuyerHome() {
               </Form.Select>
             </Form.Group>
           </Form>
-          {/* food type filter */}
+          {/* expiration filter */}
+          <Form
+            className="w-25"
+            onChange={(e) => sendDateFilter(e.target.value)}
+            style={{ marginRight: "20px" }}
+          >
+            <Form.Group className="mb-3" controlId="formBasicType">
+              <Form.Label>Date</Form.Label>
+              <Form.Select aria-label="type">
+                <option value="">Select expiration</option>
+                <option value="Closest To Expiration">Closest To Expiration</option>
+                <option value="Furthest From Expiration">Furthest From Expiration</option>
+              </Form.Select>
+            </Form.Group>
+          </Form>
+          {/* location filter */}
           <Form className="w-25" onChange={(e) => setDistance(e.target.value)}>
             <Form.Group className="mb-3" controlId="formBasicLocation">
               <Form.Label>Location</Form.Label>
