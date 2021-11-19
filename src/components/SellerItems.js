@@ -79,6 +79,13 @@ export default function ListedItems() {
     await axios.patch(url, data)
     reset();
   };
+
+  const handleDelete = (id) => {
+    deleteHandler(id);
+    dispatch(fetchItems());
+    handleClose();   
+  }
+
   return (
     <>
       <Row xs={1} md={2} className="g-4">
@@ -168,8 +175,7 @@ export default function ListedItems() {
               </Form.Group>
               <Button type="submit" variant="outline-success">Submit</Button>{" "}
               <Button type="button" variant="outline-danger" onClick={() => {
-                deleteHandler(selectedItem.id);
-                handleClose();
+                handleDelete(selectedItem.id)
               }}>Delete</Button>
             </Form>
           </Modal.Body>

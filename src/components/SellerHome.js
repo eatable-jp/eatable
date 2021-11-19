@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 // redux
 import { useSelector, useDispatch } from "react-redux";
 import { fetchSeller } from "../slice/sellerInfoSlice";
+import { fetchItems } from "../slice/itemsSlice";
 // bootstrap
 import { Container, Button, Modal, Form, Accordion } from "react-bootstrap";
 // components
@@ -52,9 +53,8 @@ function SellerHome() {
       shop_lat: seller.shop_lat,
       shop_long: seller.shop_long
     }
-    const url = process.env.ITEM_ROUTE || 'http://localhost:8080/item'
-    await axios.post(url, data)
-    //use the endpoint to post this to the DB
+    const url = process.env.ITEM_ROUTE || 'http://localhost:8080/item';
+    await axios.post(url, data);
     reset();
   };
 
@@ -66,6 +66,11 @@ function SellerHome() {
     const url = process.env.ITEM_ROUTE || `http://localhost:8080/item`
     await axios.patch(url,data);
   };
+  
+  const newItemButtonHandle = (data) => {
+    newItemHandler(data);
+    dispatch(fetchItems());
+  }
 
   return (
     <>
@@ -118,7 +123,7 @@ function SellerHome() {
             <Modal.Title>Add a new item</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <Form onSubmit={handleSubmit(newItemHandler)}>
+            <Form onSubmit={handleSubmit(newItemButtonHandle)}>
               <Form.Group className="mb-3" controlId="formBasicName">
                 <Form.Label>Name</Form.Label>
                 <Form.Control type="text" placeholder="Enter name" {...register("name")}/>
