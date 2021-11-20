@@ -7,6 +7,8 @@ import { Link, useHistory } from "react-router-dom"
 
 import {loginFail, loginPending, loginSuccess} from '../slice/loginSlice'
 
+import {setUser} from '../slice/userSlice'
+
 
 
 
@@ -56,6 +58,9 @@ export default function Login() {
         } else {
           dispatch(loginSuccess())
           console.log("success")
+
+          dispatch(setUser(res.data.id))
+          
 
           if (res.data.status === "success"){
             sessionStorage.setItem("accesJWT", res.data.accessJWT);
