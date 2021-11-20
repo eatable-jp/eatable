@@ -114,7 +114,7 @@ const createPoolAndEnsureSchema = async () =>
 // New user registration
 const insertUser = async (pool, user) => {
   try {
-    return await pool('users').insert(user);
+    return await pool('users').insert(user).returning('id');
   }
   catch (err) {
     throw Error(err);
@@ -126,9 +126,9 @@ app.post('/signup', async (req, res) => {
   pool = pool || (await createPoolAndEnsureSchema());
   try {
       const newUser = req.body;
-      await insertUser(pool, newUser)
+      const data = await insertUser(pool, newUser)
       console.log("User added")
-      res.status(201).send("added").end();
+      res.json({status: "success", message: "User added Successful", id: data[0] })
   } catch (err) {
       console.error(err);
   res
@@ -343,7 +343,7 @@ app.get('/seller/:id', async (req, res) => {
 
   pool = pool || (await createPoolAndEnsureSchema());
   try {
-      const sellers = await getSellers(pool)
+      const sellers = await getSeller(pool)
       const paramsId = req.params.id
       const retSeller = sellers.filter((seller)=>seller.id === parseInt(paramsId))
 
@@ -361,7 +361,7 @@ app.get('/seller/:id', async (req, res) => {
 // Insert a seller
 const insertSeller = async (pool, seller) => {
 try {
-  return await pool('sellers').insert(seller);
+  return await pool('sellers').insert(seller).returning('id');
 }
 catch (err) {
   throw Error(err);
@@ -373,7 +373,8 @@ app.post('/seller', async (req, res) => {
 pool = pool || (await createPoolAndEnsureSchema());
 try {
     const newSeller = req.body;
-    await insertSeller(pool, newSeller)
+    const data = await insertSeller(pool, newSeller)
+    res.json({status: "success", message: "seller added Successful", id: data[0] })
 } catch (err) {
     console.error(err);
 res
@@ -467,7 +468,7 @@ app.get('/buyer/:id', async (req, res) => {
 // Insert a buyer
 const insertBuyer = async (pool, buyer) => {
   try {
-    return await pool('buyers').insert(buyer);
+    return await pool('buyers').insert(buyer).returning('id');
   }
   catch (err) {
     throw Error(err);
@@ -479,7 +480,8 @@ const insertBuyer = async (pool, buyer) => {
   pool = pool || (await createPoolAndEnsureSchema());
   try {
       const newBuyer = req.body;
-      await insertBuyer(pool, newBuyer)
+      const data = await insertBuyer(pool, newBuyer)
+      res.json({status: "success", message: "Buyer added Successful", id: data[0] })
   } catch (err) {
       console.error(err);
   res

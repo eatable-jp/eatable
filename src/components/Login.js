@@ -65,7 +65,7 @@ export default function Login() {
           if (res.data.type === "1") {
             history.push("/seller-form")
           }else {
-            history.push("/buyer")
+            history.push("/buyer-form")
           }
         }
     } catch (error) {

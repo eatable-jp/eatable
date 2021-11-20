@@ -45,10 +45,11 @@ function LandingPage() {
     try {
       setError("")
       setLoading(true)
-      //await signup(emailRef.current.value, passwordRef.current.value)
+      
+      // Encryption
       var salt = bcrypt.genSaltSync(10);
       var hashed_pass = bcrypt.hashSync(passwordRef.current.value, salt);
-      //const hashed_pass = await bcrypt.hash(passwordRef.current.value, 10);
+      
       let user = {
         email: emailRef.current.value,
         password: hashed_pass,
@@ -57,8 +58,27 @@ function LandingPage() {
       const url = process.env.SIGNUP_ROUTE || 'http://localhost:8080/signup'
       // const url = '/signup'
       const res = await axios.post(url, user)
-      console.log(res)
-      console.log(user)
+      
+      console.log(res.data)
+
+      if( user.type === "1"){
+        const seller = {
+          id : res.data.id,
+          email_address : user.email,
+        }
+        const sellerurl = process.env.SELLER || 'http://localhost:8080/seller'
+        const sellerRes = await axios.post(sellerurl, seller)
+        console.log(sellerRes.data);
+      } else {
+        const buyer = {
+          id : res.data.id,
+          email_address : user.email
+        }
+        const buyerurl = process.env.BUYER || 'http://localhost:8080/buyer'
+        const buyerRes = await axios.post(buyerurl, buyer)
+        console.log(buyerRes.data);
+      }
+
       setSuccess(true)
       //history.push("/login")
     } catch {
