@@ -57,8 +57,13 @@ export default function Login() {
           dispatch(loginSuccess())
           console.log("success")
 
+          if (res.data.status === "success"){
+            sessionStorage.setItem("accesJWT", res.data.accessJWT);
+            localStorage.setItem("eatable", JSON.stringify({refreshJWT: res.data.refreshJWT }));
+          }
+
           if (res.data.type === "1") {
-            history.push("/seller")
+            history.push("/seller-form")
           }else {
             history.push("/buyer")
           }
