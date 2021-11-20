@@ -21,13 +21,13 @@ function SellerHome() {
 
   useEffect(async()=>{
     //Seller for production HARD CODED NUMER 2***************
-    dispatch(fetchSeller(2))
+    dispatch(fetchSeller(3))
     ///********************************************/
     const url = process.env.ITEMS_ROUTE || 'http://localhost:8080/items';
     // const url = '/items'
     const response = await axios.get(url);
-    //*************************HARDCODED 2 TO MATCH THE SELLER NUMBER****** */
-    const items = response.data.filter((item)=> item.seller_id === 2 && item.buyer_id !== null && item.buyer_id !== 0 && item.conformation === null);
+    //*************************HARDCODED 3 TO MATCH THE SELLER NUMBER****** */
+    const items = response.data.filter((item)=> item.seller_id === 3 && item.buyer_id !== null && item.buyer_id !== 0 && item.conformation === null);
     setWaiting(items);
   },[])
 

@@ -63,9 +63,9 @@ export default function Login() {
           }
 
           if (res.data.type === "1") {
-            history.push("/seller-form")
+            history.push("/seller")
           }else {
-            history.push("/buyer-form")
+            history.push("/buyer")
           }
         }
     } catch (error) {
