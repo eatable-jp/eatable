@@ -4,14 +4,11 @@ const path = require("path");
 const cors = require("cors")
 const knex = require('knex');
 const { ok } = require("assert");
-<<<<<<< HEAD
 const bcrypt = require('bcryptjs');
 const { createJWT, createRefreshJWT} = require('../src/helpers/jwt.helper');
 const { userAuthorization } = require('../src/middlewares/authorization.middleware')
-=======
 const stripe = require("stripe")(process.env.STRIPE);
 
->>>>>>> 8222007dcdfc1ddfe800adb3a9cbff0f50f383be
 
 const app = express()
 
