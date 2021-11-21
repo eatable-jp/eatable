@@ -32,6 +32,8 @@ function SellerHome() {
     ///********************************************/
     const url = process.env.ITEMS_ROUTE || 'http://localhost:8080/items';
     // const url = '/items'
+
+    
     const response = await axios.get(url);
     //*************************HARDCODED 3 TO MATCH THE SELLER NUMBER****** */
     const items = response.data.filter((item)=> item.seller_id === userId && item.buyer_id !== null && item.buyer_id !== 0 && item.conformation === null);

@@ -6,12 +6,15 @@ const knex = require('knex');
 const { ok } = require("assert");
 const bcrypt = require('bcryptjs');
 const { createJWT, createRefreshJWT} = require('../src/helpers/jwt.helper');
-
+const { userAuthorization } = require('../src/middlewares/authorization.middleware')
 
 const app = express()
 
+
+
 //Middleware
 app.use(express.json());
+//app.use(userAuthorization)
 app.use(cors({
     origin: '*'
 }));
@@ -173,6 +176,23 @@ app.post('/login', async (req, res) => {
   res
     .status(500)
     .send('Entry Not Found')
+    .end();
+  }
+});
+
+// Get all global items
+
+app.get('/global', async (req, res) => {
+
+  pool = pool || (await createPoolAndEnsureSchema());
+  try {
+      const items = await getItems(pool)
+      res.json(items);
+  } catch (err) {
+      console.error(err);
+  res
+    .status(500)
+    .send('Unable to load page; see logs for more details.')
     .end();
   }
 });

@@ -23,7 +23,7 @@ export default function Login() {
 
   // access DB to make stats
   useEffect(async() => {
-    const url = process.env.ITEMS_ROUTE || 'http://localhost:8080/items';
+    const url = process.env.ITEMS_ROUTE || 'http://localhost:8080/global';
     // const url = '/items'
     const response = await axios.get(url);
     const items = response.data.filter((item)=> item.buyer_id !== null);
@@ -49,7 +49,12 @@ export default function Login() {
         // console.log(user)
         const url = process.env.LOGIN_ROUTE || 'http://localhost:8080/login'
         // const url = '/login'
+        
+        //const accessJWT = sessionStorage.getItem("accessJWT")
 
+        //if(!accessJWT) {
+        //  console.log("token not found")
+        //}
         const res = await axios.post(url, user)
         console.log(res)
 
