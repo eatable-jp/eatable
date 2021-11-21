@@ -25,6 +25,7 @@ const itemsSlice = createSlice({
   name: "items",
   initialState,
   reducers: {
+    // Filter by food type func
     filterByFoodType: (state, action) => {
       state.filteredItems =
         action.payload === "all"
@@ -32,6 +33,18 @@ const itemsSlice = createSlice({
           : state.items.filter((item) => item.type === action.payload);
       return state;
     },
+    //Filter by expiration func
+    filterByExpiration: (state, action) => {
+      if (action.payload === "") {
+        state.filteredItems = state.items;
+      } else if (action.payload === "Furthest From Expiration") {
+        state.filteredItems = state.items.sort((a, b) => { return new Date(a.expiration_date) - new Date(b.expiration_date)});
+      } else {
+        state.filteredItems = state.items.sort((a, b) => { return new Date(b.expiration_date) - new Date(a.expiration_date)});
+      }
+      return state;
+    }
+
   },
   extraReducers: {
     [fetchItems.fulfilled]: (state, action) => {
@@ -42,5 +55,5 @@ const itemsSlice = createSlice({
   },
 });
 
-export const { filterByFoodType } = itemsSlice.actions;
+export const { filterByFoodType, filterByExpiration } = itemsSlice.actions;
 export default itemsSlice.reducer;

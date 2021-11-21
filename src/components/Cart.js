@@ -44,6 +44,15 @@ function Cart() {
     console.log(test)
   }
 
+  /// handle stripe call
+  const handleStripeCall = async () => {
+    const url = process.env.CHECKOUT_ROUTE || 'http://localhost:8080/checkout'
+    const response = await axios.post(url, {items: cart});
+    const stripeUrl = response.data.url;
+    console.log(stripeUrl)
+    window.location = stripeUrl;
+  }
+
   // function to display add new item modal
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -114,7 +123,8 @@ function Cart() {
                   variant="primary"
                   onClick={() => {
                     handlePurchase();
-                    handleShow();
+                    handleStripeCall();
+                    // handleShow();
                     setTimeout(() => {
                       dispatch(clearCart());
                     }, 2000);
