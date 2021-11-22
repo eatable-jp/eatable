@@ -34,7 +34,7 @@ function LandingPage() {
   const [loading, setLoading] = useState(false)
   const history = useHistory()
   const [success, setSuccess] = useState(false)
- 
+
 
   async function handleSubmit(e) {
     e.preventDefault()
@@ -133,6 +133,7 @@ function LandingPage() {
                         <option value="2">Buyer</option>
                       </Form.Select>
                   </Form.Group>
+                  {}
                   <Button disabled={loading} className="w-100 mt-4" type="submit">
                     Sign Up
                   </Button>
