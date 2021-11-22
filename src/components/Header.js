@@ -1,14 +1,28 @@
 // react router
 import { LinkContainer } from "react-router-bootstrap";
+import { useHistory } from "react-router-dom"
+import { useDispatch } from "react-redux";
+import {logout } from '../slice/loginSlice'
+import {resetUser} from '../slice/userSlice'
 // bootstrap
 import { Nav, Navbar, Container } from "react-bootstrap";
 export default function Header({ userStatus }) {
+
+  const history = useHistory();
+  const dispatch = useDispatch();
+
+
+  const handleLogOut = () => {
+    dispatch(logout())
+    dispatch(resetUser())
+    history.push("/")
+  }
   return (
     <Navbar className="navbar-custom mb-5" expand="lg">
       {/* displaying different header based on customer type */}
       {userStatus === "seller" ? (
         <Container>
-          <LinkContainer to="/">
+          <LinkContainer to="/seller">
             <Navbar.Brand>Eatable</Navbar.Brand>
           </LinkContainer>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -17,15 +31,13 @@ export default function Header({ userStatus }) {
               <LinkContainer to="/seller-profile">
                 <Nav.Link>Profile</Nav.Link>
               </LinkContainer>
-              <LinkContainer to="/logout">
-                <Nav.Link>Log out</Nav.Link>
-              </LinkContainer>
+              <Nav.Link onClick={()=> handleLogOut()}>Log out</Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>
       ) : userStatus === "buyer" ? (
         <Container>
-          <LinkContainer to="/">
+          <LinkContainer to="/buyer">
             <Navbar.Brand>Eatable</Navbar.Brand>
           </LinkContainer>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -37,9 +49,7 @@ export default function Header({ userStatus }) {
               <LinkContainer to="/cart">
                 <Nav.Link>Cart</Nav.Link>
               </LinkContainer>
-              <LinkContainer to="/logout">
-                <Nav.Link>Log out</Nav.Link>
-              </LinkContainer>
+                <Nav.Link onClick={()=> handleLogOut()}>Log out</Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>

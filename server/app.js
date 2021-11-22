@@ -4,13 +4,19 @@ const path = require("path");
 const cors = require("cors")
 const knex = require('knex');
 const { ok } = require("assert");
+const bcrypt = require('bcryptjs');
+const { createJWT, createRefreshJWT} = require('../src/helpers/jwt.helper');
+const { userAuthorization } = require('../src/middlewares/authorization.middleware')
 const stripe = require("stripe")(process.env.STRIPE);
 
 
 const app = express()
 
+
+
 //Middleware
 app.use(express.json());
+//app.use(userAuthorization)
 app.use(cors({
     origin: '*'
 }));
@@ -107,6 +113,90 @@ const createPoolAndEnsureSchema = async () =>
     .catch(err => {
       throw err;
     });
+
+
+// New user registration
+const insertUser = async (pool, user) => {
+  try {
+    return await pool('users').insert(user).returning('id');
+  }
+  catch (err) {
+    throw Error(err);
+  }
+}
+
+app.post('/signup', async (req, res) => {
+
+  pool = pool || (await createPoolAndEnsureSchema());
+  try {
+      const newUser = req.body;
+      const data = await insertUser(pool, newUser)
+      console.log("User added")
+      res.json({status: "success", message: "User added Successful", id: data[0] })
+  } catch (err) {
+      console.error(err);
+  res
+    .status(500)
+    .send('Unable to register user')
+    .end();
+  }
+});
+
+// login user
+
+const checkUser = async (pool, user) => {
+  try {
+    return await pool('users').where({email:user.email}).select('*');
+  }
+  catch (err) {
+    throw Error(err);
+  }
+}
+
+app.post('/login', async (req, res) => {
+
+  pool = pool || (await createPoolAndEnsureSchema());
+  try {
+      const newUser = req.body;
+      const data = await checkUser(pool, newUser)
+      console.log(data)
+      //res.json(data);
+
+      if (data.length === 0 ){
+        res.json({status: "fail", message: "User not Found"})
+      } else if (bcrypt.compareSync(newUser.password, data[0].password) === false) {
+        res.json({status: "fail", message: "Incorrect Email or Password"})
+      } else {
+        const accessJWT = await createJWT(newUser.email);
+        const refreshJWT = await createRefreshJWT(newUser.email);
+        res.json({status: "success", message: "Login Successful", id: data[0].id, type: data[0].type, accessJWT, refreshJWT })
+      }
+
+  } catch (err) {
+      console.error(err);
+  res
+    .status(500)
+    .send('Entry Not Found')
+    .end();
+  }
+});
+
+// Get all global items
+
+app.get('/global', async (req, res) => {
+
+  pool = pool || (await createPoolAndEnsureSchema());
+  try {
+      const items = await getItems(pool)
+      res.json(items);
+  } catch (err) {
+      console.error(err);
+  res
+    .status(500)
+    .send('Unable to load page; see logs for more details.')
+    .end();
+  }
+});
 
 
 // Get all items
@@ -274,7 +364,7 @@ app.get('/seller/:id', async (req, res) => {
 
   pool = pool || (await createPoolAndEnsureSchema());
   try {
-      const sellers = await getSellers(pool)
+      const sellers = await getSeller(pool)
       const paramsId = req.params.id
       const retSeller = sellers.filter((seller)=>seller.id === parseInt(paramsId))
 
@@ -292,7 +382,7 @@ app.get('/seller/:id', async (req, res) => {
 // Insert a seller
 const insertSeller = async (pool, seller) => {
 try {
-  return await pool('sellers').insert(seller);
+  return await pool('sellers').insert(seller).returning('id');
 }
 catch (err) {
   throw Error(err);
@@ -304,7 +394,8 @@ app.post('/seller', async (req, res) => {
 pool = pool || (await createPoolAndEnsureSchema());
 try {
     const newSeller = req.body;
-    await insertSeller(pool, newSeller)
+    const data = await insertSeller(pool, newSeller)
+    res.json({status: "success", message: "seller added Successful", id: data[0] })
 } catch (err) {
     console.error(err);
 res
@@ -398,7 +489,7 @@ app.get('/buyer/:id', async (req, res) => {
 // Insert a buyer
 const insertBuyer = async (pool, buyer) => {
   try {
-    return await pool('buyers').insert(buyer);
+    return await pool('buyers').insert(buyer).returning('id');
   }
   catch (err) {
     throw Error(err);
@@ -410,7 +501,8 @@ const insertBuyer = async (pool, buyer) => {
   pool = pool || (await createPoolAndEnsureSchema());
   try {
       const newBuyer = req.body;
-      await insertBuyer(pool, newBuyer)
+      const data = await insertBuyer(pool, newBuyer)
+      res.json({status: "success", message: "Buyer added Successful", id: data[0] })
   } catch (err) {
       console.error(err);
   res

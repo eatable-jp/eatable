@@ -1,12 +1,12 @@
 CREATE TABLE sellers (
-    id SERIAL UNIQUE NOT NULL,
-    seller_name TEXT NOT NULL,
-    shop_name TEXT NOT NULL,
-    shop_location TEXT NOT NULL,
-    shop_long TEXT NOT NULL,
-    shop_lat TEXT NOT NULL,
-    opening_time TEXT NOT NULL,
-    closing_time TEXT NOT NULL,
-    phone_number TEXT NOT NULL,
+    id INTEGER NOT NULL,
+    seller_name TEXT,
+    shop_name TEXT,
+    shop_location TEXT,
+    shop_long TEXT,
+    shop_lat TEXT,
+    opening_time TEXT,
+    closing_time TEXT,
+    phone_number TEXT,
     email_address TEXT NOT NULL
  );
