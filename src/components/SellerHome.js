@@ -22,7 +22,7 @@ function SellerHome() {
 
   if (userId === null){
     userId = localStorage.getItem(userId);
-    //dispatch(setUser(userId))
+    dispatch(setUser(userId))
   }
 
   const [waiting, setWaiting] = useState([]);
@@ -34,7 +34,7 @@ function SellerHome() {
     const url = process.env.ITEMS_ROUTE || 'http://localhost:8080/items';
     // const url = '/items'
 
-    console.log("here")
+    //console.log()
     console.log(JSON.parse(localStorage.getItem("eatable")));
     
     const response = await axios.get(url, {

@@ -168,7 +168,7 @@ app.post('/login', async (req, res) => {
       } else if (bcrypt.compareSync(newUser.password, data[0].password) === false) {
         res.json({status: "fail", message: "Incorrect Email or Password"})
       } else {
-        const accessJWT = await createJWT(newUser.email);
+        const accessJWT = await createJWT(data[0].id);
         //const refreshJWT = await createRefreshJWT(newUser.email);
         res.json({status: "success", message: "Login Successful", id: data[0].id, type: data[0].type, accessJWT })
       }

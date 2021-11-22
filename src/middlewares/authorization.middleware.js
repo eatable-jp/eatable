@@ -6,18 +6,13 @@ const userAuthorization = async (req, res, next) => {
         return next();
     }
 
-    //console.log(req.headers)
-
-    let token = await req.headers.accessjwt;
-
-    // console.log("here")
-    // console.log(token)
-    console.log(req.originalUrl, token)
+    const token = await req.headers.accessjwt;
 
     if(token) {
         try {
             const verify = verifyAcessJWT(token);
-            console.log(verify.user);
+            res.locals.user = verify.id;
+            console.log(res.locals.user)
         } catch (error){
             console.log(error)
             return res.status(403).send("token is expired");

@@ -15,7 +15,8 @@ export default function Header({ userStatus }) {
   const handleLogOut = () => {
     dispatch(logout())
     dispatch(resetUser())
-    history.push("/")
+    localStorage.removeItem("eatable");
+    history.push("/login")
   }
   return (
     <Navbar className="navbar-custom mb-5" expand="lg">

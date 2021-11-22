@@ -1,8 +1,8 @@
 require("dotenv").config();
 const jwt = require('jsonwebtoken');
 
-const createJWT = async (payload) => {
-    const accessJWT =  jwt.sign({ payload }, process.env.JWT_ACCESS_SECRET, {expiresIn: '15m'})
+const createJWT = async (id) => {
+    const accessJWT =  jwt.sign({ id }, process.env.JWT_ACCESS_SECRET, {expiresIn: '15m'})
     return accessJWT
 }
 
