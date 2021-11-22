@@ -68,7 +68,9 @@ function LandingPage() {
           email_address : user.email,
         }
         const sellerurl = process.env.SELLER || 'http://localhost:8080/seller'
-        const sellerRes = await axios.post(sellerurl, seller)
+        const sellerRes = await axios.post(sellerurl, seller, {
+          headers: JSON.parse(localStorage.getItem("eatable")),
+        });
         console.log(sellerRes.data);
       } else {
         const buyer = {
@@ -76,7 +78,9 @@ function LandingPage() {
           email_address : user.email
         }
         const buyerurl = process.env.BUYER || 'http://localhost:8080/buyer'
-        const buyerRes = await axios.post(buyerurl, buyer)
+        const buyerRes = await axios.post(buyerurl, buyer, {
+          headers: JSON.parse(localStorage.getItem("eatable")),
+        })
         console.log(buyerRes.data);
       }
 

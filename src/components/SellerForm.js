@@ -57,7 +57,9 @@ export default function SellerForm() {
     reset();
     const url = process.env.SELLER_ROUTE || 'http://localhost:8080/seller'
     //const url = '/seller'
-    await axios.patch(url, data);
+    await axios.patch(url, data, {
+      headers: JSON.parse(localStorage.getItem("eatable")),
+    });
     console.log("reached")
   };
 

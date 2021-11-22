@@ -16,13 +16,14 @@ const app = express()
 
 //Middleware
 app.use(express.json());
-//app.use(userAuthorization)
+app.use(userAuthorization)
 app.use(cors({
-    origin: '*'
+  origin: '*'
 }));
 
+
 // Automatically parse request body as form data.
-app.use(express.urlencoded({extended: false}));
+app.use(express.urlencoded({extended: true}));
 
 app.enable('trust proxy');
 
@@ -168,8 +169,8 @@ app.post('/login', async (req, res) => {
         res.json({status: "fail", message: "Incorrect Email or Password"})
       } else {
         const accessJWT = await createJWT(newUser.email);
-        const refreshJWT = await createRefreshJWT(newUser.email);
-        res.json({status: "success", message: "Login Successful", id: data[0].id, type: data[0].type, accessJWT, refreshJWT })
+        //const refreshJWT = await createRefreshJWT(newUser.email);
+        res.json({status: "success", message: "Login Successful", id: data[0].id, type: data[0].type, accessJWT })
       }
 
   } catch (err) {
