@@ -7,6 +7,8 @@ import itemsReducer from "./slice/itemsSlice";
 import purchasesReducer from "./slice/purchasesSlice";
 import locationReducer from "./slice/locationSlice";
 import sellersReducer from "./slice/sellersSlice";
+import loginReducer from "./slice/loginSlice"
+import userReducer from "./slice/userSlice"
 
 export default configureStore({
   reducer: {
@@ -16,6 +18,8 @@ export default configureStore({
     items: itemsReducer,
     purchases: purchasesReducer,
     location: locationReducer,
-    sellers: sellersReducer 
+    sellers: sellersReducer ,
+    login: loginReducer,
+    user: userReducer
   },
 });

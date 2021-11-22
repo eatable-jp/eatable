@@ -9,9 +9,16 @@ import { Container, Form } from "react-bootstrap";
 // components
 import BuyerItems from "./BuyerItems";
 
+import {setUser} from '../slice/userSlice'
+
 function BuyerHome() {
   // redux
   const buyerInfo = useSelector((state) => state.buyerInfo);
+  let userId = useSelector((state) => state.user.user_id);
+  if (userId === null){
+    userId = localStorage.getItem(userId);
+    // dispatch(setUser(userId))
+  }
   const dispatch = useDispatch();
 
   // filter function
@@ -29,7 +36,7 @@ function BuyerHome() {
         dispatch(setUserLocation({ latitude, longitude }));
       });
     }
-    dispatch(fetchBuyer(1));
+    dispatch(fetchBuyer(userId));
   }, []);
 
   // distance state

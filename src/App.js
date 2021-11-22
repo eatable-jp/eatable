@@ -1,6 +1,7 @@
 // packages
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { PersistGate } from 'redux-persist/integration/react'
 import "./App.css";
 // redux toolkit
 import { Provider } from "react-redux";
@@ -16,18 +17,24 @@ import BuyerProfile from "./components/BuyerProfile";
 import BuyerForm from "./components/BuyerForm";
 import SellerForm from "./components/SellerForm";
 import LandingPage from "./components/LandingPage";
+import Login from "./components/Login";
 
 function App() {
   const userStatus = "seller";
 
   return (
     <Provider store={store}>
+      
       <Router>
         <div className="App">
           <Switch>
             {/* Home component */}
             <Route exact path="/">
               <LandingPage />
+            </Route>
+            {/* Login component */}
+            <Route exact path="/login">
+              <Login />
             </Route>
             {/* seller page component */}
             <Route exact path="/seller">
@@ -60,6 +67,7 @@ function App() {
           </Switch>
         </div>
       </Router>
+      
     </Provider>
   );
 }
