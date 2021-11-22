@@ -11,6 +11,8 @@ import SellerItems from "./SellerItems";
 import SellerInfo from "./SellerInfo";
 // axios
 import axios from "axios";
+//js-base64
+import { encode, decode } from 'js-base64';
 
 
 function SellerHome() {
