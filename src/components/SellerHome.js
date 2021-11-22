@@ -49,7 +49,7 @@ function SellerHome() {
     handleClose();
     const data = {
       name,
-      image: image[0].name,
+      image: await base64(image[0]),
       type,
       price:parseInt(price),
       original_price: parseInt(original_price),
@@ -64,6 +64,17 @@ function SellerHome() {
     await axios.post(url, data)
     //use the endpoint to post this to the DB
     reset();
+  };
+
+  // Converts image into base 64
+  const base64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        resolve(reader.result);
+      };
+    });
   };
 
   const completeTransaction = async(id) => {
