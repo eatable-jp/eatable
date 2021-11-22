@@ -45,7 +45,10 @@ export default function BuyerForm() {
   };
 
   return (
+    <>
+    
     <Container className="w-25">
+    <h1 className='text-center'> Please Enter your details </h1>
       <Form onSubmit={handleSubmit(editBuyerProfileHandler)}>
         <Form.Group className="mb-3" controlId="formBasicName">
           <Form.Label>Name</Form.Label>
@@ -89,5 +92,6 @@ export default function BuyerForm() {
         </LinkContainer>
       </Form>
     </Container>
+    </>
   );
 }

@@ -63,6 +63,7 @@ export default function SellerForm() {
 
   return (
     <Container className="w-25">
+      <h1> Please Enter you details </h1>
       <Form onSubmit={handleSubmit(editSellerProfileHandler)}>
         <Form.Group className="mb-3" controlId="formBasicShopName">
           <Form.Label>Shop name</Form.Label>

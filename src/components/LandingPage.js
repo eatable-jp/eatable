@@ -82,12 +82,13 @@ function LandingPage() {
 
       setSuccess(true)
       //history.push("/login")
+      setLoading(false)
+      document.getElementById("signup-form").reset();
+
+      history.push("/login")
     } catch {
       setError("Sorry, Failed to create an account. Have you already registered this email?")
     }
-
-    setLoading(false)
-    document.getElementById("signup-form").reset();
   }
 
 
