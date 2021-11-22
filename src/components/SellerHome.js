@@ -11,13 +11,7 @@ import SellerItems from "./SellerItems";
 import SellerInfo from "./SellerInfo";
 // axios
 import axios from "axios";
-<<<<<<< HEAD
-//js-base64
-import { encode, decode } from 'js-base64';
-
-=======
 import {setUser} from '../slice/userSlice'
->>>>>>> 106b4bf1828306031f850482349a02a8c16c14da
 
 function SellerHome() {
   // setup redux
@@ -34,15 +28,11 @@ function SellerHome() {
   const [waiting, setWaiting] = useState([]);
 
   useEffect(async()=>{
-    //Seller for production HARD CODED NUMER 2***************
     dispatch(fetchSeller(userId))
-    ///********************************************/
     const url = process.env.ITEMS_ROUTE || 'http://localhost:8080/items';
     // const url = '/items'
 
-    
     const response = await axios.get(url);
-    //*************************HARDCODED 3 TO MATCH THE SELLER NUMBER****** */
     const items = response.data.filter((item)=> item.seller_id === userId && item.buyer_id !== null && item.buyer_id !== 0 && item.conformation === null);
     setWaiting(items);
   },[])

@@ -541,7 +541,6 @@ const insertBuyer = async (pool, buyer) => {
   }
   });
 
-
 //test endpoint
 app.get("/hello", async(req,res) => {
     res.json("Let's save some food!!")
