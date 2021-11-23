@@ -97,32 +97,6 @@ function LandingPage() {
 
 
   return (
-    // <>
-    //   <h1 className="text-center logo">Eatable</h1>
-    //   <Carousel fade>
-    //     <Carousel.Item interval={10000}>
-    //       <img
-    //         className="d-block w-100"
-    //         src={lp_bg01}
-    //         alt="First slide"
-    //       />
-    //     </Carousel.Item>
-    //     <Carousel.Item interval={10000}>
-    //       <img
-    //         className="d-block w-100"
-    //         src={lp_bg02}
-    //         alt="Second slide"
-    //       />
-    //     </Carousel.Item>
-    //     <Carousel.Item interval={10000}>
-    //       <img
-    //         className="d-block w-100"
-    //         src={lp_bg03}
-    //         alt="Third slide"
-    //       />
-    //     </Carousel.Item>
-    //   </Carousel>
-    // </>
     <div className="lp-wrapper">
     <h1 className="text-center" style={{fontFamily: 'Pacifico', margin: "0 auto", color: "#fff"}}>Eatable</h1>
     <Container className="mt-5">
