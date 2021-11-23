@@ -32,8 +32,8 @@ function Cart() {
 
   //handle the DB call
   const handlePurchase = async() => {
-    const url = process.env.ITEM_ROUTE || 'http://localhost:8080/items'
-    //const url = '/items'
+    //const url = process.env.ITEM_ROUTE || 'http://localhost:8080/items'
+    const url = '/items'
     const purchaseData = cart.map((item)=> {
       return {
         id: item.id,
@@ -48,7 +48,8 @@ function Cart() {
 
   /// handle stripe call
   const handleStripeCall = async () => {
-    const url = process.env.CHECKOUT_ROUTE || 'http://localhost:8080/checkout'
+    //const url = process.env.CHECKOUT_ROUTE || 'http://localhost:8080/checkout'
+    const url = '/checkout'
     const response = await axios.post(url, {items: cart}, {
       headers: JSON.parse(localStorage.getItem("eatable")),
     });

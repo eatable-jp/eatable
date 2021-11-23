@@ -29,8 +29,8 @@ function SellerHome() {
 
   useEffect(async()=>{
     dispatch(fetchSeller(userId))
-    const url = process.env.ITEMS_ROUTE || 'http://localhost:8080/items';
-    // const url = '/items'
+    //const url = process.env.ITEMS_ROUTE || 'http://localhost:8080/items';
+    const url = '/items'
 
     //console.log()
     console.log(JSON.parse(localStorage.getItem("eatable")));
@@ -65,8 +65,8 @@ function SellerHome() {
       shop_lat: seller.shop_lat,
       shop_long: seller.shop_long
     }
-    const url = process.env.ITEM_ROUTE || 'http://localhost:8080/item'
-    // const url = '/item'
+    //const url = process.env.ITEM_ROUTE || 'http://localhost:8080/item'
+    const url = '/item'
     await axios.post(url, data, {
       headers: JSON.parse(localStorage.getItem("eatable")),
     })
@@ -91,8 +91,8 @@ function SellerHome() {
       conformation:1
     };
      //console.log(JSON.parse(localStorage.getItem("eatable")));
-    const url = process.env.ITEM_ROUTE || `http://localhost:8080/item`;
-    // const url = '/item'
+    //const url = process.env.ITEM_ROUTE || `http://localhost:8080/item`;
+    const url = '/item'
     await axios.patch(url,data, {
       headers: JSON.parse(localStorage.getItem("eatable")),
     });

@@ -565,8 +565,10 @@ app.post("/checkout", async (req, res) => {
         quantity: 1,
       }
     }),
-    success_url: `http://localhost:3000/buyer-profile`,
-    cancel_url: `http://localhost:3000/buyer`,
+    // success_url: `http://localhost:3000/buyer-profile`,
+    // cancel_url: `http://localhost:3000/buyer`,
+    success_url: `https://eatable-7yflvglpaq-uc.a.run.app/buyer-profile`,
+    cancel_url: `https://eatable-7yflvglpaq-uc.a.run.app/buyer`,
   });
   res.json({ url: session.url });
   } catch (error) {

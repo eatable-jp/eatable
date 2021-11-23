@@ -5,8 +5,8 @@ const initialState = []
 
 export const fetchSellers = createAsyncThunk("sellers/fetchSellers",async()=>{
     try{
-        const url = process.env.SELLERS_ROUTE || 'http://localhost:8080/sellers'
-        // const url = '/sellers'
+        // const url = process.env.SELLERS_ROUTE || 'http://localhost:8080/sellers'
+        const url = '/sellers'
         const response = await axios.get(url, {
             headers: JSON.parse(localStorage.getItem("eatable")),
           });

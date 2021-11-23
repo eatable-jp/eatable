@@ -24,8 +24,8 @@ export default function BuyerProfile() {
     dispatch(fetchSellers());
     dispatch(fetchBuyer(buyerInfo.id));
 
-    const url = process.env.ITEMS_ROUTE || 'http://localhost:8080/items';
-    //const url = '/items'
+    //const url = process.env.ITEMS_ROUTE || 'http://localhost:8080/items';
+    const url = '/items'
     const response = await axios.get(url, {
       headers: JSON.parse(localStorage.getItem("eatable")),
     });

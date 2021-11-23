@@ -22,8 +22,8 @@ function LandingPage() {
   // access DB to make stats
   useEffect(async() => {
 
-    const url = process.env.ITEMS_ROUTE || 'http://localhost:8080/global';
-    // const url = '/items'
+    //const url = process.env.ITEMS_ROUTE || 'http://localhost:8080/global';
+    const url = '/global'
     const response = await axios.get(url);
     const items = response.data.filter((item)=> item.buyer_id !== '0');
     setSoldItems(items);
@@ -61,8 +61,8 @@ function LandingPage() {
         password: hashed_pass,
         type: typeRef.current.value
       }
-      const url = process.env.SIGNUP_ROUTE || 'http://localhost:8080/signup'
-      // const url = '/signup'
+      //const url = process.env.SIGNUP_ROUTE || 'http://localhost:8080/signup'
+      const url = '/signup'
       const res = await axios.post(url, user)
       
       console.log(res.data)
@@ -72,7 +72,8 @@ function LandingPage() {
           id : res.data.id,
           email_address : user.email,
         }
-        const sellerurl = process.env.SELLER || 'http://localhost:8080/seller'
+        //const sellerurl = process.env.SELLER || 'http://localhost:8080/seller'
+        const sellerurl = '/seller'
         const sellerRes = await axios.post(sellerurl, seller, {
           headers: JSON.parse(localStorage.getItem("eatable")),
         });
@@ -82,7 +83,8 @@ function LandingPage() {
           id : res.data.id,
           email_address : user.email
         }
-        const buyerurl = process.env.BUYER || 'http://localhost:8080/buyer'
+        //const buyerurl = process.env.BUYER || 'http://localhost:8080/buyer'
+        const buyerurl = '/buyer'
         const buyerRes = await axios.post(buyerurl, buyer, {
           headers: JSON.parse(localStorage.getItem("eatable")),
         })

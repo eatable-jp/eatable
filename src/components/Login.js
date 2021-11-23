@@ -23,8 +23,8 @@ export default function Login() {
 
   // access DB to make stats
   useEffect(async() => {
-    const url = process.env.ITEMS_ROUTE || 'http://localhost:8080/global';
-    // const url = '/items'
+    //const url = process.env.ITEMS_ROUTE || 'http://localhost:8080/global';
+    const url = '/global'
     const response = await axios.get(url);
     const items = response.data.filter((item)=> item.buyer_id !== '0');
     setSoldItems(items);
@@ -47,7 +47,8 @@ export default function Login() {
             password: passwordRef.current.value
           }
         // console.log(user)
-        const url = process.env.LOGIN_ROUTE || 'http://localhost:8080/login'
+        // const url = process.env.LOGIN_ROUTE || 'http://localhost:8080/login'
+        const url = '/login'
   
         const res = await axios.post(url, user)
         console.log(res)
