@@ -14,11 +14,15 @@ import {setUser} from '../slice/userSlice'
 function BuyerHome() {
   // redux
   const buyerInfo = useSelector((state) => state.buyerInfo);
+
   let userId = useSelector((state) => state.user.user_id);
+
   if (userId === null){
     userId = localStorage.getItem(userId);
-    // dispatch(setUser(userId))
+    dispatch(setUser(userId))
   }
+  //const userId = res.locals.user;
+
   const dispatch = useDispatch();
 
   // filter function

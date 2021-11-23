@@ -26,7 +26,7 @@ export default function Login() {
     const url = process.env.ITEMS_ROUTE || 'http://localhost:8080/global';
     // const url = '/items'
     const response = await axios.get(url);
-    const items = response.data.filter((item)=> item.buyer_id !== null);
+    const items = response.data.filter((item)=> item.buyer_id !== '0');
     setSoldItems(items);
   },[]);
   const emailRef = useRef()
@@ -48,13 +48,7 @@ export default function Login() {
           }
         // console.log(user)
         const url = process.env.LOGIN_ROUTE || 'http://localhost:8080/login'
-        // const url = '/login'
-        
-        //const accessJWT = sessionStorage.getItem("accessJWT")
-
-        //if(!accessJWT) {
-        //  console.log("token not found")
-        //}
+  
         const res = await axios.post(url, user)
         console.log(res)
 
@@ -65,11 +59,13 @@ export default function Login() {
           console.log("success")
 
           dispatch(setUser(res.data.id))
+
+          console.log(res.data)
           
+          console.log(res.data.accessJWT)
 
           if (res.data.status === "success"){
-            sessionStorage.setItem("accesJWT", res.data.accessJWT);
-            localStorage.setItem("eatable", JSON.stringify({refreshJWT: res.data.refreshJWT }));
+            localStorage.setItem("eatable", JSON.stringify({accessJWT: res.data.accessJWT }));
           }
 
           if (res.data.type === "1") {

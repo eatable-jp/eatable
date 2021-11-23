@@ -22,7 +22,7 @@ function SellerHome() {
 
   if (userId === null){
     userId = localStorage.getItem(userId);
-    //dispatch(setUser(userId))
+    dispatch(setUser(userId))
   }
 
   const [waiting, setWaiting] = useState([]);
@@ -32,7 +32,13 @@ function SellerHome() {
     const url = process.env.ITEMS_ROUTE || 'http://localhost:8080/items';
     // const url = '/items'
 
-    const response = await axios.get(url);
+    //console.log()
+    console.log(JSON.parse(localStorage.getItem("eatable")));
+    
+    const response = await axios.get(url, {
+      headers: JSON.parse(localStorage.getItem("eatable")),
+    });
+    //*************************HARDCODED 3 TO MATCH THE SELLER NUMBER****** */
     const items = response.data.filter((item)=> item.seller_id === userId && item.buyer_id !== null && item.buyer_id !== 0 && item.conformation === null);
     setWaiting(items);
   },[])
@@ -61,7 +67,9 @@ function SellerHome() {
     }
     const url = process.env.ITEM_ROUTE || 'http://localhost:8080/item'
     // const url = '/item'
-    await axios.post(url, data)
+    await axios.post(url, data, {
+      headers: JSON.parse(localStorage.getItem("eatable")),
+    })
     //use the endpoint to post this to the DB
     reset();
   };
@@ -82,9 +90,12 @@ function SellerHome() {
       id,
       conformation:1
     };
-    const url = process.env.ITEM_ROUTE || `http://localhost:8080/item`
+     //console.log(JSON.parse(localStorage.getItem("eatable")));
+    const url = process.env.ITEM_ROUTE || `http://localhost:8080/item`;
     // const url = '/item'
-    await axios.patch(url,data);
+    await axios.patch(url,data, {
+      headers: JSON.parse(localStorage.getItem("eatable")),
+    });
   };
   
   const newItemButtonHandle = (data) => {

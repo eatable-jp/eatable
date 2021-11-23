@@ -40,14 +40,18 @@ function Cart() {
         buyer_id: buyerInfo.id
       }
     })
-    const test = await axios.patch(url,purchaseData)
+    const test = await axios.patch(url,purchaseData, {
+      headers: JSON.parse(localStorage.getItem("eatable")),
+    })
     console.log(test)
   }
 
   /// handle stripe call
   const handleStripeCall = async () => {
     const url = process.env.CHECKOUT_ROUTE || 'http://localhost:8080/checkout'
-    const response = await axios.post(url, {items: cart});
+    const response = await axios.post(url, {items: cart}, {
+      headers: JSON.parse(localStorage.getItem("eatable")),
+    });
     const stripeUrl = response.data.url;
     console.log(stripeUrl)
     window.location = stripeUrl;

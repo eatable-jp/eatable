@@ -1,26 +1,25 @@
 const { verifyAcessJWT } = require("../helpers/jwt.helper")
 
-const userAuthorization = (req, res, next) => {
+const userAuthorization = async (req, res, next) => {
 
-    if (req.originalUrl === '/global' || req.originalUrl === '/' || req.originalUrl === '/login') {
+    if (req.originalUrl === '/global' || req.originalUrl === '/' || req.originalUrl === '/login' || req.originalUrl === '/signup') {
         return next();
     }
-    const { authorization } = req.headers;
-    console.log(authorization)
 
-    // verify if jwt is valid
-    // const decoded = verifyAcessJWT(authorization);
+    const token = await req.headers.accessjwt;
 
-    //if(decoded.email)
-
-    // check if jwt exists in storage
-
-    // extract user id
-
-    //res.json(authorization)
-
-    res.status(403).json({message: "Forbidden"})
-    next();
+    if(token) {
+        try {
+            const verify = verifyAcessJWT(token);
+            res.locals.user = verify.id;
+            console.log(res.locals.user)
+        } catch (error){
+            console.log(error)
+            return res.status(403).send("token is expired");
+        }
+        console.log("token found")
+    }
+    return next();
 }
 
 module.exports = {
