@@ -1,6 +1,16 @@
+.logo {
+  position: absolute;
+  left: 50%;
+  top: 20px;
+  transform: translateX(-50%);
+  margin: 0 auto; 
+  color: #fff;
+  font-family: 'Pacifico';
+  z-index: 1000;
+}
 .lp-wrapper {
   height: 100vh;
-  background: url("./img/lp_bg.jpg") no-repeat;
+  background: url("./img/lp_bg01.jpg") no-repeat;
   background-size: cover;
   background-position: center;
 }
