@@ -28,15 +28,11 @@ function SellerHome() {
   const [waiting, setWaiting] = useState([]);
 
   useEffect(async()=>{
-    //Seller for production HARD CODED NUMER 2***************
     dispatch(fetchSeller(userId))
-    ///********************************************/
     const url = process.env.ITEMS_ROUTE || 'http://localhost:8080/items';
     // const url = '/items'
 
-    
     const response = await axios.get(url);
-    //*************************HARDCODED 3 TO MATCH THE SELLER NUMBER****** */
     const items = response.data.filter((item)=> item.seller_id === userId && item.buyer_id !== null && item.buyer_id !== 0 && item.conformation === null);
     setWaiting(items);
   },[])
@@ -53,7 +49,7 @@ function SellerHome() {
     handleClose();
     const data = {
       name,
-      image: image[0].name,
+      image: await base64(image[0]),
       type,
       price:parseInt(price),
       original_price: parseInt(original_price),
@@ -68,6 +64,17 @@ function SellerHome() {
     await axios.post(url, data)
     //use the endpoint to post this to the DB
     reset();
+  };
+
+  // Converts image into base 64
+  const base64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        resolve(reader.result);
+      };
+    });
   };
 
   const completeTransaction = async(id) => {

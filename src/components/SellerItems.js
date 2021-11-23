@@ -58,7 +58,7 @@ export default function ListedItems() {
     let data = {
       id: selectedItem.id,
       name,
-      image: image.length !== 0 ? image[0].name : "",
+      image: image.length !== 0 ? await base64(image[0]) : "",
       type,
       price,
       original_price,
@@ -81,6 +81,17 @@ export default function ListedItems() {
     await axios.patch(url, data)
     reset();
   };
+  
+  // Converts image into base 64
+  const base64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        resolve(reader.result);
+      };
+    });
+  };
 
   const handleDelete = (id) => {
     deleteHandler(id);
@@ -98,6 +109,7 @@ export default function ListedItems() {
                 {/*<Card.Img variant="top" src={item.image} />*/}
                 <Card.Body>
                   <Card.Title>{item.name}</Card.Title>
+                  <Card.Img variant="top" src={item.image} />
                   <Card.Text>{sellerInfo.shop_name}</Card.Text>
                   <Card.Text>Best before {item.expiration_date}</Card.Text>
                   <Card.Text>{item.note}</Card.Text>

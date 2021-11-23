@@ -1,12 +1,17 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 // bootstrap
-import { Container, Row, Col, Form, Button, Card, Alert, Spinner } from "react-bootstrap"
+import { Container, Row, Col, Form, Button, Card, Alert, Spinner, Carousel } from "react-bootstrap"
+// images
+import lp_bg01 from "../img/lp_bg01.jpg";
+import lp_bg02 from "../img/lp_bg02.jpg";
+import lp_bg03 from "../img/lp_bg03.jpg";
 // components
 import Header from "./Header.js";
 import { Link } from "react-router-dom"
 import { useHistory } from "react-router-dom"
 const bcrypt = require('bcryptjs')
+
 
 
 
@@ -92,6 +97,32 @@ function LandingPage() {
 
 
   return (
+    // <>
+    //   <h1 className="text-center logo">Eatable</h1>
+    //   <Carousel fade>
+    //     <Carousel.Item interval={10000}>
+    //       <img
+    //         className="d-block w-100"
+    //         src={lp_bg01}
+    //         alt="First slide"
+    //       />
+    //     </Carousel.Item>
+    //     <Carousel.Item interval={10000}>
+    //       <img
+    //         className="d-block w-100"
+    //         src={lp_bg02}
+    //         alt="Second slide"
+    //       />
+    //     </Carousel.Item>
+    //     <Carousel.Item interval={10000}>
+    //       <img
+    //         className="d-block w-100"
+    //         src={lp_bg03}
+    //         alt="Third slide"
+    //       />
+    //     </Carousel.Item>
+    //   </Carousel>
+    // </>
     <div className="lp-wrapper">
     <h1 className="text-center" style={{fontFamily: 'Pacifico', margin: "0 auto", color: "#fff"}}>Eatable</h1>
     <Container className="mt-5">
