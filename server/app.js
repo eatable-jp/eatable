@@ -566,7 +566,7 @@ app.post("/checkout", async (req, res) => {
       }
     }),
     success_url: `http://localhost:3000/buyer-profile`,
-    cancel_url: `http://localhost:3000/buyer-profile`,
+    cancel_url: `http://localhost:3000/buyer`,
   });
   res.json({ url: session.url });
   } catch (error) {
