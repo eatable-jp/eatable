@@ -50,7 +50,9 @@ export default function ListedItems() {
     console.log("delete", data);
     const url = process.env.ITEM_ROUTE || 'http://localhost:8080/item';
     // const url = '/item'
-    await axios.delete(url+`?id=${data}`)
+    await axios.delete(url+`?id=${data}`, {
+      headers: JSON.parse(localStorage.getItem("eatable")),
+    })
   };
 
   const editItemHandler = async ({name, image, type, price, original_price, expiration_date, note}) => {
@@ -78,7 +80,9 @@ export default function ListedItems() {
     }
     const url = process.env.ITEM_ROUTE || 'http://localhost:8080/item'
     // const url = '/item'
-    await axios.patch(url, data)
+    await axios.patch(url, data, {
+      headers: JSON.parse(localStorage.getItem("eatable")),
+    })
     reset();
   };
   

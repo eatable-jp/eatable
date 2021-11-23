@@ -1,10 +1,10 @@
 // packages
 import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 import { PersistGate } from 'redux-persist/integration/react'
 import "./App.css";
 // redux toolkit
-import { Provider } from "react-redux";
+import { Provider, useSelector } from "react-redux";
 import store from "./store";
 // bootstrap
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -22,53 +22,32 @@ import Login from "./components/Login";
 function App() {
   const userStatus = "seller";
 
-  return (
-    <Provider store={store}>
-      
-      <Router>
+  const { isAuth } = useSelector( state => state.login)
+
+  return (    
         <div className="App">
+          <Router>
           <Switch>
-            {/* Home component */}
-            <Route exact path="/">
-              <LandingPage />
-            </Route>
-            {/* Login component */}
-            <Route exact path="/login">
-              <Login />
-            </Route>
-            {/* seller page component */}
-            <Route exact path="/seller">
-              <Home userStatus="seller" />
-            </Route>
-            {/* buyer page component */}
-            <Route exact path="/buyer">
-              <Home userStatus="buyer" />
-            </Route>
-            {/* Cart component */}
-            <Route path="/cart">
-              <Cart />
-            </Route>
-            {/* Seller Profile component */}
-            <Route path="/seller-profile">
-              <SellerProfile />
-            </Route>
-            {/* Buyer Profile component */}
-            <Route path="/buyer-profile">
-              <BuyerProfile />
-            </Route>
-            {/* Buyer Profile Form component */}
-            <Route path="/buyer-form">
-              <BuyerForm />
-            </Route>
-            {/* Seller Profile Form component */}
-            <Route path="/seller-form">
-              <SellerForm />
-            </Route>
+            <main>
+              <Route exact path="/"> <LandingPage /> </Route>
+              <Route exact path="/login"> <Login /> </Route>
+              {isAuth === false ? (
+                <Redirect to="/login" />
+              ) : (
+                <>
+                <Route exact path="/seller"> <Home userStatus="seller" /> </Route>
+                <Route exact path="/buyer"> <Home userStatus="buyer" /> </Route>
+                <Route exact path="/cart"> <Cart /> </Route>
+                <Route exact path="/seller-profile"> <SellerProfile /> </Route>
+                <Route exact path="/buyer-profile"> <BuyerProfile /> </Route>
+                <Route exact path="/seller-form"> <SellerForm /> </Route>
+                <Route exact path="/buyer-form"> <BuyerForm /> </Route>
+                </>
+              )}
+            </main>
           </Switch>
+         </Router>
         </div>
-      </Router>
-      
-    </Provider>
   );
 }
 

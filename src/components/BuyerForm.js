@@ -39,13 +39,18 @@ export default function BuyerForm() {
     });
     const url = process.env.BUYER_ROUTE || 'http://localhost:8080/buyer'
     //const url = '/buyer'
-    await axios.patch(url, data);
+    await axios.patch(url, data, {
+      headers: JSON.parse(localStorage.getItem("eatable")),
+    });
     reset();
     routeChange();
   };
 
   return (
+    <>
+    
     <Container className="w-25">
+    <h1 className='text-center'> Please Enter your details </h1>
       <Form onSubmit={handleSubmit(editBuyerProfileHandler)}>
         <Form.Group className="mb-3" controlId="formBasicName">
           <Form.Label>Name</Form.Label>
@@ -89,5 +94,6 @@ export default function BuyerForm() {
         </LinkContainer>
       </Form>
     </Container>
+    </>
   );
 }

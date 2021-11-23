@@ -57,12 +57,15 @@ export default function SellerForm() {
     reset();
     const url = process.env.SELLER_ROUTE || 'http://localhost:8080/seller'
     //const url = '/seller'
-    await axios.patch(url, data);
+    await axios.patch(url, data, {
+      headers: JSON.parse(localStorage.getItem("eatable")),
+    });
     console.log("reached")
   };
 
   return (
     <Container className="w-25">
+      <h1> Please Enter you details </h1>
       <Form onSubmit={handleSubmit(editSellerProfileHandler)}>
         <Form.Group className="mb-3" controlId="formBasicShopName">
           <Form.Label>Shop name</Form.Label>
