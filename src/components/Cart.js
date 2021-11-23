@@ -82,7 +82,7 @@ function Cart() {
                   <ListGroup.Item key={index}>
                     <Row className="d-flex">
                       <Col>
-                        <Image src={item.image} alt="product image" />
+                        <Image src={item.image} alt="product image" className="cart-image" />
                       </Col>
                       <Col className="d-flex flex-column justify-content-between align-items-start">
                         <div className="text-left">

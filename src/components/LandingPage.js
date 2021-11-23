@@ -103,7 +103,7 @@ function LandingPage() {
 
   return (
     <div className="lp-wrapper">
-    <h1 className="text-center" style={{fontFamily: 'Pacifico', margin: "0 auto", color: "#fff"}}>Eatable</h1>
+    <h1 className="lp-heading text-center">Eatable</h1>
     <Container className="mt-5">
         <Row>
           <Col>

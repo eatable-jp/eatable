@@ -1,21 +1,5 @@
-.logo {
-  position: absolute;
-  left: 50%;
-  top: 20px;
-  transform: translateX(-50%);
-  margin: 0 auto; 
-  color: #fff;
-  font-family: 'Pacifico';
-  z-index: 1000;
-}
-.lp-wrapper {
-  height: 100vh;
-  background: url("./img/lp_bg01.jpg") no-repeat;
-  background-size: cover;
-  background-position: center;
-}
 .App {
-  font-family: sans-serif;
+  font-family: 'Quicksand', sans-serif;
 }
 * {
   margin: 0;
@@ -32,14 +16,28 @@ body {
   text-align: left;
 }
 /* bootstrap - end */
-header {
-  margin: 0 0 10px;
-  padding: 12px 0;
-  background: #b5dafc;
+.lp-wrapper {
+  height: 100vh;
+  padding: 20px 0 0;
+  background: url("./img/lp_bg01.jpg") no-repeat;
+  background-size: cover;
+  background-position: center;
 }
-h1 {
-  margin: 0;
-  width: 75%;
+.lp-heading {
+  margin: 0 auto;
+  color: #fff;
+  font-family: 'Pacifico';
+  font-size: 54px;
+}
+.cart-accordion {
+  max-height: 266px;
+  overflow: scroll;
+}
+.cart-image {
+  width: 100%;
+}
+.header-heading {
+  font-family: 'Pacifico';
 }
 .header-wrapper {
   display: flex;

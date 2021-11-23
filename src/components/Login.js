@@ -26,11 +26,7 @@ export default function Login() {
     const url = process.env.ITEMS_ROUTE || 'http://localhost:8080/global';
     // const url = '/items'
     const response = await axios.get(url);
-<<<<<<< HEAD
-    const items = response.data.filter((item)=> item.buyer_id !== "0");
-=======
     const items = response.data.filter((item)=> item.buyer_id !== '0');
->>>>>>> 1b1ddf145f344c9c4a0b9578812109b7910b75c3
     setSoldItems(items);
   },[]);
   const emailRef = useRef()
@@ -86,7 +82,7 @@ export default function Login() {
 
   return (     
     <div className="lp-wrapper">
-    <h1 className="text-center" style={{fontFamily: 'Pacifico', margin: "0 auto", color: "#fff"}}>Eatable</h1>
+    <h1 className="lp-heading text-center">Eatable</h1>
     <Container className="mt-5">
         <Row>
           <Col>

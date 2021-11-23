@@ -59,7 +59,7 @@ export default function SellerProfile() {
       </Col>
       <Col>
         <h3 className="text-center">Sold Items</h3>
-          <Accordion defaultActiveKey="0">
+          <Accordion className="cart-accordion" defaultActiveKey="0">
             {soldItems.map((item, index) => {
               return (
                 <Accordion.Item eventKey={index} key={index}>
