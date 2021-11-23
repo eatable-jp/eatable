@@ -9,7 +9,6 @@ import { LinkContainer } from "react-router-bootstrap";
 // bootstrap
 import { Row, Col, Card, Button, Container, Accordion } from "react-bootstrap";
 // components
-import BuyerPurchases from "../components/BuyerPurchases";
 import Header from "./Header.js";
 
 export default function BuyerProfile() {
@@ -23,7 +22,7 @@ export default function BuyerProfile() {
 
   useEffect(async () => {
     dispatch(fetchSellers());
-    dispatch(fetchBuyer(1));
+    dispatch(fetchBuyer(buyerInfo.id));
 
     const url = process.env.ITEMS_ROUTE || 'http://localhost:8080/items';
     //const url = '/items'
@@ -67,7 +66,7 @@ export default function BuyerProfile() {
         {/* purchase history */}
         <Col>
           <h3 className="text-center">Your purchase</h3>
-          <Accordion defaultActiveKey="0">
+          <Accordion className="cart-accordion" defaultActiveKey="0">
             {purchases.map((purchase, index) => {
               return (
                 <Accordion.Item eventKey={index} key={index}>
