@@ -9,7 +9,7 @@ import { Card, Row, Col, Button, Container, Accordion } from "react-bootstrap";
 
 import Header from "./Header.js";
 
-export default function SellerProfile() {
+export default function SellerProfile() { 
   // setup redux
   const sellerInfo = useSelector((state) => state.sellerInfo);
 

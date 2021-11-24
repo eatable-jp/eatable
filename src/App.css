@@ -36,6 +36,14 @@ body {
 .cart-image {
   width: 100%;
 }
+.seller-item-img {
+  max-width: 100%;
+  height: 200px;
+}
+.buyer-item-img {
+  max-width: 100%;
+  height: 200px;
+}
 .header-heading {
   font-family: 'Pacifico';
 }
