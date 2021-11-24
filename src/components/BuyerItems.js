@@ -88,7 +88,9 @@ export default function BuyerItems({ distance }) {
                     <p className="mb-0">{item.name}</p>
                     <p className="mb-0">Price: {item.price}</p>
                   </Card.Header>
-                  <Card.Img variant="top" src={item.image} />
+                    <figure className="text-center">
+                      <img variant="top" src={item.image} className="buyer-item-img"/>
+                    </figure>
                   <Card.Body>
                     <Card.Text className="mb-1">
                       Best before {item.expiration_date}
@@ -147,7 +149,9 @@ export default function BuyerItems({ distance }) {
                       <p className="mb-0">{item.name}</p>
                       <p className="mb-0">Price: {item.price}</p>
                     </Card.Header>
-                    <Card.Img variant="top" src={item.image} />
+                    <figure className="text-center">
+                      <img variant="top" src={item.image} className="buyer-item-img"/>
+                    </figure>
                     <Card.Body>
                       <Card.Text className="mb-1">
                         Best before {item.expiration_date}
@@ -206,7 +210,9 @@ export default function BuyerItems({ distance }) {
                       <p className="mb-0">{item.name}</p>
                       <p className="mb-0">Price: {item.price}</p>
                     </Card.Header>
-                    <Card.Img variant="top" src={item.image} />
+                    <figure className="text-center">
+                      <img variant="top" src={item.image} className="buyer-item-img"/>
+                    </figure>
                     <Card.Body>
                       <Card.Text className="mb-1">
                         Best before {item.expiration_date}
@@ -264,7 +270,9 @@ export default function BuyerItems({ distance }) {
                       <p className="mb-0">{item.name}</p>
                       <p className="mb-0">Price: {item.price}</p>
                     </Card.Header>
-                    <Card.Img variant="top" src={item.image} />
+                    <figure className="text-center">
+                      <img variant="top" src={item.image} className="buyer-item-img"/>
+                    </figure>
                     <Card.Body>
                       <Card.Text className="mb-1">
                         Best before {item.expiration_date}

@@ -113,7 +113,9 @@ export default function ListedItems() {
                 {/*<Card.Img variant="top" src={item.image} />*/}
                 <Card.Body>
                   <Card.Title>{item.name}</Card.Title>
-                  <Card.Img variant="top" src={item.image} />
+                  <figure className="text-center">
+                    <img src={item.image} className="seller-item-img" />
+                  </figure>
                   <Card.Text>{sellerInfo.shop_name}</Card.Text>
                   <Card.Text>Best before {item.expiration_date}</Card.Text>
                   <Card.Text>{item.note}</Card.Text>
