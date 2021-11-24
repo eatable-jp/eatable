@@ -20,7 +20,7 @@ export default function BuyerForm() {
   // redirect function
   const history = useHistory();
   const routeChange = () =>{ 
-    let path = `/buyer-profile`; 
+    let path = `/buyer`; 
     history.push(path);
   }
 
@@ -28,7 +28,7 @@ export default function BuyerForm() {
     const data = {
       id: buyerId,
       buyer_name, 
-      buyer_address,  
+      buyer_address, 
       phone_number
     };
     Object.keys(data).forEach((key) => {
@@ -49,7 +49,7 @@ export default function BuyerForm() {
     <>
     
     <Container className="w-25">
-    <h1 className='text-center'> Please Enter your details </h1>
+    <h1 className='text-center'> Please Enter your details to Complete Registration </h1>
       <Form onSubmit={handleSubmit(editBuyerProfileHandler)}>
         <Form.Group className="mb-3" controlId="formBasicName">
           <Form.Label>Name</Form.Label>
@@ -78,8 +78,8 @@ export default function BuyerForm() {
         <Button className="mr-2" variant="outline-success" type="submit">
           Submit
         </Button>{" "}
-        <LinkContainer to="/buyer-profile">
-          <Button variant="outline-danger" type="submit">
+        <LinkContainer to="/login">
+        <Button variant="outline-danger" type="submit">
             Cancel
           </Button>
         </LinkContainer>

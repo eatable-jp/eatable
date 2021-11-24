@@ -18,6 +18,8 @@ import BuyerForm from "./components/BuyerForm";
 import SellerForm from "./components/SellerForm";
 import LandingPage from "./components/LandingPage";
 import Login from "./components/Login";
+import SellerSignupForm from './components/SellerSignupForm';
+import BuyerSignupForm from './components/BuyerSignupForm'
 
 function App() {
   const userStatus = "seller";
@@ -42,6 +44,8 @@ function App() {
                 <Route exact path="/buyer-profile"> <BuyerProfile /> </Route>
                 <Route exact path="/seller-form"> <SellerForm /> </Route>
                 <Route exact path="/buyer-form"> <BuyerForm /> </Route>
+                <Route exact path="/seller-signup-form"> <SellerSignupForm /> </Route>
+                <Route exact path="/buyer-signup-form"> <BuyerSignupForm /> </Route>
                 </>
               )}
             </main>
