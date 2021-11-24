@@ -19,7 +19,7 @@ body {
 .lp-wrapper {
   height: 100vh;
   padding: 20px 0 0;
-  background: url("./img/lp_bg01.jpg") no-repeat;
+  background: url("./img/background_dark.jpg") no-repeat;
   background-size: cover;
   background-position: center;
 }
@@ -28,6 +28,17 @@ body {
   color: #fff;
   font-family: 'Pacifico';
   font-size: 54px;
+  text-shadow: 1px 1px #0000006b
+}
+.global-stats {
+  color: #fff;
+  font-weight: 700;
+  font-size: 24px;
+  text-shadow: 1px 1px #0000006b
+}
+.global-stats-servings {
+  font-size: 54px;
+  font-weight: 700;
 }
 .cart-accordion {
   max-height: 266px;
