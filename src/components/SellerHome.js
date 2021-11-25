@@ -108,7 +108,7 @@ function SellerHome() {
       <div className="mb-5">
         <Container className="text-center mb-5">
           <h2>Currently Listed</h2>
-          <Button variant="primary" onClick={handleShow}>
+          <Button variant="light" onClick={handleShow}>
             Add a new item
           </Button>
         </Container>
@@ -132,7 +132,7 @@ function SellerHome() {
                     <dl>
                       <dt>Purchased by Person</dt>
                     </dl>
-                    <Button type="button" variant="outline-success" onClick={()=>{completeTransaction(item.id)}}>
+                    <Button type="button" variant="success" onClick={()=>{completeTransaction(item.id)}}>
                       Complete Transaction
                     </Button>
                   </Accordion.Body>

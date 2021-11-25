@@ -15,21 +15,21 @@ export default function BuyerForm() {
   const { register, handleSubmit, reset } = useForm();
   // setup redux
   const dispatch = useDispatch();
-  const buyerInfo = useSelector((state) => state.buyerInfo);
   const buyerId = useSelector((state) => state.buyerInfo.id);
+  const userId = useSelector((state) => state.user.user_id);
 
   // redirect function
   const history = useHistory();
   const routeChange = () =>{ 
-    let path = `/buyer-profile`; 
+    let path = `/buyer`; 
     history.push(path);
   }
 
   const editBuyerProfileHandler = async({buyer_name, buyer_address, phone_number}) => {
     const data = {
-      id: buyerId,
+      id: userId,
       buyer_name, 
-      buyer_address,  
+      buyer_address, 
       phone_number
     };
     Object.keys(data).forEach((key) => {
@@ -37,8 +37,8 @@ export default function BuyerForm() {
         delete data[key];
       }
     });
-    //const url = process.env.BUYER_ROUTE || 'http://localhost:8080/buyer'
-    const url = '/buyer'
+    const url = process.env.BUYER_ROUTE || 'http://localhost:8080/buyer'
+    //const url = '/buyer'
     await axios.patch(url, data, {
       headers: JSON.parse(localStorage.getItem("eatable")),
     });
@@ -50,13 +50,13 @@ export default function BuyerForm() {
     <>
     
     <Container className="w-25">
-    <h1 className='text-center'> Please Enter your details </h1>
+    <h1 className='text-center'>Please complete registration</h1>
       <Form onSubmit={handleSubmit(editBuyerProfileHandler)}>
         <Form.Group className="mb-3" controlId="formBasicName">
           <Form.Label>Name</Form.Label>
           <Form.Control
             type="text"
-            placeholder={buyerInfo.buyer_name}
+            placeholder="e.g. Eatable Taro"
             {...register("buyer_name")}
           />
         </Form.Group>
@@ -64,7 +64,7 @@ export default function BuyerForm() {
           <Form.Label>Address</Form.Label>
           <Form.Control
             type="text"
-            placeholder={buyerInfo.buyer_address}
+            placeholder="e.g. Tokyo, Minato City, Motoazabu, 3 Chome−1−35"
             {...register("buyer_address")}
           />
         </Form.Group>
@@ -72,15 +72,15 @@ export default function BuyerForm() {
           <Form.Label>Phone number</Form.Label>
           <Form.Control
             type="text"
-            placeholder={buyerInfo.phone_number}
+            placeholder="e.g. 55-5555-5555"
             {...register("phone_number")}
           />
         </Form.Group>
         <Button className="mr-2" variant="outline-success" type="submit">
           Submit
         </Button>{" "}
-        <LinkContainer to="/buyer-profile">
-          <Button variant="outline-danger" type="submit">
+        <LinkContainer to="/login">
+        <Button variant="outline-danger" type="submit">
             Cancel
           </Button>
         </LinkContainer>

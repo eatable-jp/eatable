@@ -16,18 +16,19 @@ export default function SellerForm() {
   // setup redux
   const dispatch = useDispatch();
   const sellerInfo = useSelector((state) => state.sellerInfo);
+  const userId = useSelector((state) => state.user.user_id);
 
   // redirect function
   const history = useHistory();
   const routeChange = () =>{ 
-    let path = `/seller-profile`; 
+    let path = `/seller`; 
     history.push(path);
   }
 
   const editSellerProfileHandler = async({seller_name, shop_name, shop_location, shop_long,
   shop_lat, opening_time, closing_time, phone_number, email_address}) => {
     const data = {
-      id: sellerInfo.id,
+      id: userId,
       shop_name, 
       shop_location,
       shop_long: sellerInfo.shop_long,
@@ -55,8 +56,8 @@ export default function SellerForm() {
     /******************WHY DOES THIS WORK HERE AND NOT AFTER****************** */
     routeChange();
     reset();
-    //const url = process.env.SELLER_ROUTE || 'http://localhost:8080/seller'
-    const url = '/seller'
+    const url = process.env.SELLER_ROUTE || 'http://localhost:8080/seller'
+    //const url = '/seller'
     await axios.patch(url, data, {
       headers: JSON.parse(localStorage.getItem("eatable")),
     });
@@ -65,13 +66,13 @@ export default function SellerForm() {
 
   return (
     <Container className="w-25">
-      <h1> Please enter your details </h1>
+      <h1>Please complete registration</h1>
       <Form onSubmit={handleSubmit(editSellerProfileHandler)}>
         <Form.Group className="mb-3" controlId="formBasicShopName">
           <Form.Label>Shop name</Form.Label>
           <Form.Control
             type="text"
-            placeholder={sellerInfo.shop_name}
+            placeholder="e.g. Eatable grocery"
             {...register("shop_name")}
           />
         </Form.Group>
@@ -79,7 +80,7 @@ export default function SellerForm() {
           <Form.Label>Address</Form.Label>
           <Form.Control
             type="text"
-            placeholder={sellerInfo.shop_location}
+            placeholder="e.g. Tokyo, Minato City, Motoazabu, 3 Chome−1−35"
             {...register("shop_location")}
           />
         </Form.Group>
@@ -87,7 +88,7 @@ export default function SellerForm() {
           <Form.Label>Phone number</Form.Label>
           <Form.Control
             type="text"
-            placeholder={sellerInfo.phone_number}
+            placeholder="e.g. 55-5555-5555"
             {...register("phone_number")}
           />
         </Form.Group>
@@ -95,7 +96,7 @@ export default function SellerForm() {
           <Form.Label>Opening time</Form.Label>
           <Form.Control
             type="text"
-            placeholder={sellerInfo.opening_time}
+            placeholder="e.g. 9:00"
             {...register("opening_time")}
           />
         </Form.Group>
@@ -103,14 +104,14 @@ export default function SellerForm() {
           <Form.Label>Closing time</Form.Label>
           <Form.Control
             type="text"
-            placeholder={sellerInfo.closing_time}
+            placeholder="e.g. 23:00"
             {...register("closing_time")}
           />
         </Form.Group>
         <Button className="mr-2" variant="outline-success" type="submit">
           Submit
         </Button>{" "}
-        <LinkContainer to="/seller-profile">
+        <LinkContainer to="/login">
           <Button variant="outline-danger" type="submit">
             Cancel
           </Button>

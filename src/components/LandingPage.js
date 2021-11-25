@@ -25,7 +25,8 @@ function LandingPage() {
     //const url = process.env.ITEMS_ROUTE || 'http://localhost:8080/global';
     const url = '/global'
     const response = await axios.get(url);
-    const items = response.data.filter((item)=> item.buyer_id !== '0');
+    console.log(response.data)
+    const items = response.data.filter((item)=> item.conformation !== null);
     setSoldItems(items);
   },[]);
 
@@ -109,9 +110,9 @@ function LandingPage() {
     <Container className="mt-5">
         <Row>
           <Col>
-            <p style={{color: "#fff", fontSize: "24px"}}>
+            <p className="global-stats">
               The amount of food saved ... <br />
-              <span style={{fontSize: "54px", fontWeight: "bold"}}>{soldItems.length} Servings</span>
+              <span className="global-stats-servings">{soldItems.length} Servings</span>
             </p>
           </Col>
           <Col>
@@ -148,8 +149,8 @@ function LandingPage() {
                 </Form>
               </Card.Body>
             </Card>
-            <div className="w-100 text-center mt-2">
-              Already have an account? <Link to="/login">Log In</Link>
+            <div className="w-100 text-center mt-2 lp-guide-text">
+              Already have an account? <Link to="/login" className="lp-guide-link">Log In</Link>
             </div>
           </Col>
         </Row>

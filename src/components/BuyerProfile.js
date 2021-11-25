@@ -29,15 +29,33 @@ export default function BuyerProfile() {
     const response = await axios.get(url, {
       headers: JSON.parse(localStorage.getItem("eatable")),
     });
-    const items = response.data.filter((item)=> item.buyer_id === buyerInfo.id);
+    const items = response.data.filter((item)=> item.buyer_id === buyerInfo.id).reverse();
+    
     setPurchases(items);
+
   }, []);
 
   return (
     <>
     <Header userStatus="buyer" />
-    <Container>
-      <Row className="mb-5">
+    <Container className="w-50 text-center">
+    <Row className="mb-5">
+    <h1>Thank you, {buyerInfo.buyer_name}</h1>
+        <Col className="d-flex">
+          <dl className="w-50 border-right">
+            <dt>Food Saved</dt>
+            <dd>{purchases.length} Servings</dd>
+          </dl>
+          <dl className="w-50">
+            <dt>Money Saved</dt>
+            <dd>{purchases.reduce((total, item) => {
+              total += (item.original_price - item.price);
+              return total;
+            }, 0)} Yen</dd>
+          </dl>
+        </Col>
+      </Row>
+      <Row>
         {/* buyer profile */}
         <Col className="text-center">
           <Card>
@@ -58,7 +76,7 @@ export default function BuyerProfile() {
                 <dd>{buyerInfo.phone_number}</dd>
               </dl>
               <LinkContainer to="/buyer-form">
-                <Button variant="outline-success">Edit profile</Button>
+                <Button variant="light">Edit profile</Button>
               </LinkContainer>
             </Card.Body>
           </Card>
@@ -97,19 +115,6 @@ export default function BuyerProfile() {
               );
             })}
           </Accordion>
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <dl>
-            <dt>Food Saved</dt>
-            <dd>{purchases.length} Servings</dd>
-            <dt>Money Saved</dt>
-            <dd>{purchases.reduce((total, item) => {
-              total += (item.original_price - item.price);
-              return total;
-            }, 0)} Yen</dd>
-          </dl>
         </Col>
       </Row>
     </Container>

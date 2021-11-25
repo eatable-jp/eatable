@@ -32,6 +32,7 @@ function Cart() {
 
   //handle the DB call
   const handlePurchase = async() => {
+    dispatch(clearCart())
     //const url = process.env.ITEM_ROUTE || 'http://localhost:8080/items'
     const url = '/items'
     const purchaseData = cart.map((item)=> {
@@ -74,7 +75,7 @@ function Cart() {
     <>
       <Header userStatus="buyer" />
       <Container className="text-center">
-        <h2 className="mb-5">Hello {buyerInfo.display_name}!</h2>
+        <h2 className="mb-5">Hello {buyerInfo.buyer_name}!</h2>
         <Row>
           <Col sm={8}>
             <ListGroup>
@@ -100,7 +101,7 @@ function Cart() {
                           </p>
                         </div>
                         <Button
-                          variant="outline-danger"
+                          variant="danger"
                           onClick={() => dispatch(removeFromCart(item.id))}
                         >
                           Remove from cart
@@ -125,14 +126,10 @@ function Cart() {
                   </dl>
                 </Card.Text>
                 <Button
-                  variant="primary"
+                  variant="success"
                   onClick={() => {
                     handlePurchase();
                     handleStripeCall();
-                    // handleShow();
-                    setTimeout(() => {
-                      dispatch(clearCart());
-                    }, 2000);
                   }}
                 >
                   Purchase and takeaway
