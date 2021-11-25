@@ -32,6 +32,7 @@ function Cart() {
 
   //handle the DB call
   const handlePurchase = async() => {
+    dispatch(clearCart())
     const url = process.env.ITEM_ROUTE || 'http://localhost:8080/items'
     //const url = '/items'
     const purchaseData = cart.map((item)=> {
@@ -128,10 +129,6 @@ function Cart() {
                   onClick={() => {
                     handlePurchase();
                     handleStripeCall();
-                    // handleShow();
-                    setTimeout(() => {
-                      dispatch(clearCart());
-                    }, 2000);
                   }}
                 >
                   Purchase and takeaway
