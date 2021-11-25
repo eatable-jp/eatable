@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from "react";
+// react icons
+import { IconContext } from 'react-icons'
+import { BiInfoCircle } from 'react-icons/bi'
 // redux
 import { useSelector, useDispatch } from "react-redux";
 import { addToCart } from "../slice/cartSlice";
@@ -99,28 +102,25 @@ export default function BuyerItems({ distance }) {
                     <div className="d-flex justify-content-between">
                       {cart.some((cartItem) => cartItem.id === item.id) ? (
                         <Button
-                          variant="outline-danger"
+                          variant="danger"
                           onClick={() => dispatch(removeFromCart(item.id))}
                         >
                           Remove from cart
                         </Button>
                       ) : (
                         <Button
-                          variant="outline-success"
+                          variant="light"
                           onClick={() => dispatch(addToCart(item))}
                         >
                           Add to cart
                         </Button>
                       )}
-                      <Button
-                        variant="outline-info"
-                        onClick={() => {
-                          handleShow();
-                          passSelectedItem(item);
-                        }}
-                      >
-                        More info
-                      </Button>
+                      <IconContext.Provider value={{size: "20px"}}>
+                        <BiInfoCircle onClick={() => {
+                            handleShow();
+                            passSelectedItem(item);
+                          }} />
+                      </IconContext.Provider>
                     </div>
                   </Card.Body>
                 </Card>
@@ -160,28 +160,25 @@ export default function BuyerItems({ distance }) {
                       <div className="d-flex justify-content-between">
                         {cart.some((cartItem) => cartItem.id === item.id) ? (
                           <Button
-                            variant="outline-danger"
+                            variant="danger"
                             onClick={() => dispatch(removeFromCart(item.id))}
                           >
                             Remove from cart
                           </Button>
                         ) : (
                           <Button
-                            variant="outline-success"
+                            variant="light"
                             onClick={() => dispatch(addToCart(item))}
                           >
                             Add to cart
                           </Button>
                         )}
-                        <Button
-                          variant="outline-info"
-                          onClick={() => {
+                        <IconContext.Provider value={{size: "20px"}}>
+                        <BiInfoCircle onClick={() => {
                             handleShow();
                             passSelectedItem(item);
-                          }}
-                        >
-                          More info
-                        </Button>
+                          }} />
+                      </IconContext.Provider>
                       </div>
                     </Card.Body>
                   </Card>
@@ -221,28 +218,25 @@ export default function BuyerItems({ distance }) {
                       <div className="d-flex justify-content-between">
                         {cart.some((cartItem) => cartItem.id === item.id) ? (
                           <Button
-                            variant="outline-danger"
+                            variant="danger"
                             onClick={() => dispatch(removeFromCart(item.id))}
                           >
                             Remove from cart
                           </Button>
                         ) : (
                           <Button
-                            variant="outline-success"
+                            variant="light"
                             onClick={() => dispatch(addToCart(item))}
                           >
                             Add to cart
                           </Button>
                         )}
-                        <Button
-                          variant="outline-info"
-                          onClick={() => {
+                        <IconContext.Provider value={{size: "20px"}}>
+                        <BiInfoCircle onClick={() => {
                             handleShow();
                             passSelectedItem(item);
-                          }}
-                        >
-                          More info
-                        </Button>
+                          }} />
+                      </IconContext.Provider>
                       </div>
                     </Card.Body>
                   </Card>
@@ -281,28 +275,25 @@ export default function BuyerItems({ distance }) {
                       <div className="d-flex justify-content-between">
                         {cart.some((cartItem) => cartItem.id === item.id) ? (
                           <Button
-                            variant="outline-danger"
+                            variant="danger"
                             onClick={() => dispatch(removeFromCart(item.id))}
                           >
                             Remove from cart
                           </Button>
                         ) : (
                           <Button
-                            variant="outline-success"
+                            variant="light"
                             onClick={() => dispatch(addToCart(item))}
                           >
                             Add to cart
                           </Button>
                         )}
-                        <Button
-                          variant="outline-info"
-                          onClick={() => {
+                        <IconContext.Provider value={{size: "20px"}}>
+                        <BiInfoCircle onClick={() => {
                             handleShow();
                             passSelectedItem(item);
-                          }}
-                        >
-                          More info
-                        </Button>
+                          }} />
+                      </IconContext.Provider>
                       </div>
                     </Card.Body>
                   </Card>
@@ -362,7 +353,7 @@ export default function BuyerItems({ distance }) {
           <Modal.Footer>
             {cart.some((cartItem) => cartItem.id === selectedItem.id) ? (
               <Button
-                variant="outline-danger"
+                variant="danger"
                 onClick={() => {
                   dispatch(removeFromCart(selectedItem.id));
                   handleClose();
@@ -372,7 +363,7 @@ export default function BuyerItems({ distance }) {
               </Button>
             ) : (
               <Button
-                variant="outline-success"
+                variant="light"
                 onClick={() => {
                   dispatch(addToCart(selectedItem));
                   handleClose();

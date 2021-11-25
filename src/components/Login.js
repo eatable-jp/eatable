@@ -134,8 +134,8 @@ export default function Login() {
           </Form>
         </Card.Body>
       </Card>
-      <div className="w-100 text-center mt-2">
-        Need an account? <Link to="/">Sign Up</Link>
+      <div className="w-100 text-center mt-2 lp-guide-text">
+        Need an account? <Link to="/" className="lp-guide-link">Sign Up</Link>
       </div>
           </Col>
         </Row>

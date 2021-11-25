@@ -9,9 +9,6 @@ body {
   padding: 0;
 }
 /* bootstrap - beginning */
-.navbar-custom {
-  background-color: #89da98;
-}
 .text-left {
   text-align: left;
 }
@@ -29,6 +26,12 @@ body {
   font-family: 'Pacifico';
   font-size: 54px;
   text-shadow: 1px 1px #0000006b
+}
+.lp-guide-text {
+  color: #fff;
+}
+.lp-guide-link {
+  color: #fff;
 }
 .global-stats {
   color: #fff;
@@ -56,7 +59,12 @@ body {
   height: 200px;
 }
 .header-heading {
+  font-size: 2.5rem!important;
   font-family: 'Pacifico';
+}
+/* stats */
+.border-right {
+  border-right: solid 1px rgba(0, 0, 0, .125)
 }
 .header-wrapper {
   display: flex;

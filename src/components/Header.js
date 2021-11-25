@@ -1,16 +1,17 @@
 // react router
 import { LinkContainer } from "react-router-bootstrap";
 import { useHistory } from "react-router-dom"
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import {logout } from '../slice/loginSlice'
 import {resetUser} from '../slice/userSlice'
 // bootstrap
-import { Nav, Navbar, Container } from "react-bootstrap";
+import { Nav, Navbar, Container, Badge } from "react-bootstrap";
 export default function Header({ userStatus }) {
 
   const history = useHistory();
+  // setup redux
   const dispatch = useDispatch();
-
+  const cart = useSelector((state) => state.cart);
 
   const handleLogOut = () => {
     dispatch(logout())
@@ -19,7 +20,7 @@ export default function Header({ userStatus }) {
     history.push("/login")
   }
   return (
-    <Navbar className="navbar-custom mb-5" expand="lg">
+    <Navbar className="mb-5" expand="lg">
       {/* displaying different header based on customer type */}
       {userStatus === "seller" ? (
         <Container>
@@ -48,7 +49,7 @@ export default function Header({ userStatus }) {
                 <Nav.Link>Profile</Nav.Link>
               </LinkContainer>
               <LinkContainer to="/cart">
-                <Nav.Link>Cart</Nav.Link>
+                <Nav.Link>Cart <Badge pill bg="danger">{cart.length}</Badge></Nav.Link>
               </LinkContainer>
                 <Nav.Link onClick={()=> handleLogOut()}>Log out</Nav.Link>
             </Nav>
