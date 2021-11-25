@@ -1,5 +1,7 @@
 const { verifyAcessJWT } = require("../helpers/jwt.helper")
 
+
+
 const userAuthorization = async (req, res, next) => {
 
     if (req.originalUrl === '/global' || req.originalUrl === '/' || req.originalUrl === '/login' || req.originalUrl === '/signup') {
