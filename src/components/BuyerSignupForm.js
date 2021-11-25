@@ -16,6 +16,7 @@ export default function BuyerForm() {
   // setup redux
   const dispatch = useDispatch();
   const buyerId = useSelector((state) => state.buyerInfo.id);
+  const userId = useSelector((state) => state.user.user_id);
 
   // redirect function
   const history = useHistory();
@@ -26,7 +27,7 @@ export default function BuyerForm() {
 
   const editBuyerProfileHandler = async({buyer_name, buyer_address, phone_number}) => {
     const data = {
-      id: buyerId,
+      id: userId,
       buyer_name, 
       buyer_address, 
       phone_number
@@ -49,13 +50,13 @@ export default function BuyerForm() {
     <>
     
     <Container className="w-25">
-    <h1 className='text-center'> Please Enter your details to Complete Registration </h1>
+    <h1 className='text-center'>Please complete registration</h1>
       <Form onSubmit={handleSubmit(editBuyerProfileHandler)}>
         <Form.Group className="mb-3" controlId="formBasicName">
           <Form.Label>Name</Form.Label>
           <Form.Control
             type="text"
-            placeholder="Enter name"
+            placeholder="e.g. Eatable Taro"
             {...register("buyer_name")}
           />
         </Form.Group>
@@ -63,7 +64,7 @@ export default function BuyerForm() {
           <Form.Label>Address</Form.Label>
           <Form.Control
             type="text"
-            placeholder="Enter address"
+            placeholder="e.g. Tokyo, Minato City, Motoazabu, 3 Chome−1−35"
             {...register("buyer_address")}
           />
         </Form.Group>
@@ -71,7 +72,7 @@ export default function BuyerForm() {
           <Form.Label>Phone number</Form.Label>
           <Form.Control
             type="text"
-            placeholder="Enter phone number"
+            placeholder="e.g. 55-5555-5555"
             {...register("phone_number")}
           />
         </Form.Group>

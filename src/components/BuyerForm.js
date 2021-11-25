@@ -15,6 +15,7 @@ export default function BuyerForm() {
   const { register, handleSubmit, reset } = useForm();
   // setup redux
   const dispatch = useDispatch();
+  const buyerInfo = useSelector((state) => state.buyerInfo);
   const buyerId = useSelector((state) => state.buyerInfo.id);
 
   // redirect function
@@ -55,7 +56,7 @@ export default function BuyerForm() {
           <Form.Label>Name</Form.Label>
           <Form.Control
             type="text"
-            placeholder="Enter name"
+            placeholder={buyerInfo.buyer_name}
             {...register("buyer_name")}
           />
         </Form.Group>
@@ -63,7 +64,7 @@ export default function BuyerForm() {
           <Form.Label>Address</Form.Label>
           <Form.Control
             type="text"
-            placeholder="Enter address"
+            placeholder={buyerInfo.buyer_address}
             {...register("buyer_address")}
           />
         </Form.Group>
@@ -71,7 +72,7 @@ export default function BuyerForm() {
           <Form.Label>Phone number</Form.Label>
           <Form.Control
             type="text"
-            placeholder="Enter phone number"
+            placeholder={buyerInfo.phone_number}
             {...register("phone_number")}
           />
         </Form.Group>
