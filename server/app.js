@@ -184,11 +184,17 @@ app.post('/login', async (req, res) => {
 
 // Get all global items
 
+const getSoldItems = async pool => {
+  return await pool
+      .select('id','conformation')
+      .from('items')
+}
+
 app.get('/global', async (req, res) => {
 
   pool = pool || (await createPoolAndEnsureSchema());
   try {
-      const items = await getItems(pool)
+      const items = await getSoldItems(pool)
       res.json(items);
   } catch (err) {
       console.error(err);

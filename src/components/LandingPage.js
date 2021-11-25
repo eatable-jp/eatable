@@ -25,7 +25,8 @@ function LandingPage() {
     const url = process.env.ITEMS_ROUTE || 'http://localhost:8080/global';
     // const url = '/items'
     const response = await axios.get(url);
-    const items = response.data.filter((item)=> item.buyer_id !== '0');
+    console.log(response.data)
+    const items = response.data.filter((item)=> item.conformation !== null);
     setSoldItems(items);
   },[]);
 
