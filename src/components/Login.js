@@ -108,9 +108,9 @@ export default function Login() {
     <Container className="mt-5">
         <Row>
           <Col>
-            <p style={{color: "#fff", fontSize: "24px"}}>
+            <p className="global-stats">
               The amount of food saved ... <br />
-              <span style={{fontSize: "54px", fontWeight: "bold"}}>{soldItems.length} Servings</span>
+              <span className="global-stats-servings">{soldItems.length} Servings</span>
             </p>
           </Col>
           <Col>

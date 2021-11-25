@@ -65,13 +65,13 @@ export default function SellerForm() {
 
   return (
     <Container className="w-25">
-      <h1> Please Enter you details </h1>
+      <h1> Please enter your details </h1>
       <Form onSubmit={handleSubmit(editSellerProfileHandler)}>
         <Form.Group className="mb-3" controlId="formBasicShopName">
           <Form.Label>Shop name</Form.Label>
           <Form.Control
             type="text"
-            placeholder="Enter shop name"
+            placeholder={sellerInfo.shop_name}
             {...register("shop_name")}
           />
         </Form.Group>
@@ -79,7 +79,7 @@ export default function SellerForm() {
           <Form.Label>Address</Form.Label>
           <Form.Control
             type="text"
-            placeholder="Enter address"
+            placeholder={sellerInfo.shop_location}
             {...register("shop_location")}
           />
         </Form.Group>
@@ -87,7 +87,7 @@ export default function SellerForm() {
           <Form.Label>Phone number</Form.Label>
           <Form.Control
             type="text"
-            placeholder="Enter phone number"
+            placeholder={sellerInfo.phone_number}
             {...register("phone_number")}
           />
         </Form.Group>
@@ -95,7 +95,7 @@ export default function SellerForm() {
           <Form.Label>Opening time</Form.Label>
           <Form.Control
             type="text"
-            placeholder="Enter opening time"
+            placeholder={sellerInfo.opening_time}
             {...register("opening_time")}
           />
         </Form.Group>
@@ -103,7 +103,7 @@ export default function SellerForm() {
           <Form.Label>Closing time</Form.Label>
           <Form.Control
             type="text"
-            placeholder="Enter closing time"
+            placeholder={sellerInfo.closing_time}
             {...register("closing_time")}
           />
         </Form.Group>
