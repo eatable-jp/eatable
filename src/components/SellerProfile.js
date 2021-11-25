@@ -22,7 +22,7 @@ export default function SellerProfile() {
     const response = await axios.get(url, {
       headers: JSON.parse(localStorage.getItem("eatable")),
     });
-    const items = response.data.filter((item)=> item.seller_id === sellerInfo.id && item.conformation !== null)
+    const items = response.data.filter((item)=> item.seller_id === sellerInfo.id && item.conformation !== null).reverse()
     setSoldItems(items);
   },[]);
 
