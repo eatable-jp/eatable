@@ -69,9 +69,31 @@ export default function Login() {
           }
 
           if (res.data.type === "1") {
-            history.push("/seller")
+             const id = res.data.id;
+             const url = process.env.SELLER_ROUTE || 'http://localhost:8080/seller';
+            // const url = '/seller'
+            const seller = await axios.get(url+`/${id}`, {
+                 headers: JSON.parse(localStorage.getItem("eatable")),
+            });
+            console.log(seller.data[0])
+            if (seller.data[0].shop_name === null || seller.data[0].opening_time === null || seller.data[0].shop_location === null) {
+                history.push("/seller-signup-form")
+            } else {
+              history.push("/seller")
+            }
+            //history.push("/seller")
           }else {
+            const id = res.data.id;
+            const url = process.env.Buyer_ROUTE || 'http://localhost:8080/buyer';
+            // const url = '/buyer'
+            const buyer = await axios.get(url+`/${id}`, {
+                 headers: JSON.parse(localStorage.getItem("eatable")),
+            });
+            if (buyer.data[0].buyer_name=== null) {
+              history.push("/buyer-signup-form")
+          } else {
             history.push("/buyer")
+          }
           }
         }
     } catch (error) {
