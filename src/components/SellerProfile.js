@@ -22,7 +22,7 @@ export default function SellerProfile() {
     const response = await axios.get(url, {
       headers: JSON.parse(localStorage.getItem("eatable")),
     });
-    const items = response.data.filter((item)=> item.seller_id === sellerInfo.id && item.conformation !== null)
+    const items = response.data.filter((item)=> item.seller_id === sellerInfo.id && item.conformation !== null).reverse()
     setSoldItems(items);
   },[]);
 
@@ -30,7 +30,23 @@ export default function SellerProfile() {
     <>
     <Header userStatus="seller" />
     <Container className="w-50 text-center">
-      <Row className="mb-5">
+    <Row className="mb-5">
+        <h1 className="mb-2">Thank you, {sellerInfo.shop_name}</h1>
+        <Col className="d-flex">
+          <dl className="w-50 border-right">
+            <dt>Food Saved</dt>
+            <dd>{soldItems.length} Servings</dd>
+          </dl>
+          <dl className="w-50">
+            <dt>Money Saved</dt>
+            <dd>{soldItems.reduce((total, item) => {
+              total += item.price;
+              return total;
+            }, 0)} Yen</dd>
+          </dl>
+        </Col>
+      </Row>
+      <Row>
         <Col>
         <Card>
           <Card.Header>
@@ -52,7 +68,7 @@ export default function SellerProfile() {
               <dd>{sellerInfo.phone_number}</dd>
             </dl>
             <LinkContainer to="/seller-form">
-              <Button variant="outline-success">Edit profile</Button>
+              <Button variant="light">Edit profile</Button>
             </LinkContainer>
           </Card.Body>
         </Card>
@@ -76,21 +92,7 @@ export default function SellerProfile() {
           </Accordion>
       </Col>
       </Row>
-      <Row>
-        <Col>
-          <dl>
-            <dt>Food Saved</dt>
-            <dd>{soldItems.length} Servings</dd>
-          </dl>
-          <dl>
-            <dt>Money Saved</dt>
-            <dd>{soldItems.reduce((total, item) => {
-              total += item.price;
-              return total;
-            }, 0)} Yen</dd>
-          </dl>
-        </Col>
-      </Row>
+      
     </Container>
     </>
   );
