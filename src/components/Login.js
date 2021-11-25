@@ -71,8 +71,8 @@ export default function Login() {
 
           if (res.data.type === "1") {
              const id = res.data.id;
-             const url = process.env.SELLER_ROUTE || 'http://localhost:8080/seller';
-            // const url = '/seller'
+             //const url = process.env.SELLER_ROUTE || 'http://localhost:8080/seller';
+            const url = '/seller'
             const seller = await axios.get(url+`/${id}`, {
                  headers: JSON.parse(localStorage.getItem("eatable")),
             });
@@ -85,8 +85,8 @@ export default function Login() {
             //history.push("/seller")
           }else {
             const id = res.data.id;
-            const url = process.env.Buyer_ROUTE || 'http://localhost:8080/buyer';
-            // const url = '/buyer'
+            //const url = process.env.Buyer_ROUTE || 'http://localhost:8080/buyer';
+            const url = '/buyer'
             const buyer = await axios.get(url+`/${id}`, {
                  headers: JSON.parse(localStorage.getItem("eatable")),
             });
