@@ -123,7 +123,7 @@ export default function ListedItems() {
                     {item.price} yen
                   </Card.Text>
                   <Button
-                    variant="primary"
+                    variant="light"
                     onClick={() => {
                       handleShow();
                       passSelectedItem(item);
