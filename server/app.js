@@ -571,9 +571,10 @@ app.post("/checkout", async (req, res) => {
         quantity: 1,
       }
     }),
-    success_url: `http://localhost:3000/buyer-profile`,
-    cancel_url: `http://localhost:3000/buyer`,
+    success_url: `http://localhost:3000/buyer-success`,
+    cancel_url: `http://localhost:3000/buyer-fail`,
   });
+  console.log(session)
   res.json({ url: session.url });
   } catch (error) {
     console.log(error);
