@@ -29,7 +29,7 @@ export default function BuyerProfile() {
     const response = await axios.get(url, {
       headers: JSON.parse(localStorage.getItem("eatable")),
     });
-    const items = response.data.filter((item)=> item.buyer_id === buyerInfo.id && item.conformation !== null).reverse();
+    const items = response.data.filter((item)=> item.buyer_id === buyerInfo.id).reverse();
     
     setPurchases(items);
 
