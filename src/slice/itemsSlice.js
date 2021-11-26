@@ -50,7 +50,7 @@ const itemsSlice = createSlice({
   },
   extraReducers: {
     [fetchItems.fulfilled]: (state, action) => {
-      const itemsForSale = action.payload.filter((item) => item.buyer_id === 0 || item.buyer_id === null);
+      const itemsForSale = action.payload.filter((item) => item.buyer_id === null);
       state.items = itemsForSale;
       state.filteredItems = itemsForSale;
     }
