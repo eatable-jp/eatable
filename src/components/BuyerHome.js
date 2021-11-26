@@ -17,13 +17,14 @@ function BuyerHome() {
 
   let userId = useSelector((state) => state.user.user_id);
 
-  if (userId === null){
-    userId = localStorage.getItem(userId);
-    dispatch(setUser(userId))
-  }
+  
+
   //const userId = res.locals.user;
 
   const dispatch = useDispatch();
+
+  dispatch(setUser(userId))
+  
 
   // filter function
   function sendFoodType(type) {

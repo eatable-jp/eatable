@@ -14,7 +14,6 @@ export default function BuyerForm() {
   // setup react form
   const { register, handleSubmit, reset, formState:{errors} } = useForm();
   // setup redux
-  const dispatch = useDispatch();
   const buyerId = useSelector((state) => state.buyerInfo.id);
   const userId = useSelector((state) => state.user.user_id);
 

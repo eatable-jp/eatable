@@ -14,7 +14,6 @@ export default function SellerForm() {
   // setup react form
   const { register, handleSubmit, reset, formState:{errors} } = useForm();
   // setup redux
-  const dispatch = useDispatch();
   const sellerInfo = useSelector((state) => state.sellerInfo);
   const userId = useSelector((state) => state.user.user_id);
 
