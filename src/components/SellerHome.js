@@ -20,10 +20,7 @@ function SellerHome() {
 
   let userId = useSelector((state) => state.user.user_id);
 
-  if (userId === null){
-    userId = localStorage.getItem(userId);
-    dispatch(setUser(userId))
-  }
+  dispatch(setUser(userId))
 
   const [waiting, setWaiting] = useState([]);
 
