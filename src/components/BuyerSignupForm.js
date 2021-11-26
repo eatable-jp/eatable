@@ -12,9 +12,8 @@ import { Container, Form, Button } from "react-bootstrap";
 
 export default function BuyerForm() {
   // setup react form
-  const { register, handleSubmit, reset } = useForm();
+  const { register, handleSubmit, reset, formState:{errors} } = useForm();
   // setup redux
-  const dispatch = useDispatch();
   const buyerId = useSelector((state) => state.buyerInfo.id);
   const userId = useSelector((state) => state.user.user_id);
 
@@ -57,8 +56,10 @@ export default function BuyerForm() {
           <Form.Control
             type="text"
             placeholder="e.g. Eatable Taro"
-            {...register("buyer_name")}
+            aria-invalid={errors.buyer_name ? "true" : "false"}
+            {...register("buyer_name",{required:true})}
           />
+          {errors.buyer_name && errors.buyer_name.type === "required" && (<span role="alert" className="text-danger">This is required</span>)}
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Address</Form.Label>

@@ -571,11 +571,12 @@ app.post("/checkout", async (req, res) => {
         quantity: 1,
       }
     }),
-    // success_url: `http://localhost:3000/buyer-profile`,
-    // cancel_url: `http://localhost:3000/buyer`,
-    success_url: `https://eatable-7yflvglpaq-uc.a.run.app/buyer-profile`,
-    cancel_url: `https://eatable-7yflvglpaq-uc.a.run.app/buyer`,
+    // success_url: `http://localhost:3000/buyer-success`,
+    // cancel_url: `http://localhost:3000/buyer-fail`,
+    success_url: `https://eatable-7yflvglpaq-uc.a.run.app/buyer-success`,
+    cancel_url: `https://eatable-7yflvglpaq-uc.a.run.app/buyer-fail`,
   });
+  console.log(session)
   res.json({ url: session.url });
   } catch (error) {
     console.log(error);

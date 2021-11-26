@@ -12,9 +12,8 @@ import axios from "axios";
 
 export default function SellerForm() {
   // setup react form
-  const { register, handleSubmit, reset } = useForm();
+  const { register, handleSubmit, reset, formState:{errors} } = useForm();
   // setup redux
-  const dispatch = useDispatch();
   const sellerInfo = useSelector((state) => state.sellerInfo);
   const userId = useSelector((state) => state.user.user_id);
 
@@ -73,40 +72,50 @@ export default function SellerForm() {
           <Form.Control
             type="text"
             placeholder="e.g. Eatable grocery"
-            {...register("shop_name")}
+            aria-invalid={errors.shop_name ? "true" : "false"}
+            {...register("shop_name",{required:true})}
           />
+          {errors.shop_name && errors.shop_name.type === "required" && (<span role="alert" className="text-danger">This is required</span>)}
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Address</Form.Label>
           <Form.Control
             type="text"
+            aria-invalid={errors.shop_location ? "true" : "false"}
             placeholder="e.g. Tokyo, Minato City, Motoazabu, 3 Chome−1−35"
-            {...register("shop_location")}
+            {...register("shop_location",{required:true})}
           />
+          {errors.shop_location && errors.shop_location.type === "required" && (<span role="alert" className="text-danger">This is required</span>)}
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicPhoneNumber">
           <Form.Label>Phone number</Form.Label>
           <Form.Control
             type="text"
             placeholder="e.g. 55-5555-5555"
-            {...register("phone_number")}
+            aria-invalid={errors.phone_number ? "true" : "false"}
+            {...register("phone_number",{required:true})}
           />
+          {errors.phone_number && errors.phone_number.type === "required" && (<span role="alert" className="text-danger">This is required</span>)}
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicOpeningTime">
           <Form.Label>Opening time</Form.Label>
           <Form.Control
             type="text"
             placeholder="e.g. 9:00"
-            {...register("opening_time")}
+            aria-invalid={errors.opening_time ? "true" : "false"}
+            {...register("opening_time",{required:true})}
           />
+          {errors.opening_time && errors.opening_time.type === "required" && (<span role="alert" className="text-danger">This is required</span>)}
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicClosingTime">
           <Form.Label>Closing time</Form.Label>
           <Form.Control
             type="text"
             placeholder="e.g. 23:00"
-            {...register("closing_time")}
+            aria-invalid={errors.closing_time ? "true" : "false"}
+            {...register("closing_time",{required:true})}
           />
+          {errors.closing_time && errors.closing_time.type === "required" && (<span role="alert" className="text-danger">This is required</span>)}
         </Form.Group>
         <Button className="mr-2" variant="outline-success" type="submit">
           Submit

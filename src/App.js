@@ -20,6 +20,8 @@ import LandingPage from "./components/LandingPage";
 import Login from "./components/Login";
 import SellerSignupForm from './components/SellerSignupForm';
 import BuyerSignupForm from './components/BuyerSignupForm'
+import BuyerSuccess from './components/BuyerSucess'
+import BuyerFail from "./components/BuyerFail";
 
 function App() {
   const userStatus = "seller";
@@ -46,6 +48,8 @@ function App() {
                 <Route exact path="/buyer-form"> <BuyerForm /> </Route>
                 <Route exact path="/seller-signup-form"> <SellerSignupForm /> </Route>
                 <Route exact path="/buyer-signup-form"> <BuyerSignupForm /> </Route>
+                <Route exact path="/buyer-success"> <BuyerSuccess /> </Route>
+                <Route exact path="/buyer-fail"> <BuyerFail /> </Route>
                 </>
               )}
             </main>

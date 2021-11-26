@@ -65,7 +65,7 @@ export default function BuyerForm() {
           <Form.Control
             type="text"
             placeholder={buyerInfo.buyer_address}
-            {...register("buyer_address")}
+            {...register("buyer_address",{required:true})}
           />
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicCheckbox">
