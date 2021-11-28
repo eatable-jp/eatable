@@ -573,8 +573,8 @@ app.post("/checkout", async (req, res) => {
     }),
     // success_url: `http://localhost:3000/buyer-success`,
     // cancel_url: `http://localhost:3000/buyer-fail`,
-    success_url: `https://eatable-7yflvglpaq-uc.a.run.app/buyer-success`,
-    cancel_url: `https://eatable-7yflvglpaq-uc.a.run.app/buyer-fail`,
+    success_url: `https://eatable-ndwf5ud26a-uc.a.run.app/buyer-success`,
+    cancel_url: `https://eatable-ndwf5ud26a-uc.a.run.app/buyer-fail`,
   });
   console.log(session)
   res.json({ url: session.url });
