@@ -46,24 +46,22 @@ export default function Login() {
             email: emailRef.current.value,
             password: passwordRef.current.value
           }
-        // console.log(user)
         // const url = process.env.LOGIN_ROUTE || 'http://localhost:8080/login'
         const url = '/login'
   
         const res = await axios.post(url, user)
-        console.log(res)
 
         if(res.data.status === "fail") {
           dispatch(loginFail(res.data.message))
         } else {
           dispatch(loginSuccess())
-          console.log("success")
+          
 
           dispatch(setUser(res.data.id))
 
-          console.log(res.data)
           
-          console.log(res.data.accessJWT)
+          
+          
 
           if (res.data.status === "success"){
             localStorage.setItem("eatable", JSON.stringify({accessJWT: res.data.accessJWT }));
@@ -76,7 +74,7 @@ export default function Login() {
             const seller = await axios.get(url+`/${id}`, {
                  headers: JSON.parse(localStorage.getItem("eatable")),
             });
-            console.log(seller.data[0])
+            
             if (seller.data[0].shop_name === null || seller.data[0].opening_time === null || seller.data[0].shop_location === null) {
                 history.push("/seller-signup-form")
             } else {

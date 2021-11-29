@@ -44,7 +44,6 @@ function Cart() {
     const test = await axios.patch(url,purchaseData, {
       headers: JSON.parse(localStorage.getItem("eatable")),
     })
-    console.log(test)
   }
 
   /// handle stripe call
@@ -55,7 +54,6 @@ function Cart() {
       headers: JSON.parse(localStorage.getItem("eatable")),
     });
     const stripeUrl = response.data.url;
-    console.log(stripeUrl)
     window.location = stripeUrl;
   }
 

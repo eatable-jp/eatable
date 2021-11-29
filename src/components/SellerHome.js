@@ -28,9 +28,6 @@ function SellerHome() {
     dispatch(fetchSeller(userId))
     //const url = process.env.ITEMS_ROUTE || 'http://localhost:8080/items';
     const url = '/items'
-
-    //console.log()
-    console.log(JSON.parse(localStorage.getItem("eatable")));
     
     const response = await axios.get(url, {
       headers: JSON.parse(localStorage.getItem("eatable")),
@@ -87,7 +84,6 @@ function SellerHome() {
       id,
       conformation:1
     };
-     //console.log(JSON.parse(localStorage.getItem("eatable")));
     //const url = process.env.ITEM_ROUTE || `http://localhost:8080/item`;
     const url = '/item'
     await axios.patch(url,data, {

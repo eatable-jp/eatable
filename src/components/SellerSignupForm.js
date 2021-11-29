@@ -60,7 +60,6 @@ export default function SellerForm() {
     await axios.patch(url, data, {
       headers: JSON.parse(localStorage.getItem("eatable")),
     });
-    console.log("reached")
   };
 
   return (

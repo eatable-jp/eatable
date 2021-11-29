@@ -25,7 +25,7 @@ function LandingPage() {
     //const url = process.env.ITEMS_ROUTE || 'http://localhost:8080/global';
     const url = '/global'
     const response = await axios.get(url);
-    console.log(response.data)
+    
     const items = response.data.filter((item)=> item.conformation !== null);
     setSoldItems(items);
   },[]);
@@ -66,7 +66,7 @@ function LandingPage() {
       const url = '/signup'
       const res = await axios.post(url, user)
       
-      console.log(res.data)
+      
 
       if( user.type === "1"){
         const seller = {
@@ -78,7 +78,7 @@ function LandingPage() {
         const sellerRes = await axios.post(sellerurl, seller, {
           headers: JSON.parse(localStorage.getItem("eatable")),
         });
-        console.log(sellerRes.data);
+        
       } else {
         const buyer = {
           id : res.data.id,
@@ -89,7 +89,7 @@ function LandingPage() {
         const buyerRes = await axios.post(buyerurl, buyer, {
           headers: JSON.parse(localStorage.getItem("eatable")),
         })
-        console.log(buyerRes.data);
+        
       }
 
       setSuccess(true)
