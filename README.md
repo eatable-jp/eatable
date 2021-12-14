@@ -32,16 +32,16 @@ Here is a brief description of the core features of Eatable.
 
 Let us walk you through our app!\
 First thing you want to do is Sign up/Log in.\
-<img src="https://github.com/eatable-jp/eatable/blob/main/image-readme/img-01.png" width="750" height="371">
+<img src="https://github.com/eatable-jp/eatable/blob/main/image-readme/readme01.png" width="750" height="371">
 
 If you register as a seller, you will see all the items you listed on the seller's home page. If you a buyer, you will see all available items on Eatable.\
 **Seller's home page**
-<img src="https://github.com/eatable-jp/eatable/blob/main/image-readme/img-02.png" width="750" height="601">
+<img src="https://github.com/eatable-jp/eatable/blob/main/image-readme/readme02.png" width="750" height="601">
 **Buyer's home page**
-<img src="https://github.com/eatable-jp/eatable/blob/main/image-readme/img-04.png" width="750" height="584">
+<img src="https://github.com/eatable-jp/eatable/blob/main/image-readme/readme04.png" width="750" height="584">
 
 We provide a profile page for seller and buyer. Here a user can check out their profile, stats and transaction history.
-<img src="https://github.com/eatable-jp/eatable/blob/main/image-readme/img-03.png" width="750" height="381">
+<img src="https://github.com/eatable-jp/eatable/blob/main/image-readme/readme05.png" width="750" height="381">
 
 ## Scripts
 
