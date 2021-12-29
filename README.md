@@ -3,6 +3,8 @@
 SAVE MONEY AND THE EARTH WITH EATABLE.\
 Eatable is an app for selling food that is close to its expiration date for the discounted price.
 
+**[Demo video](https://drive.google.com/file/d/1KXOOoL2OHdcNIOrqPOzeC9fGrSe2f9ZF/view)**
+
 ## Introduction
 
 This app was created during the team's time as students at [Code Chrysalis](https://www.codechrysalis.io/).
