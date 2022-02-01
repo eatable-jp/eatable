@@ -44,18 +44,27 @@ export default function ListedItems() {
   const handleShow = () => setShow(true);
 
   // filtering items that matches logged in seller
-  const itemList = items.filter((item) => item.seller_id === sellerInfo.id).reverse();
+  const itemList = items
+    .filter((item) => item.seller_id === sellerInfo.id)
+    .reverse();
 
-  const deleteHandler = async(data) => {
-    console.log("delete", data);
-    const url = process.env.ITEM_ROUTE || 'http://localhost:8080/item';
+  const deleteHandler = async (data) => {
+    const url = process.env.ITEM_ROUTE || "http://localhost:8080/item";
     // const url = '/item'
-    await axios.delete(url+`?id=${data}`, {
+    await axios.delete(url + `?id=${data}`, {
       headers: JSON.parse(localStorage.getItem("eatable")),
-    })
+    });
   };
 
-  const editItemHandler = async ({name, image, type, price, original_price, expiration_date, note}) => {
+  const editItemHandler = async ({
+    name,
+    image,
+    type,
+    price,
+    original_price,
+    expiration_date,
+    note,
+  }) => {
     handleClose();
     let data = {
       id: selectedItem.id,
@@ -66,11 +75,11 @@ export default function ListedItems() {
       original_price,
       expiration_date,
       note,
-    }
+    };
     Object.keys(data).forEach((key) => {
       if (data[key] === "" || data[key] === null) {
         delete data[key];
-      }      
+      }
     });
     if (data.price) {
       data.price = parseInt(data.price);
@@ -78,14 +87,14 @@ export default function ListedItems() {
     if (data.original_price) {
       data.original_price = parseInt(data.original_price);
     }
-    const url = process.env.ITEM_ROUTE || 'http://localhost:8080/item'
+    const url = process.env.ITEM_ROUTE || "http://localhost:8080/item";
     // const url = '/item'
     await axios.patch(url, data, {
       headers: JSON.parse(localStorage.getItem("eatable")),
-    })
+    });
     reset();
   };
-  
+
   // Converts image into base 64
   const base64 = (file) => {
     return new Promise((resolve, reject) => {
@@ -100,8 +109,8 @@ export default function ListedItems() {
   const handleDelete = (id) => {
     deleteHandler(id);
     dispatch(fetchItems());
-    handleClose();   
-  }
+    handleClose();
+  };
 
   return (
     <>
@@ -152,7 +161,11 @@ export default function ListedItems() {
             <Form onSubmit={handleSubmit(editItemHandler)}>
               <Form.Group className="mb-3" controlId="formBasicName">
                 <Form.Label>Name</Form.Label>
-                <Form.Control type="text" placeholder={selectedItem.name} {...register("name")}/>
+                <Form.Control
+                  type="text"
+                  placeholder={selectedItem.name}
+                  {...register("name")}
+                />
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicType">
                 <Form.Label>Type</Form.Label>
@@ -176,27 +189,36 @@ export default function ListedItems() {
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasic">
                 <Form.Label>Original price</Form.Label>
-                <Form.Control
-                  type="text"
-                  {...register("original_price")}
-                />
+                <Form.Control type="text" {...register("original_price")} />
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasic">
                 <Form.Label>Expiration date</Form.Label>
-                <Form.Control type="date" {...register("expiration_date")}/>
+                <Form.Control type="date" {...register("expiration_date")} />
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasic">
                 <Form.Label>Note</Form.Label>
-                <Form.Control type="text" placeholder={selectedItem.note} {...register("note")}/>
+                <Form.Control
+                  type="text"
+                  placeholder={selectedItem.note}
+                  {...register("note")}
+                />
               </Form.Group>
               <Form.Group controlId="formFile" className="mb-3">
                 <Form.Label>Photo</Form.Label>
-                <Form.Control type="file" {...register("image")}/>
+                <Form.Control type="file" {...register("image")} />
               </Form.Group>
-              <Button type="submit" variant="outline-success">Submit</Button>{" "}
-              <Button type="button" variant="outline-danger" onClick={() => {
-                handleDelete(selectedItem.id)
-              }}>Delete</Button>
+              <Button type="submit" variant="outline-success">
+                Submit
+              </Button>{" "}
+              <Button
+                type="button"
+                variant="outline-danger"
+                onClick={() => {
+                  handleDelete(selectedItem.id);
+                }}
+              >
+                Delete
+              </Button>
             </Form>
           </Modal.Body>
         </Modal>

@@ -31,32 +31,34 @@ function Cart() {
   }, 0);
 
   //handle the DB call
-  const handlePurchase = async() => {
-    dispatch(clearCart())
-    const url = process.env.ITEM_ROUTE || 'http://localhost:8080/items'
+  const handlePurchase = async () => {
+    dispatch(clearCart());
+    const url = process.env.ITEM_ROUTE || "http://localhost:8080/items";
     //const url = '/items'
-    const purchaseData = cart.map((item)=> {
+    const purchaseData = cart.map((item) => {
       return {
         id: item.id,
-        buyer_id: buyerInfo.id
-      }
-    })
-    const test = await axios.patch(url,purchaseData, {
+        buyer_id: buyerInfo.id,
+      };
+    });
+    const test = await axios.patch(url, purchaseData, {
       headers: JSON.parse(localStorage.getItem("eatable")),
-    })
-    console.log(test)
-  }
+    });
+  };
 
   /// handle stripe call
   const handleStripeCall = async () => {
-    const url = process.env.CHECKOUT_ROUTE || 'http://localhost:8080/checkout'
-    const response = await axios.post(url, {items: cart}, {
-      headers: JSON.parse(localStorage.getItem("eatable")),
-    });
+    const url = process.env.CHECKOUT_ROUTE || "http://localhost:8080/checkout";
+    const response = await axios.post(
+      url,
+      { items: cart },
+      {
+        headers: JSON.parse(localStorage.getItem("eatable")),
+      }
+    );
     const stripeUrl = response.data.url;
-    console.log(stripeUrl)
     window.location = stripeUrl;
-  }
+  };
 
   // function to display add new item modal
   const [show, setShow] = useState(false);
@@ -83,7 +85,11 @@ function Cart() {
                   <ListGroup.Item key={index}>
                     <Row className="d-flex">
                       <Col>
-                        <Image src={item.image} alt="product image" className="cart-image" />
+                        <Image
+                          src={item.image}
+                          alt="product image"
+                          className="cart-image"
+                        />
                       </Col>
                       <Col className="d-flex flex-column justify-content-between align-items-start">
                         <div className="text-left">
